@@ -1,0 +1,16 @@
+{
+    "name" : "chapter-three/AppleNews",
+    "description": "Push content to Apple News.",
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ChapterThree\\AppleNews\\": "src/"
+        }
+    }
+}
