@@ -20,10 +20,12 @@ class PushTest extends PHPUnit_Framework_TestCase {
   const CHANNEL_ID = '63a75491-2c4d-3530-af91-819be8c3ace0';
   const ENDPOINT = 'https://u48r14.digitalhub.com';
 
-  // data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7
   const BASE64_1X1_GIF = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
   const JSON = '{"key": ["value1", "value2"]}';
+  const BOUNDARY = '093dcc6f56dadd142436f172b5c2124c';
+  const POSTDATE = '2015-07-02T13:09:16+00:00';
 
+  private $client;
   private $push;
   private $fileroot;
   private $files = array();
@@ -40,10 +42,10 @@ class PushTest extends PHPUnit_Framework_TestCase {
     $this->files[] = $file->url();
 
     // Set up Push object.
-    $client = $this->getMockBuilder('\GuzzleHttp\Client')
-      // ->setMethods(array('update'))
+    $this->client = $this->getMockBuilder('\GuzzleHttp\Client')
+      ->setMethods(array('post'))
       ->getMock();
-    $this->push = new \ChapterThree\AppleNews\Push(static::API_KEY_ID, static::CHANNEL_ID, static::ENDPOINT, $client);
+    $this->push = new \ChapterThree\AppleNews\Push(static::API_KEY_ID, static::CHANNEL_ID, static::ENDPOINT, $this->client);
   }
 
   /**
@@ -72,14 +74,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     ), $formdata);
   }
 
-  /**
-   * EncodeMultipartFormdata test.
-   *
-   * @depends testConstruct
-   * @depends testFileLoadFormdata
-   */
-  public function testEncodeMultipartFormdata() {
-    $boundary = md5(time());
+  protected function getExpectedBody($boundary) {
     $json = static::JSON;
     $gif  = base64_decode(static::BASE64_1X1_GIF);
 
@@ -98,20 +93,40 @@ class PushTest extends PHPUnit_Framework_TestCase {
     $expected_body .= "--{$boundary}" . $eol;
     $expected_body .= $eol;
 
+    return $expected_body;
+  }
+
+  protected function getExpectedHeaders($boundary, $date) {
+    return array(
+      'Content-Type' => 'Content-Type: multipart/form-data; boundary=' . static::BOUNDARY,
+      'Authorization' => 'HHMAC; key=1e3gfc5e-e9f8-4232-a6be-17bf40edad09; signature=ZDYyY2VmZmM3MTRlYjliMWYyODllMGIwYzIzN2Y1NGE2OTRlZWNmYzE5OTc3NjM4ZWE2NjAwNTczYWI0MWE0YQ==; date=' . $date,
+    );
+  }
+
+  /**
+   * EncodeMultipartFormdata test.
+   *
+   * @depends testConstruct
+   * @depends testFileLoadFormdata
+   */
+  public function testEncodeMultipartFormdata() {
+    $boundary = static::BOUNDARY;
+    $expected_body = $this->getExpectedBody($boundary);
+
     // Compile fields to encode.
     $multipart = array();
     $multipart['article'] = array(
       'name' => 'article',
       'filename' => 'article.json',
       'mimetype' => 'application/json',
-      'contents' => $json,
-      'size' => strlen($json),
+      'contents' => static::JSON,
+      'size' => strlen(static::JSON),
     );
     $formdata = $this->push->fileLoadFormdata($this->files[0]);
     $multipart[$formdata['name']] = $formdata;
 
     // Encode fields.
-    list($body, $content_type) = $this->push->encodeMultipartFormdata($multipart);
+    list($body, $content_type) = $this->push->encodeMultipartFormdata($multipart, $boundary);
 
     // Test encoded data.
     $this->assertEquals('Content-Type: multipart/form-data; boundary=' . $boundary, $content_type);
@@ -123,10 +138,29 @@ class PushTest extends PHPUnit_Framework_TestCase {
    *
    * @depends testConstruct
    * @depends testFileLoadFormdata
-   * @depends EncodeMultipartFormdata
+   * @depends testEncodeMultipartFormdata
    */
   public function testPost() {
+    $boundary     = static::BOUNDARY;
+    $date         = static::POSTDATE;
+    $body         = $this->getExpectedBody($boundary);
+    $headers      = $this->getExpectedHeaders($boundary, $date);
 
+    // Set up the expectation for the post() method to be called only once and
+    // with certain expected parameters.
+    $this->client
+      ->expects($this->once())
+      ->method('post')
+      ->with(
+        $this->equalTo(static::ENDPOINT . '/channels/' . static::CHANNEL_ID . '/articles'),
+        $this->equalTo(array(
+          'synchronous' => TRUE,
+          'headers' => $headers,
+          'body' => $body,
+        ))
+      );
+
+    $request = $this->push->post(static::JSON, $this->files, $date, $boundary);
   }
 
 }

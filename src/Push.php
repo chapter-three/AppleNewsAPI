@@ -36,9 +36,8 @@ class Push {
     return str_replace('{channel_id}', $this->channel_id, '/channels/{channel_id}/articles');
   }
 
-  protected function getHeaders($body, $content_type) {
-    $date = date('c');
-    $canonical_request = $this->method . $this->endpoint . '/' . $this->getPath() . $date . $content_type . $body;
+  public function getHeaders($body, $content_type, $date) {
+    $canonical_request = $this->method . $this->endpoint . $this->getPath() . $date . $content_type . $body;
     $key = base64_decode($this->api_key_id);
     $hashed = hash_hmac('sha256', $canonical_request, $key);
     $signature = base64_encode($hashed);
@@ -68,11 +67,7 @@ class Push {
     );
   }
 
-  public function encodeMultipartFormdata(array $fields, $boundary = NULL) {
-    if ($boundary === NULL) {
-      $boundary = md5(time());
-    }
-
+  public function encodeMultipartFormdata(Array $fields, $boundary) {
     $encoded = '';
     foreach ($fields as $name => $data) {
       $encoded .= '--' .  $boundary . static::EOL;
@@ -91,7 +86,14 @@ class Push {
     );
   }
 
-  public function post($json, $files = array()) {
+  public function post($json, $files = array(), $date = NULL, $boundary = NULL) {
+    if ($date === NULL) {
+      $date = date('c');
+    }
+    if ($boundary === NULL) {
+      $boundary = md5(time());
+    }
+
     $multipart = array();
 
     $multipart['article'] = array(
@@ -107,11 +109,11 @@ class Push {
       $multipart[$formdata['name']] = $formdata;
     }
 
-    list($body, $content_type) = $this->encodeMultipartFormdata($multipart);
-    $headers = $this->getHeaders($body, $content_type);
+    list($body, $content_type) = $this->encodeMultipartFormdata($multipart, $boundary);
+    $headers = $this->getHeaders($body, $content_type, $date);
 
     try {
-      $response = $this->client->post($this->endpoint . '/' . $this->getPath(), array(
+      $response = $this->client->post($this->endpoint . $this->getPath(), array(
         'synchronous' => TRUE,
         'headers' => $headers,
         'body' => $body,
