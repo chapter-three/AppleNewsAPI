@@ -57,23 +57,6 @@ class PushTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(static::ENDPOINT,   $this->push->endpoint);
   }
 
-  /**
-   * FileLoadFormdata test.
-   *
-   * @depends testConstruct
-   */
-  public function testFileLoadFormdata() {
-    $formdata = $this->push->fileLoadFormdata($this->files[0]);
-
-    $this->assertEquals(array (
-      'name' => 'image',
-      'filename' => 'image.gif',
-      'mimetype' => 'image/gif',
-      'contents' => base64_decode(static::BASE64_1X1_GIF),
-      'size' => 42,
-    ), $formdata);
-  }
-
   protected function getExpectedBody($boundary) {
     $json = static::JSON;
     $gif  = base64_decode(static::BASE64_1X1_GIF);
@@ -104,41 +87,9 @@ class PushTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * EncodeMultipartFormdata test.
-   *
-   * @depends testConstruct
-   * @depends testFileLoadFormdata
-   */
-  public function testEncodeMultipartFormdata() {
-    $boundary = static::BOUNDARY;
-    $expected_body = $this->getExpectedBody($boundary);
-
-    // Compile fields to encode.
-    $multipart = array();
-    $multipart['article'] = array(
-      'name' => 'article',
-      'filename' => 'article.json',
-      'mimetype' => 'application/json',
-      'contents' => static::JSON,
-      'size' => strlen(static::JSON),
-    );
-    $formdata = $this->push->fileLoadFormdata($this->files[0]);
-    $multipart[$formdata['name']] = $formdata;
-
-    // Encode fields.
-    list($body, $content_type) = $this->push->encodeMultipartFormdata($multipart, $boundary);
-
-    // Test encoded data.
-    $this->assertEquals('Content-Type: multipart/form-data; boundary=' . $boundary, $content_type);
-    $this->assertEquals($expected_body, $body);
-  }
-
-  /**
    * Post test.
    *
    * @depends testConstruct
-   * @depends testFileLoadFormdata
-   * @depends testEncodeMultipartFormdata
    */
   public function testPost() {
     $boundary     = static::BOUNDARY;

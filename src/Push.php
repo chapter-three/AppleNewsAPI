@@ -36,7 +36,9 @@ class Push {
     return str_replace('{channel_id}', $this->channel_id, '/channels/{channel_id}/articles');
   }
 
-  public function getHeaders($body, $content_type, $date) {
+  protected function getHeaders($body, $date, $boundary) {
+    $content_type = sprintf('Content-Type: multipart/form-data; boundary=%s', $boundary);
+
     $canonical_request = $this->method . $this->endpoint . $this->getPath() . $date . $content_type . $body;
     $key = base64_decode($this->api_key_id);
     $hashed = hash_hmac('sha256', $canonical_request, $key);
@@ -49,7 +51,7 @@ class Push {
     );
   }
 
-  public function fileLoadFormdata($path) {
+  protected function fileLoadFormdata($path) {
     $pathinfo = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -67,7 +69,7 @@ class Push {
     );
   }
 
-  public function encodeMultipartFormdata(Array $fields, $boundary) {
+  protected function encodeMultipartFormdata(Array $fields, $boundary) {
     $encoded = '';
     foreach ($fields as $name => $data) {
       $encoded .= '--' .  $boundary . static::EOL;
@@ -80,13 +82,10 @@ class Push {
     $encoded .= '--' .  $boundary . static::EOL;
     $encoded .= static::EOL;
 
-    return array(
-      $encoded,
-      sprintf('Content-Type: multipart/form-data; boundary=%s', $boundary),
-    );
+    return $encoded;
   }
 
-  public function post($json, $files = array(), $date = NULL, $boundary = NULL) {
+  public function post($json, Array $files = array(), $date = NULL, $boundary = NULL) {
     if ($date === NULL) {
       $date = date('c');
     }
@@ -109,8 +108,8 @@ class Push {
       $multipart[$formdata['name']] = $formdata;
     }
 
-    list($body, $content_type) = $this->encodeMultipartFormdata($multipart, $boundary);
-    $headers = $this->getHeaders($body, $content_type, $date);
+    $body = $this->encodeMultipartFormdata($multipart, $boundary);
+    $headers = $this->getHeaders($body, $date, $boundary);
 
     try {
       $response = $this->client->post($this->endpoint . $this->getPath(), array(
@@ -120,8 +119,9 @@ class Push {
       ));
     }
     catch(ClientException $e) {
-      dpm($e->getRequest());
-      dpm($e->getResponse());
+      // @todo Add proper ClientException handling.
+      // print $e->getRequest();
+      // print $e->getResponse();
     }
 
     return $response;
