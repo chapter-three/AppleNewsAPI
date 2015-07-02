@@ -50,6 +50,24 @@ class Push {
     );
   }
 
+  public function fileLoadFormdata($path) {
+    $pathinfo = pathinfo($path);
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimetype = finfo_file($finfo, $path);
+
+    $contents = file_get_contents($path);
+    $size = strlen($contents);
+
+    return array(
+      'name' => str_replace(' ', '-', $pathinfo['filename']),
+      'filename' => $pathinfo['basename'],
+      'mimetype' => $mimetype,
+      'contents' => $contents,
+      'size' => $size,
+    );
+  }
+
   public function encodeMultipartFormdata(array $fields, $boundary = NULL) {
     if ($boundary === NULL) {
       $boundary = md5(time());
@@ -73,24 +91,6 @@ class Push {
     );
   }
 
-  public function fileLoadFormdata($path) {
-    $pathinfo = pathinfo($path);
-
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimetype = finfo_file($finfo, $path);
-
-    $contents = file_get_contents($path);
-    $size = strlen($data['contents']);
-
-    return array(
-      'name' => str_replace(' ', '-', $pathinfo['filename']),
-      'filename' => $pathinfo['basename'],
-      'mimetype' => $mimetype,
-      'contents' => $contents,
-      'size' => $size,
-    );
-  }
-
   public function post($json, $files = array()) {
     $multipart = array();
 
@@ -103,19 +103,24 @@ class Push {
     );
 
     foreach ($files as $file) {
-      $formdata = fileLoadFormdata($file);
+      $formdata = $this->fileLoadFormdata($file);
       $multipart[$formdata['name']] = $formdata;
     }
 
     list($body, $content_type) = $this->encodeMultipartFormdata($multipart);
     $headers = $this->getHeaders($body, $content_type);
 
-    $response = $this->client->post($this->endpoint . '/' . $this->getPath(), array(
-      'debug' => TRUE,
-      'synchronous' => TRUE,
-      'headers' => $headers,
-      'body' => $body,
-    ));
+    try {
+      $response = $this->client->post($this->endpoint . '/' . $this->getPath(), array(
+        'synchronous' => TRUE,
+        'headers' => $headers,
+        'body' => $body,
+      ));
+    }
+    catch(ClientException $e) {
+      dpm($e->getRequest());
+      dpm($e->getResponse());
+    }
 
     return $response;
   }
