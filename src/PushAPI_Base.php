@@ -68,7 +68,7 @@ class PushAPI_Base extends PushAPI_Abstract {
     $this->path = $path;
     if ($method == 'GET') {
       $data = $this->client->get(
-        $this->Path($path, $arguments),
+        $this->Path(),
         $this->RequestParams()
       );
       return $this->Response($data);
