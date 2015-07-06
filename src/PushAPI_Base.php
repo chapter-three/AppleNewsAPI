@@ -19,11 +19,10 @@ class PushAPI_Base extends PushAPI_Abstract {
   private $arguments = [];
   private $client;
 
-  public function __construct(Array $arguments, \GuzzleHttp\ClientInterface $client) {
+  public function __construct($api_key, $client, \GuzzleHttp\ClientInterface $client) {
+    $this->api_key = $api_key;
+    $this->endpoint = $endpoint;
     $this->client = $client;
-    foreach ($arguments as $argument => $value) {
-      $this->{$argument} = $value;
-    }
   }
 
   /**
