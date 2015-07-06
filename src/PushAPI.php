@@ -24,7 +24,6 @@ class PushAPI extends PushAPI_Base {
   }
 
   protected function Response($data) {
-  	print_r($data);exit;
     return parent::Response($data);
   }
 
