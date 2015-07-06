@@ -28,7 +28,7 @@ class PushAPI_Base extends PushAPI_Abstract {
    */
   protected function Authentication($method, $path, Array $arguments = []) {
     $date = date('c');
-    $canonical_request = $method . $this->endpoint . $this->Path() . $date;
+    $canonical_request = $method . $this->Path() . $date;
     $key = base64_decode($this->api_key);
     $hashed = hash_hmac('sha256', $canonical_request, $key);
     $signature = base64_encode($hashed);
@@ -64,7 +64,10 @@ class PushAPI_Base extends PushAPI_Abstract {
    */
   public function Request($method, $path, Array $arguments = []) {
     if ($method == 'GET') {
-      $data = $this->client->get($this->Path($path, $arguments), $this->RequestData($method, $path, $arguments));
+      $data = $this->client->get(
+        $this->Path($path, $arguments),
+        $this->RequestData($method, $path, $arguments)
+      );
       return $this->Response($data);
     }
   }
