@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\Request;
  */
 class PushAPI extends PushAPI_Base {
 
-  protected function Authentication($method, $path, Array $arguments = []) {
+  protected function Authentication() {
     return parent::Authentication();
   }
 

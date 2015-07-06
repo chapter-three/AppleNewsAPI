@@ -15,17 +15,17 @@ abstract class PushAPI_Abstract {
   /**
    * Make Authentication method requried.
    */
-  abstract protected function Authentication($method, $path, Array $arguments);
+  abstract protected function Authentication();
 
   /**
-   * Make RequestData method requried.
+   * Make RequestParams method requried.
    */
-  abstract public function RequestData($method, $path, Array $arguments);
+  abstract public function RequestParams();
 
   /**
    * Make Path method requried.
    */
-  abstract protected function Path($path, Array $arguments);
+  abstract protected function Path();
 
   /**
    * Make Request method requried.

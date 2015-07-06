@@ -14,6 +14,9 @@ class PushAPI_Base extends PushAPI_Abstract {
 
   private $api_key = '';
   private $endpoint = '';
+  private $path = '';
+  private $method = 'GET';
+  private $arguments = [];
   private $client;
 
   public function __construct(Array $arguments, \GuzzleHttp\ClientInterface $client) {
@@ -26,9 +29,9 @@ class PushAPI_Base extends PushAPI_Abstract {
   /**
    * Authentication.
    */
-  protected function Authentication($method, $path, Array $arguments = []) {
+  protected function Authentication() {
     $date = date('c');
-    $canonical_request = $method . $this->Path() . $date;
+    $canonical_request = $this->method . $this->Path() . $date;
     $key = base64_decode($this->api_key);
     $hashed = hash_hmac('sha256', $canonical_request, $key);
     $signature = base64_encode($hashed);
@@ -38,11 +41,11 @@ class PushAPI_Base extends PushAPI_Abstract {
   /**
    * Build headers.
    */
-  public function RequestData($method, $path, Array $arguments = []) {
+  public function RequestParams() {
     return [
       'headers' => [
         'Accept' => 'application/json',
-        'Authorization' => $this->Authentication($method, $path, $arguments),
+        'Authorization' => $this->Authentication(),
       ],
     ];
   }
@@ -50,12 +53,12 @@ class PushAPI_Base extends PushAPI_Abstract {
   /**
    * Build a path by replacing path arguments.
    */
-  protected function Path($path, Array $arguments = []) {
+  protected function Path() {
     $params = array();
-    foreach ($arguments as $argument => $value) {
+    foreach ($this->arguments as $argument => $value) {
       $params["{{$argument}}"] = $value;
     }
-    $path = str_replace(array_keys($params), array_values($params), $path);
+    $path = str_replace(array_keys($params), array_values($params), $this->path);
     return $this->endpoint . $path;
   }
 
@@ -63,10 +66,13 @@ class PushAPI_Base extends PushAPI_Abstract {
    * Create a request.
    */
   public function Request($method, $path, Array $arguments = []) {
+    $this->method = $method;
+    $this->arguments = $arguments;
+    $this->path = $path;
     if ($method == 'GET') {
       $data = $this->client->get(
         $this->Path($path, $arguments),
-        $this->RequestData($method, $path, $arguments)
+        $this->RequestParams()
       );
       return $this->Response($data);
     }
@@ -76,6 +82,7 @@ class PushAPI_Base extends PushAPI_Abstract {
    * Get response.
    */
   protected function Response($data) {
+    print_r($data);exit;
     return $data->getBody();
   }
 
