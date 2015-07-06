@@ -79,8 +79,7 @@ class PushAPI_Base extends PushAPI_Abstract {
    * Get response.
    */
   protected function Response($data) {
-    print_r($data);exit;
-    return $data->getBody();
+    return $data;
   }
 
 }
