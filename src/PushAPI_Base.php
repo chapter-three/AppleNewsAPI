@@ -31,11 +31,8 @@ class PushAPI_Base extends PushAPI_Abstract {
    */
   protected function Authentication() {
     $date = date('c');
-    $canonical_request = $this->method . $this->Path() . $date;
-    $key = base64_decode($this->api_key);
-    $hashed = hash_hmac('sha256', $canonical_request, $key);
-    $signature = base64_encode($hashed);
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, $signature, $date);
+    $hashed = hash_hmac('sha256', $this->method . $this->Path() . $date, base64_decode($this->api_key));
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, base64_encode($hashed), $date);
   }
 
   /**
