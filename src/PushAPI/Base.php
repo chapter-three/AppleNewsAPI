@@ -5,12 +5,12 @@
  * Base class for AppleNews classes.
  */
 
-namespace ChapterThree\AppleNews;
+namespace ChapterThree\AppleNews\PushAPI;
 
 /**
  * Base class for AppleNews classes.
  */
-class PushAPI_Base extends PushAPI_Abstract {
+class Base extends PushAPI {
 
   protected $api_key_id = '';
   protected $api_key_secret = '';

@@ -5,27 +5,23 @@
  * GET Apple News Article.
  */
 
-namespace ChapterThree\AppleNews;
+namespace ChapterThree\AppleNews\PushAPI;
 
 /**
  * Document me.
  */
-class PushAPI_Post extends PushAPI_Base {
+class Post extends Base {
 
   /**
    * Authentication.
    */
   protected function Authentication(Array $args) {
     $content_type = sprintf('Content-Type: multipart/form-data; boundary=%s', $args['boundary']);
-    $hashed = hash_hmac('sha256', strtoupper($this->method) . $this->Path() . $this->datetime . $content_type . $args['body'], base64_decode($this->api_key));
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, base64_encode($hashed), $this->datetime);
-  }
-
-  public function Headers(Array $args) {
-    return [
-      'Content-Type' => sprintf('multipart/form-data; boundary=%s', $args['boundary']),
-      'Authorization' => $this->Authentication($args),
-    ];
+    $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $args['body'];
+    $key = base64_decode($this->api_key_secret);
+    $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
+    $signature = rtrim(base64_encode($hashed), "\n");
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
   }
 
   protected function fileLoadFormdata($path) {
@@ -50,7 +46,7 @@ class PushAPI_Post extends PushAPI_Base {
     $encoded = '';
     foreach ($fields as $name => $data) {
       $encoded .= '--' .  $boundary . "\r\n";
-      $encoded .= static::EOL;
+      $encoded .= "\r\n";
       $encoded .= sprintf('Content-Type: %s', $data['mimetype']) . "\r\n";
       $encoded .= sprintf('Content-Disposition: form-data; filename=%s; name=%s; size=%d', $data['filename'], $data['name'], $data['size']) . "\r\n";
       $encoded .= $data['contents'] . "\r\n";
@@ -60,12 +56,14 @@ class PushAPI_Post extends PushAPI_Base {
     return $encoded;
   }
 
+  protected function Response($response) {
+    print_r($response);exit;
+  }
+
   public function Post($path, Array $arguments = [], Array $data) {
-    $this->method = __FUNCTION__;
-    $this->arguments = $arguments;
-    $this->path = $path;
+    parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
     if (isset($data['date']) && $data['date'] === NULL) {
-      $data['date'] = date('c');
+      $data['date'] = $this->datetime;
     }
     if (isset($data['boundary']) && $data['boundary'] === NULL) {
       $data['boundary'] = md5(time());
@@ -89,14 +87,13 @@ class PushAPI_Post extends PushAPI_Base {
 
       $data['body'] = $this->encodeMultipartFormdata($multipart, $data['boundary']);
 
-      foreach (parent::Headers($data) as $prop => $val) {
-        $this->curl->setHeader($prop, $val);
-      }
-      $this->curl->setHeader('Content-Type', sprintf('multipart/form-data; boundary=%s', $data['boundary']));
-
-      $response = $this->curl->post($this->Path());
-      $this->curl->close();
-      return $this->Response($response);
+      $this->SetHeaders(
+      	[
+      	  'Authorization'  =>   $this->Authentication($data),
+      	  'Content-Type'   =>   sprintf('multipart/form-data; boundary=%s', $data['boundary']),
+      	]
+      );
+      return $this->Request();
     }
     catch (\ErrorException $e) {
       // Need to write ClientException handling

@@ -5,12 +5,12 @@
  * Base abstract class for AppleNews classes.
  */
 
-namespace ChapterThree\AppleNews;
+namespace ChapterThree\AppleNews\PushAPI;
 
 /**
  * Base abstract class for AppleNews classes.
  */
-abstract class PushAPI_Abstract {
+abstract class PushAPI {
 
   /**
    * Make Authentication method requried.

@@ -5,11 +5,11 @@
  * GET Apple News Article.
  */
 
-namespace ChapterThree\AppleNews;
+namespace ChapterThree\AppleNews\PushAPI;
 
 /**
  * Document me.
  */
-class PushAPI_Get extends PushAPI_Base {
+class Get extends Base {
 
 }
