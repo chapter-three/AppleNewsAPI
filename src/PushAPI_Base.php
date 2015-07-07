@@ -54,7 +54,7 @@ class PushAPI_Base extends PushAPI_Abstract {
   public function Headers(Array $args = []) {
     return [
       'Accept' => 'application/json',
-      'Authorization' => $this->Authentication([]),
+      'Authorization' => $this->Authentication($args),
     ];
   }
 
@@ -69,10 +69,8 @@ class PushAPI_Base extends PushAPI_Abstract {
   /**
    * Debug HTTP response, implement this method to see debugging information.
    */
-  protected function Debug($response, $display = false) {
-    if ($display) {
-      var_dump($response);
-    }
+  protected function Debug($response) {
+    // Debugging happenes in this method.
   }
 
   /**
@@ -95,12 +93,14 @@ class PushAPI_Base extends PushAPI_Abstract {
     }
   }
 
-  public function Post($path, Array $arguments = [], Array $data) {
+  public function Post($path, Array $arguments = [], Array $data = []) {
     // See implementation in PushAPI_Post.php
+    // $response = $this->curl->post($this->Path());
   }
 
   public function Delete($path, Array $arguments = []) {
     // See implementation in PushAPI_Delete.php
+    // $response = $this->curl->delete($this->Path());
   }
 
 }
