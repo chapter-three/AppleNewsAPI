@@ -20,7 +20,7 @@ abstract class PushAPI_Abstract {
   /**
    * Make Headers method requried.
    */
-  abstract public function Headers(Array $args);
+  abstract protected function Headers(Array $args);
 
   /**
    * Make Path method requried.
@@ -41,6 +41,11 @@ abstract class PushAPI_Abstract {
    * Make Delete method requried.
    */
   abstract public function Delete($path, Array $arguments);
+
+  /**
+   * Make PreprocessRequest method required.
+   */
+  abstract protected function PreprocessRequest($method, $path, Array $arguments = []);
 
   /**
    * Make Response method required.

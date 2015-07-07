@@ -55,34 +55,33 @@ class PushAPI_Base extends PushAPI_Abstract {
   /**
    * Build headers.
    */
-  public function Headers(Array $args = []) {
+  protected function Headers(Array $args = []) {
     return [
       'Authorization' => $this->Authentication($args),
     ];
   }
 
   /**
-   * Get response.
+   * Preprocess request
    */
-  protected function Response($response) {
-    $this->Debug($response);
-    return $response;
+  protected function PreprocessRequest($method, $path, Array $arguments = []) {
+    $this->method = $method;
+    $this->arguments = $arguments;
+    $this->path = $path;
   }
 
   /**
-   * Debug HTTP response, implement this method to see debugging information.
+   * Get response.
    */
-  protected function Debug($response) {
-    // Debugging happenes in this method.
+  protected function Response($response) {
+    return $response;
   }
 
   /**
    * Create GET request.
    */
   public function Get($path, Array $arguments = []) {
-    $this->method = __FUNCTION__;
-    $this->arguments = $arguments;
-    $this->path = $path;
+    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
       foreach ($this->Headers() as $prop => $val) {
         $this->curl->setHeader($prop, $val);
@@ -97,11 +96,13 @@ class PushAPI_Base extends PushAPI_Abstract {
   }
 
   public function Post($path, Array $arguments = [], Array $data = []) {
+    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     // See implementation in PushAPI_Post.php
     // $response = $this->curl->post($this->Path());
   }
 
   public function Delete($path, Array $arguments = []) {
+    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     // See implementation in PushAPI_Delete.php
     // $response = $this->curl->delete($this->Path());
   }
