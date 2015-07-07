@@ -21,10 +21,10 @@ class PushAPI_Base extends PushAPI_Abstract {
   protected $curl;
   protected $datetime;
 
-  public function __construct(Array $settings) {
-    $this->api_key_id = $settings['key'];
-    $this->api_key_secret = $settings['secret'];
-    $this->endpoint = $settings['endpoint'];
+  public function __construct($key, $secret, $endpoint) {
+    $this->api_key_id = $key;
+    $this->api_key_secret = $secret;
+    $this->endpoint = $endpoint;
     $this->curl = new \Curl\Curl;
     $this->datetime = gmdate(\DateTime::ISO8601);
   }
@@ -35,7 +35,8 @@ class PushAPI_Base extends PushAPI_Abstract {
   protected function Authentication(Array $args = []) {
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime);
     $key = base64_decode($this->api_key_secret);
-    $signature = rtrim(base64_encode(hash_hmac('sha256', $cannonical_request, $key)), "\n");
+    $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
+    $signature = rtrim(base64_encode($hashed), "\n");
     return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
   }
 
