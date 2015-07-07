@@ -12,28 +12,31 @@ namespace ChapterThree\AppleNews;
  */
 class PushAPI_Base extends PushAPI_Abstract {
 
-  private $api_key = '';
-  protected $endpoint = '';
+  private $api_key_id = '';
+  private $api_key_secret = '';
+  private $endpoint = '';
   protected $path = '';
   protected $method = '';
   protected $arguments = [];
   protected $curl;
+  protected $datetime;
 
-  public function __construct($api_key, $endpoint) {
-    $this->api_key = $api_key;
-    $this->endpoint = $endpoint;
+  public function __construct(Array $settings) {
+    $this->api_key_id = $settings['key'];
+    $this->api_key_secret = $settings['secret'];
+    $this->endpoint = $settings['endpoint'];
     $this->curl = new \Curl\Curl;
+    $this->datetime = gmdate(\DateTime::ISO8601);
   }
 
   /**
    * Authentication.
    */
   protected function Authentication(Array $args = []) {
-    $date = new \DateTime();
-    $date->setTimezone(new \DateTimeZone('America/Los_Angeles'));
-    $datetime = $date->format('c'); // 'Y-m-d\TH:i:s\Z'
-    $hashed = hash_hmac('sha256', strtoupper($this->method) . $this->Path() . $datetime, base64_decode($this->api_key));
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, base64_encode($hashed), $datetime);
+    $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime);
+    $key = base64_decode($this->api_key_secret);
+    $signature = rtrim(base64_encode(hash_hmac('sha256', $cannonical_request, $key)), "\n");
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
   }
 
   /**
@@ -53,7 +56,6 @@ class PushAPI_Base extends PushAPI_Abstract {
    */
   public function Headers(Array $args = []) {
     return [
-      'Accept' => 'application/json',
       'Authorization' => $this->Authentication($args),
     ];
   }
