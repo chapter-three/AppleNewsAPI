@@ -1,9 +1,8 @@
 {
     "name" : "chapter-three/AppleNews",
     "description": "Push content to Apple News.",
-    "minimum-stability": "dev",
     "require": {
-        "guzzlehttp/guzzle": "~6.0"
+        "php-curl-class/php-curl-class": "^3.5"
     },
     "require-dev": {
         "mikey179/vfsStream": "1.5.*",

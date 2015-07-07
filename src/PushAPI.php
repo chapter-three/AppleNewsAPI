@@ -7,8 +7,6 @@
 
 namespace ChapterThree\AppleNews;
 
-use GuzzleHttp\Psr7\Request;
-
 /**
  * Document me.
  */
@@ -18,13 +16,17 @@ class PushAPI extends PushAPI_Base {
     return parent::Authentication();
   }
 
-  public function Request($method, $path, Array $arguments = []) {
-    $data = parent::Request($method, $path, $arguments);
-    return self::Response($data);
+  protected function Response($response) {
+    return parent::Response($response);
   }
 
-  protected function Response($data) {
-    return parent::Response($data);
+  protected function Debug($response, $display = false) {
+    print_r($response);exit;
+  }
+
+  public function Get($path, Array $arguments = []) {
+    $response = parent::Get($path, $arguments);
+    return self::Response($response);
   }
 
 }

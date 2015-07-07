@@ -13,37 +13,27 @@ namespace ChapterThree\AppleNews;
 class PushAPI_Base extends PushAPI_Abstract {
 
   private $api_key = '';
-  private $endpoint = '';
-  private $path = '';
-  private $method = 'GET';
-  private $arguments = [];
-  private $client;
+  protected $endpoint = '';
+  protected $path = '';
+  protected $method = '';
+  protected $arguments = [];
+  protected $curl;
 
-  public function __construct($api_key, $client, \GuzzleHttp\ClientInterface $client) {
+  public function __construct($api_key, $endpoint) {
     $this->api_key = $api_key;
     $this->endpoint = $endpoint;
-    $this->client = $client;
+    $this->curl = new \Curl\Curl;
   }
 
   /**
    * Authentication.
    */
   protected function Authentication() {
-    $date = date('c');
-    $hashed = hash_hmac('sha256', $this->method . $this->Path() . $date, base64_decode($this->api_key));
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, base64_encode($hashed), $date);
-  }
-
-  /**
-   * Build headers.
-   */
-  public function RequestParams() {
-    return [
-      'headers' => [
-        'Accept' => 'application/json',
-        'Authorization' => $this->Authentication(),
-      ],
-    ];
+    $date = new \DateTime();
+    $date->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+    $datetime = $date->format('c'); // 'Y-m-d\TH:i:s\Z'
+    $hashed = hash_hmac('sha256', strtoupper($this->method) . $this->Path() . $datetime, base64_decode($this->api_key));
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, base64_encode($hashed), $datetime);
   }
 
   /**
@@ -59,26 +49,72 @@ class PushAPI_Base extends PushAPI_Abstract {
   }
 
   /**
-   * Create a request.
+   * Build headers.
    */
-  public function Request($method, $path, Array $arguments = []) {
-    $this->method = $method;
-    $this->arguments = $arguments;
-    $this->path = $path;
-    if ($method == 'GET') {
-      $data = $this->client->get(
-        $this->Path(),
-        $this->RequestParams()
-      );
-      return $this->Response($data);
-    }
+  public function Headers() {
+    $headers = [
+      'GET' => [
+        'Accept' => 'application/json',
+        'Authorization' => $this->Authentication(),
+      ],
+      'POST' => [
+        'Authorization' => $this->Authentication(),
+      ],
+      'DELETE' => [
+        'Authorization' => $this->Authentication(),
+      ],
+    ];
+    $method = strtoupper($this->method);
+    return isset($headers[$method]) ? $headers[$method] : $headers;
   }
 
   /**
    * Get response.
    */
-  protected function Response($data) {
-    return $data;
+  protected function Response($response) {
+    $this->Debug($response);
+    return $response;
+  }
+
+  /**
+   * Debug HTTP response, implement this method to see debugging information.
+   */
+  protected function Debug($response, $display = false) {
+    if ($display) {
+      var_dump($response);
+    }
+  }
+
+  /**
+   * Create GET request.
+   */
+  public function Get($path, Array $arguments = []) {
+    $this->method = __FUNCTION__;
+    $this->arguments = $arguments;
+    $this->path = $path;
+    try {
+      foreach ($this->Headers() as $prop => $val) {
+        $this->curl->setHeader($prop, $val);
+      }
+      $response = $this->curl->get($this->Path());
+      $this->curl->close();
+      return $this->Response($response);
+    }
+    catch (\ErrorException $e) {
+      // Need to write ClientException handling
+    }
+  }
+
+  public function Post($path, Array $arguments = [], Array $files = [], $date = NULL, $boundary = NULL) {
+    $this->method = __FUNCTION__;
+    $this->arguments = $arguments;
+    $this->path = $path;
+  }
+
+  public function Delete($path, Array $arguments = []) {
+    $this->method = __FUNCTION__;
+    $this->arguments = $arguments;
+    $this->path = $path;
   }
 
 }

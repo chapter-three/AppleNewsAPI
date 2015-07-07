@@ -18,9 +18,9 @@ abstract class PushAPI_Abstract {
   abstract protected function Authentication();
 
   /**
-   * Make RequestParams method requried.
+   * Make Headers method requried.
    */
-  abstract public function RequestParams();
+  abstract public function Headers();
 
   /**
    * Make Path method requried.
@@ -28,14 +28,24 @@ abstract class PushAPI_Abstract {
   abstract protected function Path();
 
   /**
-   * Make Request method requried.
+   * Make Get method requried.
    */
-  abstract public function Request($method, $path, Array $arguments);
+  abstract public function Get($path, Array $arguments);
+
+  /**
+   * Make Post method requried.
+   */
+  abstract public function Post($path, Array $arguments = [], Array $files = [], $date = NULL, $boundary = NULL);
+
+  /**
+   * Make Delete method requried.
+   */
+  abstract public function Delete($path, Array $arguments);
 
   /**
    * Make Response method required.
    */
-  abstract protected function Response($data);
+  abstract protected function Response($response);
 
   /**
    * Implements __get().
