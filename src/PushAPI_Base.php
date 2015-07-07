@@ -12,9 +12,9 @@ namespace ChapterThree\AppleNews;
  */
 class PushAPI_Base extends PushAPI_Abstract {
 
-  private $api_key_id = '';
-  private $api_key_secret = '';
-  private $endpoint = '';
+  protected $api_key_id = '';
+  protected $api_key_secret = '';
+  protected $endpoint = '';
   protected $path = '';
   protected $method = '';
   protected $arguments = [];
@@ -53,21 +53,40 @@ class PushAPI_Base extends PushAPI_Abstract {
   }
 
   /**
-   * Build headers.
-   */
-  protected function Headers(Array $args = []) {
-    return [
-      'Authorization' => $this->Authentication($args),
-    ];
-  }
-
-  /**
    * Preprocess request
    */
   protected function PreprocessRequest($method, $path, Array $arguments = []) {
     $this->method = $method;
     $this->arguments = $arguments;
     $this->path = $path;
+  }
+
+  /**
+   * Set request headers.
+   */
+  protected function SetHeaders(Array $headers = []) {
+    foreach ($headers as $property => $value) {
+      $this->curl->setHeader($property, $value);
+    }
+  }
+
+  /**
+   * Unset headers.
+   */
+  protected function UnsetHeaders(Array $headers = []) {
+    foreach ($headers as $property) {
+      $this->curl->unsetHeader($property);
+    }
+  }
+
+  /**
+   * Request URL.
+   */
+  protected function Request() {
+    $method = strtoupper($this->method);
+    $response = $this->curl->{$method}($this->Path());
+    $this->curl->close();
+    return $this->Response($response);
   }
 
   /**
@@ -78,33 +97,40 @@ class PushAPI_Base extends PushAPI_Abstract {
   }
 
   /**
-   * Create GET request.
+   * GET Request.
    */
   public function Get($path, Array $arguments = []) {
     $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
-      foreach ($this->Headers() as $prop => $val) {
-        $this->curl->setHeader($prop, $val);
-      }
-      $response = $this->curl->get($this->Path());
-      $this->curl->close();
-      return $this->Response($response);
+      $this->SetHeaders(['Authorization' => $this->Authentication($arguments)]);
+      return $this->Request();
     }
     catch (\ErrorException $e) {
       // Need to write ClientException handling
     }
   }
 
-  public function Post($path, Array $arguments = [], Array $data = []) {
-    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
-    // See implementation in PushAPI_Post.php
-    // $response = $this->curl->post($this->Path());
-  }
-
+  /**
+   * DELETE Request.
+   */
   public function Delete($path, Array $arguments = []) {
     $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
-    // See implementation in PushAPI_Delete.php
-    // $response = $this->curl->delete($this->Path());
+    try {
+      $this->SetHeaders(['Authorization' => $this->Authentication($arguments)]);
+      $this->UnsetHeaders(['Content-Type']);
+      return $this->Request();
+    }
+    catch (\ErrorException $e) {
+      // Need to write ClientException handling
+    }
+  }
+
+  /**
+   * POST Request.
+   */
+  public function Post($path, Array $arguments = [], Array $data = []) {
+    // See implementation in PushAPI_Post.php
+    // $response = $this->curl->post($this->Path());
   }
 
 }
