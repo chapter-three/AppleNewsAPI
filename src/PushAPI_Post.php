@@ -16,12 +16,9 @@ class PushAPI_Post extends PushAPI_Base {
    * Authentication.
    */
   protected function Authentication(Array $args) {
-    $date = new \DateTime();
-    $date->setTimezone(new \DateTimeZone('America/Los_Angeles'));
-    $datetime = $date->format('c'); // 'Y-m-d\TH:i:s\Z'
     $content_type = sprintf('Content-Type: multipart/form-data; boundary=%s', $args['boundary']);
-    $hashed = hash_hmac('sha256', strtoupper($this->method) . $this->Path() . $datetime . $content_type . $args['body'], base64_decode($this->api_key));
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, base64_encode($hashed), $datetime);
+    $hashed = hash_hmac('sha256', strtoupper($this->method) . $this->Path() . $this->datetime . $content_type . $args['body'], base64_decode($this->api_key));
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key, base64_encode($hashed), $this->datetime);
   }
 
   public function Headers(Array $args) {
