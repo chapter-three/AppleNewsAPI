@@ -52,20 +52,10 @@ class PushAPI_Base extends PushAPI_Abstract {
    * Build headers.
    */
   public function Headers() {
-    $headers = [
-      'GET' => [
-        'Accept' => 'application/json',
-        'Authorization' => $this->Authentication(),
-      ],
-      'POST' => [
-        'Authorization' => $this->Authentication(),
-      ],
-      'DELETE' => [
-        'Authorization' => $this->Authentication(),
-      ],
+    return [
+      'Accept' => 'application/json',
+      'Authorization' => $this->Authentication(),
     ];
-    $method = strtoupper($this->method);
-    return isset($headers[$method]) ? $headers[$method] : $headers;
   }
 
   /**
@@ -105,16 +95,12 @@ class PushAPI_Base extends PushAPI_Abstract {
     }
   }
 
-  public function Post($path, Array $arguments = [], Array $files = [], $date = NULL, $boundary = NULL) {
-    $this->method = __FUNCTION__;
-    $this->arguments = $arguments;
-    $this->path = $path;
+  public function Post($path, Array $arguments = [], Array $data) {
+    // See implementation in PushAPI_Post.php
   }
 
   public function Delete($path, Array $arguments = []) {
-    $this->method = __FUNCTION__;
-    $this->arguments = $arguments;
-    $this->path = $path;
+    // See implementation in PushAPI_Delete.php
   }
 
 }

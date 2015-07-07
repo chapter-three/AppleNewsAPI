@@ -35,7 +35,7 @@ abstract class PushAPI_Abstract {
   /**
    * Make Post method requried.
    */
-  abstract public function Post($path, Array $arguments = [], Array $files = [], $date = NULL, $boundary = NULL);
+  abstract public function Post($path, Array $arguments = [], Array $data);
 
   /**
    * Make Delete method requried.
