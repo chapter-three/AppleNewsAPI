@@ -28,7 +28,7 @@ class PushAPI_Base extends PushAPI_Abstract {
   /**
    * Authentication.
    */
-  protected function Authentication() {
+  protected function Authentication(Array $args = []) {
     $date = new \DateTime();
     $date->setTimezone(new \DateTimeZone('America/Los_Angeles'));
     $datetime = $date->format('c'); // 'Y-m-d\TH:i:s\Z'
@@ -51,10 +51,10 @@ class PushAPI_Base extends PushAPI_Abstract {
   /**
    * Build headers.
    */
-  public function Headers() {
+  public function Headers(Array $args = []) {
     return [
       'Accept' => 'application/json',
-      'Authorization' => $this->Authentication(),
+      'Authorization' => $this->Authentication([]),
     ];
   }
 
