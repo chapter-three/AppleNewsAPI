@@ -2,13 +2,13 @@
 
 /**
  * @file
- * GET Apple News Article.
+ * Apple News GET method.
  */
 
 namespace ChapterThree\AppleNews\PushAPI;
 
 /**
- * Document me.
+ * PushAPI GET method.
  */
 class Get extends Base {
 

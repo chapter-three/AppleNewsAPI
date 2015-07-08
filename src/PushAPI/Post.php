@@ -2,13 +2,13 @@
 
 /**
  * @file
- * GET Apple News Article.
+ * Apple News POST method.
  */
 
 namespace ChapterThree\AppleNews\PushAPI;
 
 /**
- * Document me.
+ * PushAPI POST method.
  */
 class Post extends Base {
 
@@ -16,7 +16,7 @@ class Post extends Base {
    * Authentication.
    */
   protected function Authentication(Array $args) {
-    $content_type = sprintf('Content-Type: multipart/form-data; boundary=%s', $args['boundary']);
+    $content_type = sprintf(' Content-Type: multipart/form-data; boundary=%s ', $args['boundary']);
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $args['body'];
     $key = base64_decode($this->api_key_secret);
     $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
@@ -24,7 +24,7 @@ class Post extends Base {
     return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
   }
 
-  protected function fileLoadFormdata($path) {
+  protected function FileLoadFormdata($path) {
     $pathinfo = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -36,13 +36,13 @@ class Post extends Base {
     return [
       'name' => str_replace(' ', '-', $pathinfo['filename']),
       'filename' => $pathinfo['basename'],
-      'mimetype' => $mimetype,
+      'mimetype' => ($pathinfo['extension'] == 'json') ? 'application/json' : $mimetype,
       'contents' => $contents,
       'size' => $size,
     ];
   }
 
-  protected function encodeMultipartFormdata(Array $fields, $boundary) {
+  protected function EncodeMultipartFormdata(Array $fields, $boundary) {
     $encoded = '';
     foreach ($fields as $name => $data) {
       $encoded .= '--' .  $boundary . "\r\n";
@@ -62,38 +62,31 @@ class Post extends Base {
 
   public function Post($path, Array $arguments = [], Array $data) {
     parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
-    if (isset($data['date']) && $data['date'] === NULL) {
+    if (empty($data['date'])) {
       $data['date'] = $this->datetime;
     }
-    if (isset($data['boundary']) && $data['boundary'] === NULL) {
+    if (empty($data['boundary'])) {
       $data['boundary'] = md5(time());
     }
     try {
 
       $multipart = array();
-
-      $multipart['article'] = [
-        'name' => 'article',
-        'filename' => 'article.json',
-        'mimetype' => 'application/json',
-        'contents' => $data['json'],
-        'size' => strlen($data['json']),
-      ];
-
       foreach ($data['files'] as $file) {
-        $formdata = $this->fileLoadFormdata($file);
+        $formdata = $this->FileLoadFormdata($file);
         $multipart[$formdata['name']] = $formdata;
       }
 
-      $data['body'] = $this->encodeMultipartFormdata($multipart, $data['boundary']);
+      $data['body'] = $this->EncodeMultipartFormdata($multipart, $data['boundary']);
 
       $this->SetHeaders(
       	[
-      	  'Authorization'  =>   $this->Authentication($data),
-      	  'Content-Type'   =>   sprintf('multipart/form-data; boundary=%s', $data['boundary']),
+      	  'Authorization'   => $this->Authentication($data),
+      	  'Content-Type'    => sprintf('multipart/form-data; boundary=%s', $data['boundary']),
+          'Content-Length'  => strlen($data['body']),
       	]
       );
-      return $this->Request();
+      $this->UnsetHeaders(['Expect']);
+      return $this->Request(['data' => $data['body']]);
     }
     catch (\ErrorException $e) {
       // Need to write ClientException handling

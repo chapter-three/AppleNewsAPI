@@ -40,7 +40,7 @@ abstract class PushAPI {
   /**
    * Make Request method required.
    */
-  abstract protected function Request();
+  abstract protected function Request(Array $data = []);
 
   /**
    * Make Response method required.

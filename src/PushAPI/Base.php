@@ -82,9 +82,14 @@ class Base extends PushAPI {
   /**
    * Request URL.
    */
-  protected function Request() {
+  protected function Request(Array $data = []) {
     $method = strtoupper($this->method);
-    $response = $this->curl->{$method}($this->Path());
+    if (count($data)) {
+      $response = $this->curl->{$method}($this->Path(), $data);
+    }
+    else {
+      $response = $this->curl->{$method}($this->Path());
+    }
     $this->curl->close();
     return $this->Response($response);
   }

@@ -2,13 +2,13 @@
 
 /**
  * @file
- * GET Apple News Article.
+ * Apple News DELETE method.
  */
 
 namespace ChapterThree\AppleNews\PushAPI;
 
 /**
- * Document me.
+ * PushAPI DELETE method.
  */
 class Delete extends Base {
 
