@@ -20,7 +20,7 @@ abstract class PushAPI {
   /**
    * Make Authentication method requried.
    */
-  abstract protected function Authentication(Array $args);
+  abstract protected function Authentication();
 
   /**
    * Make Path method requried.
@@ -30,7 +30,7 @@ abstract class PushAPI {
   /**
    * Make PreprocessRequest method required.
    */
-  abstract protected function PreprocessRequest($method, $path, Array $arguments = []);
+  abstract protected function PreprocessRequest($method, $path, Array $path_args = []);
 
   /**
    * Make SetHeaders method required.

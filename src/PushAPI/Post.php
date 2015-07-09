@@ -30,21 +30,23 @@ class Post extends Base {
   private $boundary;
   private $contents;
 
+  private $metadata;
+
   // Multipart data
   private $multipart = [];
 
   const EOL = "\r\n";
 
   /**
-   * Authentication.
+   * Implements Authentication().
    */
-  protected function Authentication(Array $args) {
-    $content_type = sprintf('multipart/form-data; boundary=%s', $args['boundary']);
-    $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $args['contents'];
+  protected function Authentication() {
+    $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
+    $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $this->contents;
     return parent::HHMAC($cannonical_request);
   }
 
-  protected function FileLoadFormdata($path) {
+  protected function AddToMultipart($path) {
     $pathinfo = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -64,12 +66,31 @@ class Post extends Base {
     ];
   }
 
-  protected function EncodeMultipartFormdata(Array $file, $encoding = 'binary') {
+  protected function BuildMultipartHeaders($content_type, Array $params) {
+    $headers = 'Content-Type: ' . $content_type . static::EOL;
+    $headers .= 'Content-Disposition: form-data; ' . http_build_query($params, '', '; ') . static::EOL;
+    return $headers;
+  }
+
+  protected function EncodeMultipart(Array $file) {
     $encoded = '';
+    // Adding metadata to multipart
+    if (!empty($this->metadata)) {
+      $encoded .= '--' .  $this->boundary . static::EOL;
+      $encoded .= $this->BuildMultipartHeaders('application/json', ['name' => 'metadata']);
+      $encoded .= $this->metadata . static::EOL;
+      $encoded .= static::EOL;
+    }
+    // Add files
     foreach ($file as $info) {
       $encoded .= '--' .  $this->boundary . static::EOL;
-      $encoded .= sprintf('Content-Type: %s', $info['mimetype']) . static::EOL;
-      $encoded .= sprintf('Content-Disposition: form-data; filename=%s; name=%s; size=%d', $info['filename'], $info['name'], $info['size']) . static::EOL;
+      $encoded .= $this->BuildMultipartHeaders($info['mimetype'],
+        [
+          'filename'   => $info['filename'],
+          'name'       => $info['name'],
+          'size'       => $info['size']
+        ]
+      );
       $encoded .= $info['contents'] . static::EOL;
     }
     $encoded .= '--' .  $this->boundary  . '--' . static::EOL;
@@ -77,28 +98,25 @@ class Post extends Base {
     return $encoded;
   }
 
-  protected function EncodeMetadata(Array $metadata) {
-    $encoded = '';
-    $encoded .= '--' .  $this->boundary . static::EOL;
-    $encoded .= 'Content-Type: application/json' . static::EOL;
-    $encoded .= 'Content-Disposition: form-data; name=metadata' . static::EOL;
-    $encoded .= stripslashes(json_encode($metadata, JSON_PRETTY_PRINT)) . static::EOL;
-    $encoded .= static::EOL;
-    return $encoded;
-  }
-
+  /**
+   * Implements Response().
+   */
   protected function Response($response) {
     print_r($response);exit;
   }
 
+  /**
+   * Implements Post().
+   */
   public function Post($path, Array $arguments = [], Array $data = []) {
     parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
       $this->boundary = md5(time());
+      $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
 
       // Submit JSON string as an article.json file.
       if (!empty($data['json'])) {
-        $this->multipart[] = $this->FileLoadFormdata([
+        $this->multipart[] = $this->AddToMultipart([
           'name' => 'article',
           'filename' => 'article.json',
           'mimetype' => 'application/json',
@@ -108,11 +126,10 @@ class Post extends Base {
       }
 
       foreach ($data['files'] as $file) {
-        $this->multipart[] = $this->FileLoadFormdata($file);
+        $this->multipart[] = $this->AddToMultipart($file);
       }
 
-      $this->contents .= !empty($data['metadata']) ? $this->EncodeMetadata($data['metadata']) : '';
-      $this->contents .= $this->EncodeMultipartFormdata($this->multipart);
+      $this->contents = $this->EncodeMultipart($this->multipart);
 
       $this->SetHeaders(
       	[

@@ -45,7 +45,7 @@ class Base extends PushAPI {
   /**
    * Authentication.
    */
-  protected function Authentication(Array $args = []) {
+  protected function Authentication() {
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime);
     return $this->HHMAC($cannonical_request);
   }
@@ -65,9 +65,9 @@ class Base extends PushAPI {
   /**
    * Preprocess request
    */
-  protected function PreprocessRequest($method, $path, Array $arguments = []) {
+  protected function PreprocessRequest($method, $path, Array $path_args = []) {
     $this->method = $method;
-    $this->arguments = $arguments;
+    $this->arguments = $path_args;
     $this->path = $path;
   }
 
@@ -112,7 +112,7 @@ class Base extends PushAPI {
   public function Get($path, Array $arguments = [], Array $data = []) {
     $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
-      $this->SetHeaders(['Authorization' => $this->Authentication($arguments)]);
+      $this->SetHeaders(['Authorization' => $this->Authentication()]);
       return $this->Request($data);
     }
     catch (\Exception $e) {
@@ -126,7 +126,7 @@ class Base extends PushAPI {
   public function Delete($path, Array $arguments = [], Array $data = []) {
     $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
-      $this->SetHeaders(['Authorization' => $this->Authentication($arguments)]);
+      $this->SetHeaders(['Authorization' => $this->Authentication()]);
       $this->UnsetHeaders(['Content-Type']);
       return $this->Request($data);
     }
