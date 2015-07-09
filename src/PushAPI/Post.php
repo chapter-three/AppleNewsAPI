@@ -41,7 +41,7 @@ class Post extends Base {
    * Implements Authentication().
    */
   protected function Authentication() {
-    $content_type = sprintf('multipart/form-data; boundary="%s"', $this->boundary);
+    $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $this->contents;
     return parent::HHMAC($cannonical_request);
   }
@@ -80,14 +80,17 @@ class Post extends Base {
     $encoded = '';
     // Adding metadata to multipart
     if (!empty($this->metadata)) {
-      $encoded .= $this->boundary . static::EOL;
-      $encoded .= $this->BuildMultipartHeaders('application/json', ['name' => 'metadata']);
-      $encoded .= $this->metadata . static::EOL;
-      $encoded .= static::EOL;
+      $encoded .= '--' . $this->boundary . static::EOL . static::EOL;
+      $encoded .= $this->BuildMultipartHeaders('application/json',
+        [
+          'name' => 'metadata',
+        ]
+      );
+      $encoded .= static::EOL . $this->metadata . static::EOL;
     }
     // Add files
     foreach ($file as $info) {
-      $encoded .= $this->boundary . static::EOL;
+      $encoded .= '--' . $this->boundary . static::EOL;
       $encoded .= $this->BuildMultipartHeaders($info['mimetype'],
         [
           'filename'   => $info['filename'],
@@ -95,9 +98,9 @@ class Post extends Base {
           'size'       => $info['size']
         ]
       );
-      $encoded .= $info['contents'] . static::EOL;
+      $encoded .= static::EOL . $info['contents'] . static::EOL;
     }
-    $encoded .= $this->boundary  . '--' . static::EOL;
+    $encoded .= '--' . $this->boundary  . '--';
     $encoded .= static::EOL;
     return $encoded;
   }
@@ -115,7 +118,7 @@ class Post extends Base {
   public function Post($path, Array $arguments = [], Array $data = []) {
     parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
-      $this->boundary = '-----------=' .  md5(mt_rand() . microtime()) . '=--';
+      $this->boundary = md5(mt_rand() . microtime());
       $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
 
       // Submit JSON string as an article.json file.
@@ -135,11 +138,13 @@ class Post extends Base {
 
       $this->contents = $this->EncodeMultipart($this->multipart);
 
+      $this->curl->setOpt(CURLOPT_USERAGENT, NULL);
       $this->SetHeaders(
       	[
-      	  'Authorization'   => $this->Authentication(),
-      	  'Content-Type'    => sprintf('multipart/form-data; boundary="%s"', $this->boundary),
+          'Accept'          => 'application/json',
+          'Content-Type'    => sprintf('multipart/form-data; boundary=%s', $this->boundary),
           'Content-Length'  => strlen($this->contents),
+      	  'Authorization'   => $this->Authentication(),
       	]
       );
       //print_r($this->contents);exit;

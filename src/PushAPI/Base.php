@@ -18,7 +18,7 @@ class Base extends PushAPI {
   protected $path = '';
   protected $method = '';
   protected $arguments = [];
-  protected $curl;
+  public $curl;
   protected $datetime;
 
   /**
