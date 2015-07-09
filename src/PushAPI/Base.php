@@ -21,6 +21,9 @@ class Base extends PushAPI {
   protected $curl;
   protected $datetime;
 
+  /**
+   *
+   */
   public function __construct($key, $secret, $endpoint) {
     $this->api_key_id = $key;
     $this->api_key_secret = $secret;
@@ -29,6 +32,9 @@ class Base extends PushAPI {
     $this->datetime = gmdate(\DateTime::ISO8601);
   }
 
+  /**
+   * Generate HMAC cryptographic hash.
+   */
   protected function HHMAC($cannonical_request) {
     $key = base64_decode($this->api_key_secret);
     $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
@@ -103,13 +109,13 @@ class Base extends PushAPI {
   /**
    * GET Request.
    */
-  public function Get($path, Array $arguments = []) {
+  public function Get($path, Array $arguments = [], Array $data = []) {
     $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
       $this->SetHeaders(['Authorization' => $this->Authentication($arguments)]);
-      return $this->Request();
+      return $this->Request($data);
     }
-    catch (\ErrorException $e) {
+    catch (\Exception $e) {
       // Need to write ClientException handling
     }
   }
@@ -117,14 +123,14 @@ class Base extends PushAPI {
   /**
    * DELETE Request.
    */
-  public function Delete($path, Array $arguments = []) {
+  public function Delete($path, Array $arguments = [], Array $data = []) {
     $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
       $this->SetHeaders(['Authorization' => $this->Authentication($arguments)]);
       $this->UnsetHeaders(['Content-Type']);
-      return $this->Request();
+      return $this->Request($data);
     }
-    catch (\ErrorException $e) {
+    catch (\Exception $e) {
       // Need to write ClientException handling
     }
   }
@@ -133,8 +139,13 @@ class Base extends PushAPI {
    * POST Request.
    */
   public function Post($path, Array $arguments = [], Array $data = []) {
-    // See implementation in PushAPI_Post.php
-    // $response = $this->curl->post($this->Path());
+    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
+    try {
+      return $this->Request($data);
+    }
+    catch (\Exception $e) {
+      // Need to write ClientException handling
+    }
   }
 
 }

@@ -12,6 +12,7 @@ namespace ChapterThree\AppleNews\PushAPI;
  */
 class Post extends Base {
 
+  // Valid values for resource part Content-Type
   protected $valid_mimes = [
     'image/jpeg',
     'image/png',
@@ -24,6 +25,12 @@ class Post extends Base {
     'application/font-opentype',
     'application/octet-stream'
   ];
+
+  // Post request data
+  private $data = [];
+
+  // Multipart data
+  private $multipart = [];
 
   const EOL = "\r\n";
 
@@ -58,12 +65,12 @@ class Post extends Base {
 
   protected function EncodeMultipartFormdata(Array $file, $boundary) {
     $encoded = '';
-    foreach ($file as $name => $data) {
+    foreach ($file as $info) {
       $encoded .= '--' .  $boundary . static::EOL;
-      $encoded .= sprintf('Content-Type: %s', $data['mimetype']) . static::EOL;
-      $encoded .= sprintf('Content-Disposition: form-data; filename=%s; name=%s; size=%d', $data['filename'], $data['name'], $data['size']) . static::EOL;
+      $encoded .= sprintf('Content-Type: %s', $info['mimetype']) . static::EOL;
+      $encoded .= sprintf('Content-Disposition: form-data; filename=%s; name=%s; size=%d', $info['filename'], $info['name'], $info['size']) . static::EOL;
       $encoded .= static::EOL;
-      $encoded .= $data['contents'] . static::EOL;
+      $encoded .= $info['contents'] . static::EOL;
     }
     $encoded .= '--' .  $boundary . static::EOL;
     $encoded .= static::EOL;
@@ -87,37 +94,29 @@ class Post extends Base {
 
   public function Post($path, Array $arguments = [], Array $data = []) {
     parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
+    $this->data = $data;
     try {
 
-      if (empty($data['date'])) {
-        $data['date'] = $this->datetime;
-      }
-      if (empty($data['boundary'])) {
-        $data['boundary'] = md5(time());
+      $this->data['date'] = !empty($this->data['date']) ? $this->data['date'] : $this->datetime;
+      $this->data['boundary'] = !empty($this->data['boundary']) ? $this->data['boundary'] : md5(time());
+      $this->data['body'] = !empty($this->data['body']) ? $this->data['body'] : '';
+
+      foreach ($this->data['files'] as $file) {
+        $this->multipart[] = $this->FileLoadFormdata($file);
       }
 
-      $multipart = [];
-      foreach ($data['files'] as $file) {
-        $formdata = $this->FileLoadFormdata($file);
-        $multipart[$formdata['name']] = $formdata;
-      }
-
-      $body = '';
-      if (!empty($data['metadata'])) {
-        $body .= $this->EncodeMetadata($data['metadata'], $data['boundary']);
-      }
-      $body .= $this->EncodeMultipartFormdata($multipart, $data['boundary']);
-      $data['body'] = $body;
+      $this->data['body'] = !empty($this->data['metadata']) ? $this->EncodeMetadata($this->data['metadata'], $this->data['boundary']) : '';
+      $this->data['body'] .= $this->EncodeMultipartFormdata($this->multipart, $this->data['boundary']);
 
       $this->SetHeaders(
       	[
           'Accept'          => 'application/json',
-      	  'Authorization'   => $this->Authentication($data),
-      	  'Content-Type'    => sprintf('multipart/form-data; boundary=%s', $data['boundary']),
-          'Content-Length'  => strlen($data['body']),
+      	  'Authorization'   => $this->Authentication($this->data),
+      	  'Content-Type'    => sprintf('multipart/form-data; boundary=%s', $this->data['boundary']),
+          'Content-Length'  => strlen($this->data['body']),
       	]
       );
-      return $this->Request($data['body']);
+      return $this->Request($this->data['body']);
     }
     catch (\ErrorException $e) {
       // Need to write ClientException handling
