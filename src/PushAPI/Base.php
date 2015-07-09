@@ -29,15 +29,19 @@ class Base extends PushAPI {
     $this->datetime = gmdate(\DateTime::ISO8601);
   }
 
+  protected function HHMAC($cannonical_request) {
+    $key = base64_decode($this->api_key_secret);
+    $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
+    $signature = rtrim(base64_encode($hashed), "\n");
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
+  }
+
   /**
    * Authentication.
    */
   protected function Authentication(Array $args = []) {
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime);
-    $key = base64_decode($this->api_key_secret);
-    $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
-    $signature = rtrim(base64_encode($hashed), "\n");
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
+    return $this->HHMAC($cannonical_request);
   }
 
   /**
@@ -82,14 +86,9 @@ class Base extends PushAPI {
   /**
    * Request URL.
    */
-  protected function Request(Array $data = []) {
+  protected function Request($data) {
     $method = strtoupper($this->method);
-    if (count($data)) {
-      $response = $this->curl->{$method}($this->Path(), $data);
-    }
-    else {
-      $response = $this->curl->{$method}($this->Path());
-    }
+    $response = $this->curl->{$method}($this->Path(), $data);
     $this->curl->close();
     return $this->Response($response);
   }

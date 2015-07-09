@@ -13,6 +13,11 @@ namespace ChapterThree\AppleNews\PushAPI;
 abstract class PushAPI {
 
   /**
+   * Make HHMAC method requried.
+   */
+  abstract protected function HHMAC($cannonical_request);
+
+  /**
    * Make Authentication method requried.
    */
   abstract protected function Authentication(Array $args);
@@ -40,7 +45,7 @@ abstract class PushAPI {
   /**
    * Make Request method required.
    */
-  abstract protected function Request(Array $data = []);
+  abstract protected function Request($data);
 
   /**
    * Make Response method required.
