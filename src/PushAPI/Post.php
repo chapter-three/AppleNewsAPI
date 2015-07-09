@@ -41,7 +41,7 @@ class Post extends Base {
    * Implements Authentication().
    */
   protected function Authentication() {
-    $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
+    $content_type = sprintf('multipart/form-data; boundary="%s"', $this->boundary);
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $this->contents;
     return parent::HHMAC($cannonical_request);
   }
@@ -68,7 +68,11 @@ class Post extends Base {
 
   protected function BuildMultipartHeaders($content_type, Array $params) {
     $headers = 'Content-Type: ' . $content_type . static::EOL;
-    $headers .= 'Content-Disposition: form-data; ' . http_build_query($params, '', '; ') . static::EOL;
+    $attributes = [];
+    foreach ($params as $name => $value) {
+      $attributes[] = $name . '=' . $value;
+    }
+    $headers .= 'Content-Disposition: form-data; ' . join('; ', $attributes) . static::EOL;
     return $headers;
   }
 
@@ -76,14 +80,14 @@ class Post extends Base {
     $encoded = '';
     // Adding metadata to multipart
     if (!empty($this->metadata)) {
-      $encoded .= '--' .  $this->boundary . static::EOL;
+      $encoded .= $this->boundary . static::EOL;
       $encoded .= $this->BuildMultipartHeaders('application/json', ['name' => 'metadata']);
       $encoded .= $this->metadata . static::EOL;
       $encoded .= static::EOL;
     }
     // Add files
     foreach ($file as $info) {
-      $encoded .= '--' .  $this->boundary . static::EOL;
+      $encoded .= $this->boundary . static::EOL;
       $encoded .= $this->BuildMultipartHeaders($info['mimetype'],
         [
           'filename'   => $info['filename'],
@@ -93,7 +97,7 @@ class Post extends Base {
       );
       $encoded .= $info['contents'] . static::EOL;
     }
-    $encoded .= '--' .  $this->boundary  . '--' . static::EOL;
+    $encoded .= $this->boundary  . '--' . static::EOL;
     $encoded .= static::EOL;
     return $encoded;
   }
@@ -111,7 +115,7 @@ class Post extends Base {
   public function Post($path, Array $arguments = [], Array $data = []) {
     parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
-      $this->boundary = md5(time());
+      $this->boundary = '-----------=' .  md5(mt_rand() . microtime()) . '=--';
       $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
 
       // Submit JSON string as an article.json file.
@@ -133,17 +137,11 @@ class Post extends Base {
 
       $this->SetHeaders(
       	[
-      	  'Authorization'   => $this->Authentication(
-            [
-              'boundary' => $this->boundary,
-              'contents' => $this->contents,
-            ]
-          ),
-      	  'Content-Type'    => sprintf('multipart/form-data; boundary=%s', $this->boundary),
+      	  'Authorization'   => $this->Authentication(),
+      	  'Content-Type'    => sprintf('multipart/form-data; boundary="%s"', $this->boundary),
           'Content-Length'  => strlen($this->contents),
       	]
       );
-      $this->UnsetHeaders(['Expect']);
       //print_r($this->contents);exit;
       return $this->Request($this->contents);
     }
