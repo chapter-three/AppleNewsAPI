@@ -40,7 +40,7 @@ class Post extends Base {
   protected function Authentication(Array $args) {
     $content_type = sprintf('multipart/form-data; boundary=%s', $args['boundary']);
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $args['body'];
-    return $this->HHMAC($cannonical_request);
+    return parent::HHMAC($cannonical_request);
   }
 
   protected function FileLoadFormdata($path) {
@@ -63,23 +63,37 @@ class Post extends Base {
     ];
   }
 
-  protected function EncodeMultipartFormdata(Array $file, $boundary) {
+  protected function EncodeMultipartFormdata(Array $file, $encoding = 'binary') {
     $encoded = '';
     foreach ($file as $info) {
-      $encoded .= '--' .  $boundary . static::EOL;
+      $encoded .= '--' .  $this->data['boundary'] . static::EOL;
+      $encoded .= static::EOL;
       $encoded .= sprintf('Content-Type: %s', $info['mimetype']) . static::EOL;
       $encoded .= sprintf('Content-Disposition: form-data; filename=%s; name=%s; size=%d', $info['filename'], $info['name'], $info['size']) . static::EOL;
-      $encoded .= static::EOL;
-      $encoded .= $info['contents'] . static::EOL;
+      if ($info['mimetype'] == 'application/json') {
+        $encoded .= static::EOL;
+        $encoded .= $info['contents'] . static::EOL;
+      }
+      else {
+        $encoded .= sprintf('Content-Transfer-Encoding: %s', $encoding) . static::EOL;
+        $encoded .= static::EOL;
+        if ($encoding == 'binary') {
+          $encoded .= $info['contents'] . static::EOL;
+        }
+        else {
+          $encoded .= chunk_split(base64_encode($info['contents'])) . static::EOL;
+        }
+      }
     }
-    $encoded .= '--' .  $boundary . static::EOL;
+    $encoded .= '--' .  $this->data['boundary']  . '--' . static::EOL;
     $encoded .= static::EOL;
     return $encoded;
   }
 
-  protected function EncodeMetadata(Array $metadata, $boundary) {
+  protected function EncodeMetadata(Array $metadata) {
     $encoded = '';
-    $encoded .= '--' .  $boundary . static::EOL;
+    $encoded .= '--' .  $this->data['boundary'] . static::EOL;
+    $encoded .= static::EOL;
     $encoded .= 'Content-Type: application/json' . static::EOL;
     $encoded .= 'Content-Disposition: form-data; name=metadata' . static::EOL;
     $encoded .= static::EOL;
@@ -105,8 +119,8 @@ class Post extends Base {
         $this->multipart[] = $this->FileLoadFormdata($file);
       }
 
-      $this->data['body'] = !empty($this->data['metadata']) ? $this->EncodeMetadata($this->data['metadata'], $this->data['boundary']) : '';
-      $this->data['body'] .= $this->EncodeMultipartFormdata($this->multipart, $this->data['boundary']);
+      $this->data['body'] .= !empty($this->data['metadata']) ? $this->EncodeMetadata($this->data['metadata']) : '';
+      $this->data['body'] .= $this->EncodeMultipartFormdata($this->multipart, 'binary');
 
       $this->SetHeaders(
       	[
@@ -116,9 +130,10 @@ class Post extends Base {
           'Content-Length'  => strlen($this->data['body']),
       	]
       );
+      $this->UnsetHeaders(['Expect']);
       return $this->Request($this->data['body']);
     }
-    catch (\ErrorException $e) {
+    catch (\Exception $e) {
       // Need to write ClientException handling
     }
   }

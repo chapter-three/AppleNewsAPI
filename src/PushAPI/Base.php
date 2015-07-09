@@ -12,9 +12,9 @@ namespace ChapterThree\AppleNews\PushAPI;
  */
 class Base extends PushAPI {
 
-  protected $api_key_id = '';
-  protected $api_key_secret = '';
-  protected $endpoint = '';
+  public $api_key_id = '';
+  public $api_key_secret = '';
+  public $endpoint = '';
   protected $path = '';
   protected $method = '';
   protected $arguments = [];
