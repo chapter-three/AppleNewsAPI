@@ -62,7 +62,7 @@ class Post extends Base {
       'filename' => $pathinfo['basename'],
       'mimetype' => ($pathinfo['extension'] == 'json') ? 'application/json' : $mimetype,
       'contents' => $contents,
-      'size' => strlen($contents),
+      'size' => filesize($path),
     ];
   }
 
@@ -73,6 +73,7 @@ class Post extends Base {
       $attributes[] = $name . '=' . $value;
     }
     $headers .= 'Content-Disposition: form-data; ' . join('; ', $attributes) . static::EOL;
+    $headers .= static::EOL;
     return $headers;
   }
 
@@ -115,7 +116,7 @@ class Post extends Base {
   public function Post($path, Array $arguments = [], Array $data = []) {
     parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
-      $this->boundary = '-----------=' .  md5(mt_rand() . microtime()) . '=--';
+      $this->boundary = '--=' .  md5(mt_rand() . microtime()) . '=--';
       $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
 
       // Submit JSON string as an article.json file.
