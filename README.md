@@ -20,7 +20,7 @@ curl -sS https://getcomposer.org/installer | php
 ```php
 $api_key_id = "";
 $api_key_secret = "";
-$endpoint = "https://endpoint_url"; // No trailing slash.
+$endpoint = "https://endpoint_url";
 
 $PushAPI = new ChapterThree\AppleNews\PushAPI(
   $api_key_id,
@@ -34,25 +34,41 @@ $PushAPI = new ChapterThree\AppleNews\PushAPI(
 1. GET Channel
 
 ```php
-$response = $PushAPI->Get('/channels/{channel_id}', ['channel_id' => CHANNEL_ID]);
+$response = $PushAPI->Get('/channels/{channel_id}',
+  [
+    'channel_id' => CHANNEL_ID
+  ]
+);
 ```
 
 2. GET Sections
 
 ```php
-$response = $PushAPI->Get('/channels/{channel_id}/sections', ['channel_id' => CHANNEL_ID]);
+$response = $PushAPI->Get('/channels/{channel_id}/sections',
+  [
+    'channel_id' => CHANNEL_ID
+  ]
+);
 ```
 
 3. GET Section
 
 ```php
-$response = $PushAPI->Get('/sections/{section_id}', ['section_id' => SECTION_ID]);
+$response = $PushAPI->Get('/sections/{section_id}',
+  [
+    'section_id' => SECTION_ID
+  ]
+);
 ```
 
 4. GET Article
 
 ```php
-$response = $PushAPI->Get('/articles/{article_id}', ['article_id' => ARTICLE_ID]);
+$response = $PushAPI->Get('/articles/{article_id}',
+  [
+    'article_id' => ARTICLE_ID
+  ]
+);
 ```
 
 ### POST Methods
@@ -60,16 +76,20 @@ $response = $PushAPI->Get('/articles/{article_id}', ['article_id' => ARTICLE_ID]
 1. POST Article
 
 ```php
-$response = $PushAPI->Post('/channels/{channel_id}/articles', ['channel_id' => CHANNEL_ID],
-      [
-        // List of files to POST
-        'files' => [], // required
-        // JSON metadata string
-        'metadata' => '', // optional
-        // Submit contents of article.json file if the file isn't provied in the `files` array
-        'json' => '', // optional
-      ]
-    );
+$response = $PushAPI->Post('/channels/{channel_id}/articles',
+  [
+    'channel_id' => CHANNEL_ID
+  ],
+  [
+    // List of files to POST
+    'files' => [], // required
+    // JSON metadata string
+    'metadata' => '', // optional
+    // Submit contents of the article.json file if
+    // the file isn't provied in the `files` array
+    'json' => '', // optional
+  ]
+);
 ```
 
 ### DELETE Methods
@@ -77,5 +97,9 @@ $response = $PushAPI->Post('/channels/{channel_id}/articles', ['channel_id' => C
 1. DELETE Article
 
 ```php
-$response = $PushAP->Delete('/articles/{article_id}', ['article_id' => ARTICLE_ID]);
+$response = $PushAP->Delete('/articles/{article_id}',
+  [
+    'article_id' => ARTICLE_ID
+  ]
+);
 ```
