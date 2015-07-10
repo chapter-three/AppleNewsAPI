@@ -61,7 +61,7 @@ abstract class Base {
    * Setup HTTP client to make requests.
    */
   public function SetHTTPClient() {
-    // Example: $http_client = new HTTPClient();
+    // Example: $this->http_client = new \Curl\Curl;
     $this->triggerError('No HTTP Client found', E_USER_ERROR);
   }
 
