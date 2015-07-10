@@ -12,20 +12,100 @@ namespace ChapterThree\AppleNews;
  */
 abstract class Base {
 
-  /**
-   * Make HHMAC method requried.
-   */
-  abstract protected function HHMAC($cannonical_request);
+  // PushAPI API Key ID.
+  public $api_key_id = '';
+
+  // Push API Secret Key.
+  public $api_key_secret = '';
+
+  // PushAPI Endpoint URL.
+  public $endpoint = '';
+
+  // HTTP client class.
+  public $http_client;
+
+  // Endpoint path.
+  protected $path = '';
+
+  // HTTP Method (GET/DELETE/POST).
+  protected $method = '';
+
+  // Endpoint path variables to replace.
+  protected $path_args = [];
+
+  // ISO 8601 datetime.
+  protected $datetime;
 
   /**
-   * Make Authentication method requried.
+   * Initialize variables needed in the communication with the API.
+   *
+   * @param string $key
+   *   API Key.
+   * @param string $secret
+   *   API Secret Key.
+   * @param string $endpoint
+   *   API endpoint URL.
    */
-  abstract protected function Authentication($string);
+  public function __construct($key, $secret, $endpoint) {
+    // Set API required variables.
+    $this->api_key_id = $key;
+    $this->api_key_secret = $secret;
+    $this->endpoint = $endpoint;
+    // PHP Curl Class.
+    $this->http_client = new \Curl\Curl;
+    // ISO 8601 date and time format.
+    $this->datetime = gmdate(\DateTime::ISO8601);
+  }
 
   /**
-   * Make Path method requried.
+   * Generate HMAC cryptographic hash.
+   *
+   * @param string $data
+   *   Message to be hashed.
+   *
+   * @return string
+   *   Authorization token used in the HTTP headers.
    */
-  abstract protected function Path();
+  protected function HHMAC($data) {
+    $key = base64_decode($this->api_key_secret);
+    $hashed = hash_hmac('sha256', $data, $key, true);
+    $encoded = base64_encode($hashed);
+    $signature = rtrim($encoded, "\n");
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s',
+      $this->api_key_id, strval($signature),
+      $this->datetime
+    );
+  }
+
+  /**
+   * Create canonical version of the request as a byte-wise concatenation.
+   *
+   * @param string $string
+   *   String to concatenate (see POST method).
+   *
+   * @return string
+   *   HMAC cryptographic hash
+   */
+  protected function Authentication($string = '') {
+    $data = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $string;
+    return $this->HHMAC($data);
+  }
+
+  /**
+   * Generate URL to request.
+   *
+   * @return string
+   *   URL to create request.
+   */
+  protected function Path() {
+    $params = array();
+    // Take arguments and pass them to the path by replacing {argument} tokens.
+    foreach ($this->path_args as $argument => $value) {
+      $params["{{$argument}}"] = $value;
+    }
+    $path = str_replace(array_keys($params), array_values($params), $this->path);
+    return $this->endpoint . $path;
+  }
 
   /**
    * Make PreprocessData method required.
@@ -33,42 +113,107 @@ abstract class Base {
   abstract protected function PreprocessData($method, $path, Array $path_args, Array $vars);
 
   /**
-   * Make SetHeaders method required.
+   * Set HTTP headers.
+   *
+   * @param array $headers
+   *   Associative array [header field name => value].
    */
-  abstract protected function SetHeaders(Array $headers);
+  protected function SetHeaders(Array $headers = []) {
+    foreach ($headers as $property => $value) {
+      $this->http_client->setHeader($property, $value);
+    }
+  }
 
   /**
-   * Make UnsetHeaders method required.
+   * Remove specified header names from HTTP request.
+   *
+   * @param array $headers
+   *   Associative array [header1, header2, ..., headerN].
    */
-  abstract protected function UnsetHeaders(Array $headers);
+  protected function UnsetHeaders(Array $headers = []) {
+    foreach ($headers as $property) {
+      $this->http_client->unsetHeader($property);
+    }
+  }
 
   /**
-   * Make Request method required.
+   * Create HTTP request.
+   *
+   * @param mixed $data
+   *   Raw content of the request or associative array to pass to endpoints.
+   *
+   * @return object
+   *   Structured object.
    */
-  abstract protected function Request($data);
+  protected function Request($data) {
+    $response = $this->http_client->{$this->method}($this->Path(), $data);
+    $this->http_client->close();
+    return $this->Response($response);
+  }
 
   /**
-   * Make Response method required.
+   * Preprocess HTTP response.
+   *
+   * @param object $response
+   *   Structured object.
+   *
+   * @return object
+   *   Preprocessed structured object.
    */
-  abstract protected function Response($response);
+  protected function Response($response) {
+    return $response;
+  }
 
   /**
-   * Make SetOption method required.
+   * Sets an option on the given cURL session handle.
+   * 
+   * @param string $name
+   *   The CURLOPT_XXX option to set.
+   * @param string $value
+   *   The value to be set on option.
    */
-  abstract public function SetOption($name, $value);
+  public function SetOption($name, $value) {
+    $this->http_client->setOpt($name, $value);
+  }
 
   /**
-   * Make Get method requried.
+   * Create GET request to a specified endpoint.
+   *
+   * @param string $path
+   *   Path to API endpoint.
+   * @param string $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param string $data
+   *   Raw content of the request or associative array to pass to endpoints.
+   *
+   * @return object
+   *   Preprocessed structured object.
    */
   abstract public function Get($path, Array $path_args, Array $data);
 
   /**
-   * Make Post method requried.
+   * Create POST request to a specified endpoint.
+   *
+   * @param string $path
+   *   Path to API endpoint.
+   * @param string $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param string $data
+   *   Raw content of the request or associative array to pass to endpoints.
+   *
+   * @return object
+   *   Preprocessed structured object.
    */
   abstract public function Post($path, Array $path_args, Array $data);
 
   /**
-   * Make Delete method requried.
+   * Open and load file information and prepare data for multipart data.
+   *
+   * @param string $path
+   *   Path to a file included in the POST request.
+   *
+   * @return array
+   *   Associative array. The array contains information about a file.
    */
   abstract public function Delete($path, Array $path_args, Array $data);
 
