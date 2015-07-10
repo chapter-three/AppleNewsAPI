@@ -214,7 +214,7 @@ class PushAPI extends Base {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimetype = finfo_file($finfo, $path);
     if (!in_array($mimetype, $this->valid_mimes)) {
-      $mimetype = 'application/octet-stream';
+      $this->triggerError('Unsupported mime type: ' . $mimetype);
     }
 
     $contents = file_get_contents($path);
