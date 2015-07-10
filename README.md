@@ -32,9 +32,9 @@ $PushAPI = new ChapterThree\AppleNews\PushAPI(
 ### GET Methods
 
 ##### GET Channel
-Fetches information about a channel.
 
 ```php
+// Fetches information about a channel.
 $response = $PushAPI->Get('/channels/{channel_id}',
   [
     'channel_id' => CHANNEL_ID
@@ -43,9 +43,9 @@ $response = $PushAPI->Get('/channels/{channel_id}',
 ```
 
 ##### GET Sections
-Fetches a list of all sections for a channel.
 
 ```php
+// Fetches a list of all sections for a channel.
 $response = $PushAPI->Get('/channels/{channel_id}/sections',
   [
     'channel_id' => CHANNEL_ID
@@ -54,9 +54,9 @@ $response = $PushAPI->Get('/channels/{channel_id}/sections',
 ```
 
 ##### GET Section
-Fetches information about a single section.
 
 ```php
+// Fetches information about a single section.
 $response = $PushAPI->Get('/sections/{section_id}',
   [
     'section_id' => SECTION_ID
@@ -65,9 +65,9 @@ $response = $PushAPI->Get('/sections/{section_id}',
 ```
 
 ##### GET Article
-Fetches an article.
 
 ```php
+// Fetches an article.
 $response = $PushAPI->Get('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
@@ -78,9 +78,9 @@ $response = $PushAPI->Get('/articles/{article_id}',
 ### POST Methods
 
 ##### POST Article
-Publishes a new article to a channel.
 
 ```php
+// Publishes a new article to a channel.
 $response = $PushAPI->Post('/channels/{channel_id}/articles',
   [
     'channel_id' => CHANNEL_ID
@@ -100,9 +100,9 @@ $response = $PushAPI->Post('/channels/{channel_id}/articles',
 ### DELETE Methods
 
 ##### DELETE Article
-Deletes an article.
 
 ```php
+// Deletes an article.
 $response = $PushAPI->Delete('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
