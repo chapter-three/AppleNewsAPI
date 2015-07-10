@@ -74,7 +74,7 @@ abstract class Base {
    * @return string
    *   Authorization token used in the HTTP headers.
    */
-  protected function HHMAC($data) {
+  protected function HHMAC($data = '') {
     $key = base64_decode($this->api_key_secret);
     $hashed = hash_hmac('sha256', $data, $key, true);
     $encoded = base64_encode($hashed);
