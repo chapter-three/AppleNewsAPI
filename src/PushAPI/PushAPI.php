@@ -43,11 +43,6 @@ abstract class PushAPI {
   abstract protected function UnsetHeaders(Array $headers);
 
   /**
-   * Make SetOption method required.
-   */
-  abstract protected function SetOption($name, $value);
-
-  /**
    * Make Request method required.
    */
   abstract protected function Request($data);
@@ -56,6 +51,11 @@ abstract class PushAPI {
    * Make Response method required.
    */
   abstract protected function Response($response);
+
+  /**
+   * Make SetOption method required.
+   */
+  abstract public function SetOption($name, $value);
 
   /**
    * Make Get method requried.

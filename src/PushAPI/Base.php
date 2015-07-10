@@ -19,7 +19,7 @@ class Base extends PushAPI {
   // PushAPI Endpoint URL
   public $endpoint = '';
   // CURL client object.
-  public $curl;
+  public $http_client;
 
   // Endpoint path
   protected $path = '';
@@ -38,7 +38,7 @@ class Base extends PushAPI {
     $this->api_key_id = $key;
     $this->api_key_secret = $secret;
     $this->endpoint = $endpoint;
-    $this->curl = new \Curl\Curl;
+    $this->http_client = new \Curl\Curl;
     $this->datetime = gmdate(\DateTime::ISO8601);
   }
 
@@ -87,7 +87,7 @@ class Base extends PushAPI {
    */
   protected function SetHeaders(Array $headers = []) {
     foreach ($headers as $property => $value) {
-      $this->curl->setHeader($property, $value);
+      $this->http_client->setHeader($property, $value);
     }
   }
 
@@ -96,15 +96,8 @@ class Base extends PushAPI {
    */
   protected function UnsetHeaders(Array $headers = []) {
     foreach ($headers as $property) {
-      $this->curl->unsetHeader($property);
+      $this->http_client->unsetHeader($property);
     }
-  }
-
-  /**
-   * Implements SetOption().
-   */
-  protected function SetOption($name, $value) {
-    $this->curl->setOpt($name, $value);
   }
 
   /**
@@ -112,8 +105,8 @@ class Base extends PushAPI {
    */
   protected function Request($data) {
     $method = strtoupper($this->method);
-    $response = $this->curl->{$method}($this->Path(), $data);
-    $this->curl->close();
+    $response = $this->http_client->{$method}($this->Path(), $data);
+    $this->http_client->close();
     return $this->Response($response);
   }
 
@@ -122,6 +115,13 @@ class Base extends PushAPI {
    */
   protected function Response($response) {
     return $response;
+  }
+
+  /**
+   * Implements SetOption().
+   */
+  public function SetOption($name, $value) {
+    $this->http_client->setOpt($name, $value);
   }
 
   /**
