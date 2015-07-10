@@ -15,7 +15,7 @@ curl -sS https://getcomposer.org/installer | php
 ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests
 ```
 
-## Usage examples
+## PushAPI Methods
 
 ```php
 $api_key_id = "";
