@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Base abstract class for AppleNews classes.
+ * AppleNews PushAPI abstract class.
  */
 
 namespace ChapterThree\AppleNews;
