@@ -15,25 +15,31 @@ class PushAPI extends Base {
   // CRLF
   const EOL = "\r\n";
 
-  // PushAPI API Key ID
+  // PushAPI API Key ID.
   public $api_key_id = '';
-  // Push API Secret Key
+
+  // Push API Secret Key.
   public $api_key_secret = '';
-  // PushAPI Endpoint URL
+
+  // PushAPI Endpoint URL.
   public $endpoint = '';
 
   // HTTP client class.
   public $http_client;
-  // Endpoint path
+
+  // Endpoint path.
   protected $path = '';
-  // HTTP Method (GET/DELETE/POST)
+
+  // HTTP Method (GET/DELETE/POST).
   protected $method = '';
-  // Endpoint path variables to replace
+
+  // Endpoint path variables to replace.
   protected $path_args = [];
-  // ISO 8601 datetime
+
+  // ISO 8601 datetime.
   protected $datetime;
 
-  // Valid values for resource part Content-Type
+  // Valid values for resource part Content-Type.
   protected $valid_mimes = [
     'image/jpeg',
     'image/png',
@@ -49,19 +55,31 @@ class PushAPI extends Base {
 
   // Multipat form data boundary unique string.
   private $boundary;
-  // Content to POST to the API
+
+  // Content to POST to the API.
   private $contents;
+
   // Additional metadata to post to the API.
   private $metadata;
+
   // JSON string to be posted to PushAPI instead of article.json file.
   private $json;
-  // Files to be posted to PushAPI
+
+  // Files to be posted to PushAPI.
   private $files = [];
-  // Multipart data
+
+  // Multipart data.
   private $multipart = [];
 
   /**
-   * Implements __construct().
+   * Initialize variables needed in the communication with the API.
+   *
+   * @param string $key
+   *   API Key.
+   * @param string $secret
+   *   API Secret Key.
+   * @param string $endpoint
+   *   API endpoint URL.
    */
   public function __construct($key, $secret, $endpoint) {
     $this->api_key_id = $key;
@@ -72,29 +90,48 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements HHMAC().
    * Generate HMAC cryptographic hash.
+   *
+   * @param string $data
+   *   Message to be hashed.
+   *
+   * @return string
+   *   Authorization token used in the HTTP headers.
    */
-  protected function HHMAC($cannonical_request) {
+  protected function HHMAC($data) {
     $key = base64_decode($this->api_key_secret);
-    $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
-    $signature = rtrim(base64_encode($hashed), "\n");
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
+    $hashed = hash_hmac('sha256', $data, $key, true);
+    $encoded = base64_encode($hashed);
+    $signature = rtrim($encoded, "\n");
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s',
+      $this->api_key_id, strval($signature),
+      $this->datetime
+    );
   }
 
   /**
-   * Implements Authentication().
+   * Create canonical version of the request as a byte-wise concatenation.
+   *
+   * @param string $string
+   *   String to concatenate (see POST method).
+   *
+   * @return string
+   *   HMAC cryptographic hash
    */
   protected function Authentication($string = '') {
-    $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $string;
-    return $this->HHMAC($cannonical_request);
+    $data = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $string;
+    return $this->HHMAC($data);
   }
 
   /**
-   * Implements Path().
+   * Generate URL to request.
+   *
+   * @return string
+   *   URL to create request.
    */
   protected function Path() {
     $params = array();
+    // Take arguments and pass them to the path by replacing {argument} tokens.
     foreach ($this->path_args as $argument => $value) {
       $params["{{$argument}}"] = $value;
     }
@@ -103,7 +140,16 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements PreprocessData().
+   * Initialize variables needed to make a request.
+   *
+   * @param string $method
+   *   Request method (POST/GET/DELETE).
+   * @param string $path
+   *   Path to API endpoint.
+   * @param array $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param array $vars
+   *   Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
   protected function PreprocessData($method, $path, Array $path_args = [], Array $vars = []) {
     $this->method = $method;
@@ -116,7 +162,10 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements SetHeaders().
+   * Set HTTP headers.
+   *
+   * @param array $headers
+   *   Associative array [header field name => value].
    */
   protected function SetHeaders(Array $headers = []) {
     foreach ($headers as $property => $value) {
@@ -125,7 +174,10 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements UnsetHeaders().
+   * Remove specified header names from HTTP request.
+   *
+   * @param array $headers
+   *   Associative array [header1, header2, ..., headerN].
    */
   protected function UnsetHeaders(Array $headers = []) {
     foreach ($headers as $property) {
@@ -134,7 +186,13 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements Request().
+   * Create HTTP request.
+   *
+   * @param mixed $data
+   *   Raw content of the request or associative array to pass to endpoints.
+   *
+   * @return object
+   *   Structured object.
    */
   protected function Request($data) {
     $response = $this->http_client->{$this->method}($this->Path(), $data);
@@ -143,21 +201,42 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements Response().
+   * Preprocess HTTP response.
+   *
+   * @param object $response
+   *   Structured object.
+   *
+   * @return object
+   *   Preprocessed structured object.
    */
   protected function Response($response) {
     return $response;
   }
 
   /**
-   * Implements SetOption().
+   * Sets an option on the given cURL session handle.
+   * 
+   * @param string $name
+   *   The CURLOPT_XXX option to set.
+   * @param string $value
+   *   The value to be set on option.
    */
   public function SetOption($name, $value) {
     $this->http_client->setOpt($name, $value);
   }
 
   /**
-   * Implements Get().
+   * Create GET request to a specified endpoint.
+   *
+   * @param string $path
+   *   Path to API endpoint.
+   * @param string $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param string $data
+   *   Raw content of the request or associative array to pass to endpoints.
+   *
+   * @return object
+   *   Preprocessed structured object.
    */
   public function Get($path, Array $path_args = [], Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
@@ -175,8 +254,18 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements Delete().
-   * Deletes an article.
+   * Create DELETE request to a specified endpoint.
+   *
+   * @param string $path
+   *   Path to API endpoint.
+   * @param string $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param string $data
+   *   Raw content of the request or associative array to pass to endpoints.
+   *
+   * @return object
+   *   Preprocessed structured object and returns 204 No Content
+   *   on success, with no response body.
    */
   public function Delete($path, Array $path_args = [], Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
@@ -199,8 +288,17 @@ class PushAPI extends Base {
   }
 
   /**
-   * Implements Post().
-   * Publishes a new article to a channel.
+   * Create POST request to a specified endpoint.
+   *
+   * @param string $path
+   *   Path to API endpoint.
+   * @param string $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param string $data
+   *   Raw content of the request or associative array to pass to endpoints.
+   *
+   * @return object
+   *   Preprocessed structured object.
    */
   public function Post($path, Array $path_args, Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
@@ -230,7 +328,7 @@ class PushAPI extends Base {
       // Generated multipart data to POST.
       $this->contents = $this->EncodeMultipart($this->multipart);
       // String to add to generate Authorization hash.
-      $hash_string = $content_type . $this->contents;
+      $data_string = $content_type . $this->contents;
 
       // Make sure no USERAGENET in headers.
       $this->SetOption(CURLOPT_USERAGENT, NULL);
@@ -239,7 +337,7 @@ class PushAPI extends Base {
           'Accept'          => 'application/json',
           'Content-Type'    => $content_type,
           'Content-Length'  => strlen($this->contents),
-          'Authorization'   => $this->Authentication($hash_string)
+          'Authorization'   => $this->Authentication($data_string)
         ]
       );
       // Send POST request.
@@ -252,6 +350,12 @@ class PushAPI extends Base {
 
   /**
    * Open and load file information and prepare data for multipart data.
+   *
+   * @param string $path
+   *   Path to a file included in the POST request.
+   *
+   * @return array
+   *   Associative array. The array contains information about a file.
    */
   protected function AddToMultipart($path) {
     $pathinfo = pathinfo($path);
@@ -275,6 +379,14 @@ class PushAPI extends Base {
 
   /**
    * Generate Multipart data headers.
+   *
+   * @param string $content_type
+   *   HTTP header field name.
+   * @param array $params
+   *   HTTP header attributes.
+   *
+   * @return string
+   *   Raw HTTP header for a multipart data.
    */
   protected function BuildMultipartHeaders($content_type, Array $params) {
     $headers = 'Content-Type: ' . $content_type . static::EOL;
@@ -288,8 +400,15 @@ class PushAPI extends Base {
 
   /**
    * Generate Multipart form data chunks.
+   *
+   * @param array $files
+   *   Associative array with information about each file (mimetype, filename, size).
+   *
+   * @return string
+   *   Raw HTTP multipart data formatted according to the RFC.
+   *   https://www.ietf.org/rfc/rfc2388.txt
    */
-  protected function EncodeMultipart(Array $file) {
+  protected function EncodeMultipart(Array $files) {
     $multipart = '';
     // Adding metadata to multipart
     if (!empty($this->metadata)) {
@@ -302,7 +421,7 @@ class PushAPI extends Base {
       $multipart .= static::EOL . $this->metadata . static::EOL;
     }
     // Add files
-    foreach ($file as $info) {
+    foreach ($files as $info) {
       $multipart .= '--' . $this->boundary . static::EOL;
       $multipart .= $this->BuildMultipartHeaders($info['mimetype'],
         [
