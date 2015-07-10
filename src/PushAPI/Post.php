@@ -57,7 +57,7 @@ class Post extends Base {
    */
   protected function PreprocessData($method, $path, Array $path_args = [], Array $vars = []) {
     $this->method = $method;
-    $this->arguments = $path_args;
+    $this->path_args = $path_args;
     $this->path = $path;
     $this->boundary = md5(uniqid() . microtime());
     $this->metadata = !empty($vars['metadata']) ? $vars['metadata'] : '';

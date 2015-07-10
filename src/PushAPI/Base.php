@@ -12,13 +12,23 @@ namespace ChapterThree\AppleNews\PushAPI;
  */
 class Base extends PushAPI {
 
+  // PushAPI API Key ID
   public $api_key_id = '';
+  // Push API Secret Key
   public $api_key_secret = '';
+  // PushAPI Endpoint URL
   public $endpoint = '';
-  protected $path = '';
-  protected $method = '';
-  protected $arguments = [];
+  // CURL client object.
   public $curl;
+
+  // Endpoint path
+  protected $path = '';
+  // HTTP Method (GET/DELETE/POST)
+  protected $method = '';
+  // Endpoint path variables to replace
+  protected $path_args = [];
+
+  // ISO 8601 datetime
   protected $datetime;
 
   /**
@@ -56,7 +66,7 @@ class Base extends PushAPI {
    */
   protected function Path() {
     $params = array();
-    foreach ($this->arguments as $argument => $value) {
+    foreach ($this->path_args as $argument => $value) {
       $params["{{$argument}}"] = $value;
     }
     $path = str_replace(array_keys($params), array_values($params), $this->path);
@@ -68,7 +78,7 @@ class Base extends PushAPI {
    */
   protected function PreprocessData($method, $path, Array $path_args = [], Array $vars = []) {
     $this->method = $method;
-    $this->arguments = $path_args;
+    $this->path_args = $path_args;
     $this->path = $path;
   }
 

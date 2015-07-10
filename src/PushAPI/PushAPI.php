@@ -38,14 +38,14 @@ abstract class PushAPI {
   abstract protected function SetHeaders(Array $headers);
 
   /**
-   * Make SetOption method required.
-   */
-  abstract protected function SetOption($name, $value);
-
-  /**
    * Make UnsetHeaders method required.
    */
   abstract protected function UnsetHeaders(Array $headers);
+
+  /**
+   * Make SetOption method required.
+   */
+  abstract protected function SetOption($name, $value);
 
   /**
    * Make Request method required.
