@@ -22,7 +22,7 @@ class Base extends PushAPI {
   protected $datetime;
 
   /**
-   *
+   * Implements __construct().
    */
   public function __construct($key, $secret, $endpoint) {
     $this->api_key_id = $key;
@@ -33,6 +33,7 @@ class Base extends PushAPI {
   }
 
   /**
+   * Implements HHMAC().
    * Generate HMAC cryptographic hash.
    */
   protected function HHMAC($cannonical_request) {
@@ -43,7 +44,7 @@ class Base extends PushAPI {
   }
 
   /**
-   * Authentication.
+   * Implements Authentication().
    */
   protected function Authentication() {
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime);
@@ -51,7 +52,7 @@ class Base extends PushAPI {
   }
 
   /**
-   * Build a path by replacing path arguments.
+   * Implements Path().
    */
   protected function Path() {
     $params = array();
@@ -63,16 +64,16 @@ class Base extends PushAPI {
   }
 
   /**
-   * Preprocess request
+   * Implements PreprocessData().
    */
-  protected function PreprocessRequest($method, $path, Array $path_args = []) {
+  protected function PreprocessData($method, $path, Array $path_args = [], Array $vars = []) {
     $this->method = $method;
     $this->arguments = $path_args;
     $this->path = $path;
   }
 
   /**
-   * Set request headers.
+   * Implements SetHeaders().
    */
   protected function SetHeaders(Array $headers = []) {
     foreach ($headers as $property => $value) {
@@ -81,14 +82,7 @@ class Base extends PushAPI {
   }
 
   /**
-   * Set options.
-   */
-  protected function SetOption($name, $value) {
-    $this->curl->setOpt($name, $value);
-  }
-
-  /**
-   * Unset headers.
+   * Implements UnsetHeaders().
    */
   protected function UnsetHeaders(Array $headers = []) {
     foreach ($headers as $property) {
@@ -97,7 +91,14 @@ class Base extends PushAPI {
   }
 
   /**
-   * Request URL.
+   * Implements SetOption().
+   */
+  protected function SetOption($name, $value) {
+    $this->curl->setOpt($name, $value);
+  }
+
+  /**
+   * Implements Request().
    */
   protected function Request($data) {
     $method = strtoupper($this->method);
@@ -107,19 +108,23 @@ class Base extends PushAPI {
   }
 
   /**
-   * Get response.
+   * Implements Response().
    */
   protected function Response($response) {
     return $response;
   }
 
   /**
-   * GET Request.
+   * Implements Get().
    */
-  public function Get($path, Array $arguments = [], Array $data = []) {
-    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
+  public function Get($path, Array $path_args = [], Array $data = []) {
+    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
     try {
-      $this->SetHeaders(['Authorization' => $this->Authentication()]);
+      $this->SetHeaders(
+        [
+          'Authorization' => $this->Authentication()
+        ]
+      );
       return $this->Request($data);
     }
     catch (\Exception $e) {
@@ -128,13 +133,21 @@ class Base extends PushAPI {
   }
 
   /**
-   * DELETE Request.
+   * Implements Delete().
    */
-  public function Delete($path, Array $arguments = [], Array $data = []) {
-    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
+  public function Delete($path, Array $path_args = [], Array $data = []) {
+    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
     try {
-      $this->SetHeaders(['Authorization' => $this->Authentication()]);
-      $this->UnsetHeaders(['Content-Type']);
+      $this->SetHeaders(
+        [
+          'Authorization' => $this->Authentication()
+        ]
+      );
+      $this->UnsetHeaders(
+        [
+          'Content-Type'
+        ]
+      );
       return $this->Request($data);
     }
     catch (\Exception $e) {
@@ -143,10 +156,10 @@ class Base extends PushAPI {
   }
 
   /**
-   * POST Request.
+   * Implements Post().
    */
-  public function Post($path, Array $arguments = [], Array $data = []) {
-    $this->PreprocessRequest(__FUNCTION__, $path, $arguments);
+  public function Post($path, Array $path_args = [], Array $data = []) {
+    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
     try {
       return $this->Request($data);
     }

@@ -31,6 +31,7 @@ class Post extends Base {
   private $contents;
   private $metadata;
   private $json;
+  private $files = [];
 
   // Multipart data
   private $multipart = [];
@@ -44,6 +45,19 @@ class Post extends Base {
     $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
     $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $content_type . $this->contents;
     return parent::HHMAC($cannonical_request);
+  }
+
+  /**
+   * Implements PreprocessData().
+   */
+  protected function PreprocessData($method, $path, Array $path_args = [], Array $vars = []) {
+    $this->method = $method;
+    $this->arguments = $path_args;
+    $this->path = $path;
+    $this->boundary = md5(uniqid() . microtime());
+    $this->metadata = !empty($vars['metadata']) ? $vars['metadata'] : '';
+    $this->json = !empty($vars['json']) ? $vars['json'] : '';
+    $this->files = !empty($vars['files']) ? $vars['files'] : array();
   }
 
   protected function AddToMultipart($path) {
@@ -116,12 +130,9 @@ class Post extends Base {
   /**
    * Implements Post().
    */
-  public function Post($path, Array $arguments = [], Array $data = []) {
-    parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
+  public function Post($path, Array $path_args, Array $data = []) {
+    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
     try {
-      $this->boundary = md5(uniqid() . microtime());
-      $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
-      $this->json = !empty($data['json']) ? $data['json'] : '';
 
       // Submit JSON string as an article.json file.
       // Make sure you don't submit article.json if you passing json
@@ -136,7 +147,7 @@ class Post extends Base {
         ];
       }
 
-      foreach ($data['files'] as $file) {
+      foreach ($this->files as $file) {
         $this->multipart[] = $this->AddToMultipart($file);
       }
 

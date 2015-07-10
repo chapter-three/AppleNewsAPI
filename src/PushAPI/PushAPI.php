@@ -28,14 +28,14 @@ abstract class PushAPI {
   abstract protected function Path();
 
   /**
-   * Make PreprocessRequest method required.
+   * Make PreprocessData method required.
    */
-  abstract protected function PreprocessRequest($method, $path, Array $path_args = []);
+  abstract protected function PreprocessData($method, $path, Array $path_args, Array $vars);
 
   /**
    * Make SetHeaders method required.
    */
-  abstract protected function SetHeaders(Array $headers = []);
+  abstract protected function SetHeaders(Array $headers);
 
   /**
    * Make SetOption method required.
@@ -45,7 +45,7 @@ abstract class PushAPI {
   /**
    * Make UnsetHeaders method required.
    */
-  abstract protected function UnsetHeaders(Array $headers = []);
+  abstract protected function UnsetHeaders(Array $headers);
 
   /**
    * Make Request method required.
@@ -60,17 +60,17 @@ abstract class PushAPI {
   /**
    * Make Get method requried.
    */
-  abstract public function Get($path, Array $arguments);
+  abstract public function Get($path, Array $path_args, Array $data);
 
   /**
    * Make Post method requried.
    */
-  abstract public function Post($path, Array $arguments = [], Array $data);
+  abstract public function Post($path, Array $path_args, Array $data);
 
   /**
    * Make Delete method requried.
    */
-  abstract public function Delete($path, Array $arguments);
+  abstract public function Delete($path, Array $path_args, Array $data);
 
   /**
    * Implements __get().
