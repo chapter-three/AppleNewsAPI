@@ -51,10 +51,18 @@ abstract class Base {
     $this->api_key_id = $key;
     $this->api_key_secret = $secret;
     $this->endpoint = $endpoint;
-    // PHP Curl Class.
-    $this->http_client = new \Curl\Curl;
     // ISO 8601 date and time format.
     $this->datetime = gmdate(\DateTime::ISO8601);
+    // Initialize HTTP client.
+    $this->SetHTTPClient();
+  }
+
+  /**
+   * Setup HTTP client to make requests.
+   */
+  public function SetHTTPClient() {
+    // Example: $http_client = new HTTPClient();
+    $this->triggerError('No HTTP Client found', E_USER_ERROR);
   }
 
   /**

@@ -48,6 +48,13 @@ class PushAPI extends Base {
   private $multipart = [];
 
   /**
+   * Setup HTTP client to make requests.
+   */
+  public function SetHTTPClient() {
+    $this->http_client = new \Curl\Curl;
+  }
+
+  /**
    * Initialize variables needed to make a request.
    *
    * @param string $method
