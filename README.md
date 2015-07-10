@@ -62,9 +62,12 @@ $response = $PushAPI->Get('/articles/{article_id}', ['article_id' => ARTICLE_ID]
 ```php
 $response = $PushAPI->Post('/channels/{channel_id}/articles', ['channel_id' => CHANNEL_ID],
       [
-        'files' => [], // List of files to POST
-        'metadata' => '', // JSON metadata string
-        'json' => '', // Submit contents of article.json file if the file isn't provied in the `files` array
+        // List of files to POST
+        'files' => [], // required
+        // JSON metadata string
+        'metadata' => '', // optional
+        // Submit contents of article.json file if the file isn't provied in the `files` array
+        'json' => '', // optional
       ]
     );
 ```
@@ -74,6 +77,5 @@ $response = $PushAPI->Post('/channels/{channel_id}/articles', ['channel_id' => C
 1. DELETE Article
 
 ```php
-$response = $PushAP
-->Delete('/articles/{article_id}', ['article_id' => ARTICLE_ID]);
+$response = $PushAP->Delete('/articles/{article_id}', ['article_id' => ARTICLE_ID]);
 ```
