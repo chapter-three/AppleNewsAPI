@@ -176,6 +176,7 @@ class PushAPI extends Base {
 
   /**
    * Implements Delete().
+   * Deletes an article.
    */
   public function Delete($path, Array $path_args = [], Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
@@ -199,6 +200,7 @@ class PushAPI extends Base {
 
   /**
    * Implements Post().
+   * Publishes a new article to a channel.
    */
   public function Post($path, Array $path_args, Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
