@@ -29,8 +29,8 @@ class Post extends Base {
   // Post request data
   private $boundary;
   private $contents;
-
   private $metadata;
+  private $json;
 
   // Multipart data
   private $multipart = [];
@@ -80,7 +80,7 @@ class Post extends Base {
     $encoded = '';
     // Adding metadata to multipart
     if (!empty($this->metadata)) {
-      $encoded .= '--' . $this->boundary . static::EOL . static::EOL;
+      $encoded .= '--' . $this->boundary . static::EOL;
       $encoded .= $this->BuildMultipartHeaders('application/json',
         [
           'name' => 'metadata',
@@ -109,6 +109,7 @@ class Post extends Base {
    * Implements Response().
    */
   protected function Response($response) {
+    //print_r($this->contents);
     print_r($response);exit;
   }
 
@@ -118,18 +119,21 @@ class Post extends Base {
   public function Post($path, Array $arguments = [], Array $data = []) {
     parent::PreprocessRequest(__FUNCTION__, $path, $arguments);
     try {
-      $this->boundary = md5(mt_rand() . microtime());
+      $this->boundary = md5(uniqid() . microtime());
       $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
+      $this->json = !empty($data['json']) ? $data['json'] : '';
 
       // Submit JSON string as an article.json file.
-      if (!empty($data['json'])) {
-        $this->multipart[] = $this->AddToMultipart([
+      // Make sure you don't submit article.json if you passing json
+      // as a parameter to Post method.
+      if (!empty($this->json)) {
+        $this->multipart[] = [
           'name' => 'article',
           'filename' => 'article.json',
           'mimetype' => 'application/json',
-          'contents' => $data['json'],
-          'size' => strlen($data['json']),
-        ]);
+          'contents' => $this->json,
+          'size' => strlen($this->json),
+        ];
       }
 
       foreach ($data['files'] as $file) {
@@ -138,7 +142,7 @@ class Post extends Base {
 
       $this->contents = $this->EncodeMultipart($this->multipart);
 
-      $this->curl->setOpt(CURLOPT_USERAGENT, NULL);
+      $this->SetOption(CURLOPT_USERAGENT, NULL);
       $this->SetHeaders(
       	[
           'Accept'          => 'application/json',
@@ -147,7 +151,6 @@ class Post extends Base {
       	  'Authorization'   => $this->Authentication(),
       	]
       );
-      //print_r($this->contents);exit;
       return $this->Request($this->contents);
     }
     catch (\Exception $e) {
