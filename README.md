@@ -97,7 +97,7 @@ $response = $PushAPI->Post('/channels/{channel_id}/articles',
 1. DELETE Article
 
 ```php
-$response = $PushAP->Delete('/articles/{article_id}',
+$response = $PushAPI->Delete('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
   ]
