@@ -73,7 +73,7 @@ class PushAPI extends Base {
     $this->boundary = md5(uniqid() . microtime());
     $this->metadata = !empty($vars['metadata']) ? $vars['metadata'] : '';
     $this->json = !empty($vars['json']) ? $vars['json'] : '';
-    $this->files = !empty($vars['files']) ? $vars['files'] : array();
+    $this->files = !empty($vars['files']) ? $vars['files'] : [];
   }
 
   /**

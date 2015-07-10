@@ -106,7 +106,7 @@ abstract class Base {
    *   URL to create request.
    */
   protected function Path() {
-    $params = array();
+    $params = [];
     // Take arguments and pass them to the path by replacing {argument} tokens.
     foreach ($this->path_args as $argument => $value) {
       $params["{{$argument}}"] = $value;
