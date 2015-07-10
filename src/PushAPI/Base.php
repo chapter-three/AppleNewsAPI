@@ -81,6 +81,13 @@ class Base extends PushAPI {
   }
 
   /**
+   * Set options.
+   */
+  protected function SetOption($name, $value) {
+    $this->curl->setOpt($name, $value);
+  }
+
+  /**
    * Unset headers.
    */
   protected function UnsetHeaders(Array $headers = []) {
