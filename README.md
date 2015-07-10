@@ -31,7 +31,7 @@ $PushAPI = new ChapterThree\AppleNews\PushAPI(
 
 ### GET Methods
 
-*GET Channel*
+#### GET Channel
 
 ```php
 $response = $PushAPI->Get('/channels/{channel_id}',
@@ -41,7 +41,7 @@ $response = $PushAPI->Get('/channels/{channel_id}',
 );
 ```
 
-*GET Sections*
+#### GET Sections
 
 ```php
 $response = $PushAPI->Get('/channels/{channel_id}/sections',
@@ -51,7 +51,7 @@ $response = $PushAPI->Get('/channels/{channel_id}/sections',
 );
 ```
 
-*GET Section*
+#### GET Section
 
 ```php
 $response = $PushAPI->Get('/sections/{section_id}',
@@ -61,7 +61,7 @@ $response = $PushAPI->Get('/sections/{section_id}',
 );
 ```
 
-*GET Article*
+#### GET Article
 
 ```php
 $response = $PushAPI->Get('/articles/{article_id}',
@@ -73,7 +73,7 @@ $response = $PushAPI->Get('/articles/{article_id}',
 
 ### POST Methods
 
-*POST Article*
+#### POST Article
 
 ```php
 $response = $PushAPI->Post('/channels/{channel_id}/articles',
@@ -94,7 +94,7 @@ $response = $PushAPI->Post('/channels/{channel_id}/articles',
 
 ### DELETE Methods
 
-*DELETE Article*
+#### DELETE Article
 
 ```php
 $response = $PushAPI->Delete('/articles/{article_id}',
