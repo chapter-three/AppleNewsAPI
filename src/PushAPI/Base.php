@@ -2,179 +2,114 @@
 
 /**
  * @file
- * Base class for AppleNews classes.
+ * Base abstract class for AppleNews classes.
  */
 
 namespace ChapterThree\AppleNews\PushAPI;
 
 /**
- * Base class for AppleNews classes.
+ * Base abstract class for AppleNews classes.
  */
-class Base extends PushAPI {
-
-  // PushAPI API Key ID
-  public $api_key_id = '';
-  // Push API Secret Key
-  public $api_key_secret = '';
-  // PushAPI Endpoint URL
-  public $endpoint = '';
-  // HTTP client class.
-  public $http_client;
-
-  // Endpoint path
-  protected $path = '';
-  // HTTP Method (GET/DELETE/POST)
-  protected $method = '';
-  // Endpoint path variables to replace
-  protected $path_args = [];
-
-  // ISO 8601 datetime
-  protected $datetime;
+abstract class Base {
 
   /**
-   * Implements __construct().
+   * Make HHMAC method requried.
    */
-  public function __construct($key, $secret, $endpoint) {
-    $this->api_key_id = $key;
-    $this->api_key_secret = $secret;
-    $this->endpoint = $endpoint;
-    $this->http_client = new \Curl\Curl;
-    $this->datetime = gmdate(\DateTime::ISO8601);
+  abstract protected function HHMAC($cannonical_request);
+
+  /**
+   * Make Authentication method requried.
+   */
+  abstract protected function Authentication($string);
+
+  /**
+   * Make Path method requried.
+   */
+  abstract protected function Path();
+
+  /**
+   * Make PreprocessData method required.
+   */
+  abstract protected function PreprocessData($method, $path, Array $path_args, Array $vars);
+
+  /**
+   * Make SetHeaders method required.
+   */
+  abstract protected function SetHeaders(Array $headers);
+
+  /**
+   * Make UnsetHeaders method required.
+   */
+  abstract protected function UnsetHeaders(Array $headers);
+
+  /**
+   * Make Request method required.
+   */
+  abstract protected function Request($data);
+
+  /**
+   * Make Response method required.
+   */
+  abstract protected function Response($response);
+
+  /**
+   * Make SetOption method required.
+   */
+  abstract public function SetOption($name, $value);
+
+  /**
+   * Make Get method requried.
+   */
+  abstract public function Get($path, Array $path_args, Array $data);
+
+  /**
+   * Make Post method requried.
+   */
+  abstract public function Post($path, Array $path_args, Array $data);
+
+  /**
+   * Make Delete method requried.
+   */
+  abstract public function Delete($path, Array $path_args, Array $data);
+
+  /**
+   * Implements __get().
+   */
+  public function __get($name) {
+    return $this->$name;
   }
 
   /**
-   * Implements HHMAC().
-   * Generate HMAC cryptographic hash.
+   * Implements __set().
+   *
+   * Intended to be overridden by subclass.
    */
-  protected function HHMAC($cannonical_request) {
-    $key = base64_decode($this->api_key_secret);
-    $hashed = hash_hmac('sha256', $cannonical_request, $key, true);
-    $signature = rtrim(base64_encode($hashed), "\n");
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s', $this->api_key_id, strval($signature), $this->datetime);
+  public function __set($name, $value) {
+    $this->triggerError('Undefined property via __set(): ' . $name);
+    return NULL;
   }
 
   /**
-   * Implements Authentication().
+   * Implements __isset().
    */
-  protected function Authentication() {
-    $cannonical_request = strtoupper($this->method) . $this->Path() . strval($this->datetime);
-    return $this->HHMAC($cannonical_request);
+  public function __isset($name) {
+    return isset($this->$name);
   }
 
   /**
-   * Implements Path().
+   * Implements __unset().
    */
-  protected function Path() {
-    $params = array();
-    foreach ($this->path_args as $argument => $value) {
-      $params["{{$argument}}"] = $value;
-    }
-    $path = str_replace(array_keys($params), array_values($params), $this->path);
-    return $this->endpoint . $path;
+  public function __unset($name) {
+    unset($this->$name);
   }
 
   /**
-   * Implements PreprocessData().
+   * Error handler.
    */
-  protected function PreprocessData($method, $path, Array $path_args = [], Array $vars = []) {
-    $this->method = $method;
-    $this->path_args = $path_args;
-    $this->path = $path;
-  }
-
-  /**
-   * Implements SetHeaders().
-   */
-  protected function SetHeaders(Array $headers = []) {
-    foreach ($headers as $property => $value) {
-      $this->http_client->setHeader($property, $value);
-    }
-  }
-
-  /**
-   * Implements UnsetHeaders().
-   */
-  protected function UnsetHeaders(Array $headers = []) {
-    foreach ($headers as $property) {
-      $this->http_client->unsetHeader($property);
-    }
-  }
-
-  /**
-   * Implements Request().
-   */
-  protected function Request($data) {
-    $response = $this->http_client->{$this->method}($this->Path(), $data);
-    $this->http_client->close();
-    return $this->Response($response);
-  }
-
-  /**
-   * Implements Response().
-   */
-  protected function Response($response) {
-    return $response;
-  }
-
-  /**
-   * Implements SetOption().
-   */
-  public function SetOption($name, $value) {
-    $this->http_client->setOpt($name, $value);
-  }
-
-  /**
-   * Implements Get().
-   */
-  public function Get($path, Array $path_args = [], Array $data = []) {
-    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
-    try {
-      $this->SetHeaders(
-        [
-          'Authorization' => $this->Authentication()
-        ]
-      );
-      return $this->Request($data);
-    }
-    catch (\Exception $e) {
-      // Need to write ClientException handling
-    }
-  }
-
-  /**
-   * Implements Delete().
-   */
-  public function Delete($path, Array $path_args = [], Array $data = []) {
-    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
-    try {
-      $this->SetHeaders(
-        [
-          'Authorization' => $this->Authentication()
-        ]
-      );
-      $this->UnsetHeaders(
-        [
-          'Content-Type'
-        ]
-      );
-      return $this->Request($data);
-    }
-    catch (\Exception $e) {
-      // Need to write ClientException handling
-    }
-  }
-
-  /**
-   * Implements Post().
-   */
-  public function Post($path, Array $path_args = [], Array $data = []) {
-    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
-    try {
-      return $this->Request($data);
-    }
-    catch (\Exception $e) {
-      // Need to write ClientException handling
-    }
+  public function triggerError($message, $message_type = E_USER_NOTICE) {
+    $trace = debug_backtrace();
+    trigger_error($message . ' in ' . $trace[0]['file'] . ' on line ' .
+      $trace[0]['line'], $message_type);
   }
 
 }
