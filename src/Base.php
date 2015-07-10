@@ -108,7 +108,16 @@ abstract class Base {
   }
 
   /**
-   * Make PreprocessData method required.
+   * Initialize variables needed to make a request.
+   *
+   * @param string $method
+   *   Request method (POST/GET/DELETE).
+   * @param string $path
+   *   Path to API endpoint.
+   * @param array $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param array $vars
+   *   Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
   abstract protected function PreprocessData($method, $path, Array $path_args, Array $vars);
 
@@ -207,13 +216,18 @@ abstract class Base {
   abstract public function Post($path, Array $path_args, Array $data);
 
   /**
-   * Open and load file information and prepare data for multipart data.
+   * Create DELETE request to a specified endpoint.
    *
    * @param string $path
-   *   Path to a file included in the POST request.
+   *   Path to API endpoint.
+   * @param string $path_args
+   *   Endpoint path arguments to replace tokens in the path.
+   * @param string $data
+   *   Raw content of the request or associative array to pass to endpoints.
    *
-   * @return array
-   *   Associative array. The array contains information about a file.
+   * @return object
+   *   Preprocessed structured object and returns 204 No Content
+   *   on success, with no response body.
    */
   abstract public function Delete($path, Array $path_args, Array $data);
 
