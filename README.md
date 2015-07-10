@@ -22,7 +22,7 @@ $api_key_id = "";
 $api_key_secret = "";
 $endpoint = "https://endpoint_url"; // No trailing slash.
 
-$PushAPI = new ChapterThree\AppleNews\PushAPI\PushAPI(
+$PushAPI = new ChapterThree\AppleNews\PushAPI(
   $api_key_id,
   $api_key_secret,
   $endpoint

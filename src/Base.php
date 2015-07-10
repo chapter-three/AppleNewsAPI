@@ -5,7 +5,7 @@
  * Base abstract class for AppleNews classes.
  */
 
-namespace ChapterThree\AppleNews\PushAPI;
+namespace ChapterThree\AppleNews;
 
 /**
  * Base abstract class for AppleNews classes.
