@@ -193,7 +193,7 @@ class PushAPI extends Base {
   }
 
   /**
-   * Open and load file information and prepare data for multipart data.
+   * Load files and prepare them for multipart form data request.
    *
    * @param string $path
    *   Path to a file included in the POST request.
