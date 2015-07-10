@@ -26,16 +26,21 @@ class Post extends Base {
     'application/octet-stream'
   ];
 
-  // Post request data
+  // Multipat form data boundary unique string.
   private $boundary;
+  // Content to POST to the API
   private $contents;
+  // Additional metadata to post to the API.
   private $metadata;
+  // JSON string to be posted to PushAPI instead of article.json file.
   private $json;
+  // Files to be posted to PushAPI
   private $files = [];
 
   // Multipart data
   private $multipart = [];
 
+  // CRLF
   const EOL = "\r\n";
 
   /**
@@ -60,6 +65,9 @@ class Post extends Base {
     $this->files = !empty($vars['files']) ? $vars['files'] : array();
   }
 
+  /**
+   * Open and load file information and prepare data for multipart data.
+   */
   protected function AddToMultipart($path) {
     $pathinfo = pathinfo($path);
 
@@ -80,6 +88,9 @@ class Post extends Base {
     ];
   }
 
+  /**
+   * Generate Multipart data headers.
+   */
   protected function BuildMultipartHeaders($content_type, Array $params) {
     $headers = 'Content-Type: ' . $content_type . static::EOL;
     $attributes = [];
@@ -90,6 +101,9 @@ class Post extends Base {
     return $headers;
   }
 
+  /**
+   * Generate Multipart form data chunks.
+   */
   protected function EncodeMultipart(Array $file) {
     $encoded = '';
     // Adding metadata to multipart
@@ -147,12 +161,15 @@ class Post extends Base {
         ];
       }
 
+      // Process each file and generate multipart form data.
       foreach ($this->files as $file) {
         $this->multipart[] = $this->AddToMultipart($file);
       }
 
+      // Generated multipart data to POST.
       $this->contents = $this->EncodeMultipart($this->multipart);
 
+      // Make sure no USERAGENET in headers.
       $this->SetOption(CURLOPT_USERAGENT, NULL);
       $this->SetHeaders(
       	[
@@ -162,6 +179,7 @@ class Post extends Base {
       	  'Authorization'   => $this->Authentication(),
       	]
       );
+      // Send POST request.
       return $this->Request($this->contents);
     }
     catch (\Exception $e) {
