@@ -18,7 +18,7 @@ class Base extends PushAPI {
   public $api_key_secret = '';
   // PushAPI Endpoint URL
   public $endpoint = '';
-  // CURL client object.
+  // HTTP client class.
   public $http_client;
 
   // Endpoint path
@@ -104,8 +104,7 @@ class Base extends PushAPI {
    * Implements Request().
    */
   protected function Request($data) {
-    $method = strtoupper($this->method);
-    $response = $this->http_client->{$method}($this->Path(), $data);
+    $response = $this->http_client->{$this->method}($this->Path(), $data);
     $this->http_client->close();
     return $this->Response($response);
   }

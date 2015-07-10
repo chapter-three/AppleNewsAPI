@@ -12,6 +12,9 @@ namespace ChapterThree\AppleNews\PushAPI;
  */
 class Post extends Base {
 
+  // CRLF
+  const EOL = "\r\n";
+
   // Valid values for resource part Content-Type
   protected $valid_mimes = [
     'image/jpeg',
@@ -25,7 +28,6 @@ class Post extends Base {
     'application/font-opentype',
     'application/octet-stream'
   ];
-
   // Multipat form data boundary unique string.
   private $boundary;
   // Content to POST to the API
@@ -36,12 +38,8 @@ class Post extends Base {
   private $json;
   // Files to be posted to PushAPI
   private $files = [];
-
   // Multipart data
   private $multipart = [];
-
-  // CRLF
-  const EOL = "\r\n";
 
   /**
    * Implements Authentication().
@@ -105,32 +103,32 @@ class Post extends Base {
    * Generate Multipart form data chunks.
    */
   protected function EncodeMultipart(Array $file) {
-    $encoded = '';
+    $multipart = '';
     // Adding metadata to multipart
     if (!empty($this->metadata)) {
-      $encoded .= '--' . $this->boundary . static::EOL;
-      $encoded .= $this->BuildMultipartHeaders('application/json',
+      $multipart .= '--' . $this->boundary . static::EOL;
+      $multipart .= $this->BuildMultipartHeaders('application/json',
         [
-          'name' => 'metadata',
+          'name' => 'metadata'
         ]
       );
-      $encoded .= static::EOL . $this->metadata . static::EOL;
+      $multipart .= static::EOL . $this->metadata . static::EOL;
     }
     // Add files
     foreach ($file as $info) {
-      $encoded .= '--' . $this->boundary . static::EOL;
-      $encoded .= $this->BuildMultipartHeaders($info['mimetype'],
+      $multipart .= '--' . $this->boundary . static::EOL;
+      $multipart .= $this->BuildMultipartHeaders($info['mimetype'],
         [
           'filename'   => $info['filename'],
           'name'       => $info['name'],
           'size'       => $info['size']
         ]
       );
-      $encoded .= static::EOL . $info['contents'] . static::EOL;
+      $multipart .= static::EOL . $info['contents'] . static::EOL;
     }
-    $encoded .= '--' . $this->boundary  . '--';
-    $encoded .= static::EOL;
-    return $encoded;
+    $multipart .= '--' . $this->boundary  . '--';
+    $multipart .= static::EOL;
+    return $multipart;
   }
 
   /**
@@ -153,11 +151,11 @@ class Post extends Base {
       // as a parameter to Post method.
       if (!empty($this->json)) {
         $this->multipart[] = [
-          'name' => 'article',
-          'filename' => 'article.json',
-          'mimetype' => 'application/json',
-          'contents' => $this->json,
-          'size' => strlen($this->json),
+          'name'      => 'article',
+          'filename'  => 'article.json',
+          'mimetype'  => 'application/json',
+          'contents'  => $this->json,
+          'size'      => strlen($this->json),
         ];
       }
 
