@@ -63,17 +63,17 @@ class PushAPI extends Base {
    *   Path to API endpoint.
    * @param array $path_args
    *   Endpoint path arguments to replace tokens in the path.
-   * @param array $vars
+   * @param array $data
    *   Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
-  protected function PreprocessData($method, $path, Array $path_args = [], Array $vars = []) {
+  protected function PreprocessData($method, $path, Array $path_args = [], Array $data = []) {
     $this->method = $method;
     $this->path_args = $path_args;
     $this->path = $path;
     $this->boundary = md5(uniqid() . microtime());
-    $this->metadata = !empty($vars['metadata']) ? $vars['metadata'] : '';
-    $this->json = !empty($vars['json']) ? $vars['json'] : '';
-    $this->files = !empty($vars['files']) ? $vars['files'] : [];
+    $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
+    $this->json = !empty($data['json']) ? $data['json'] : '';
+    $this->files = !empty($data['files']) ? $data['files'] : [];
   }
 
   /**

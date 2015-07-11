@@ -124,10 +124,10 @@ abstract class Base {
    *   Path to API endpoint.
    * @param array $path_args
    *   Endpoint path arguments to replace tokens in the path.
-   * @param array $vars
+   * @param array $data
    *   Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
-  abstract protected function PreprocessData($method, $path, Array $path_args, Array $vars);
+  abstract protected function PreprocessData($method, $path, Array $path_args, Array $data);
 
   /**
    * Set HTTP headers.
