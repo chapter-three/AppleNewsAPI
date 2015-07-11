@@ -51,6 +51,8 @@ class PushAPI extends Base {
    * Setup HTTP client to make requests.
    */
   public function SetHTTPClient() {
+    // Use PHP Curl Class
+    // https://github.com/php-curl-class/php-curl-class
     $this->http_client = new \Curl\Curl;
   }
 
