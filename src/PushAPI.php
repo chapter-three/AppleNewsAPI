@@ -19,10 +19,10 @@ namespace ChapterThree\AppleNews;
  */
 class PushAPI extends Base {
 
-  /** @var const CRLF */
+  /** @var (const) CRLF */
   const EOL = "\r\n";
 
-  /** @var array Valid values for resource part Content-Type. */
+  /** @var (array) Valid values for resource part Content-Type. */
   protected $valid_mimes = [
     'image/jpeg',
     'image/png',
@@ -36,22 +36,22 @@ class PushAPI extends Base {
     'application/octet-stream'
   ];
 
-  /** @var string Multipat form data boundary unique string. */
+  /** @var (string) Multipat form data boundary unique string. */
   private $boundary;
 
-  /** @var string Raw HTTP request Content to POST to the API. */
+  /** @var (string) Raw HTTP request Content to POST to the API. */
   private $contents;
 
-  /** @var string Additional metadata to post to the API. */
+  /** @var (string) Additional metadata to post to the API. */
   private $metadata;
 
-  /** @var string JSON string to be posted to PushAPI instead of article.json file. */
+  /** @var (string) JSON string to be posted to PushAPI instead of article.json file. */
   private $json;
 
-  /** @var array Array of files paths to submit. Article assets e.g. images, fonts etc.. */
+  /** @var (array) Array of files paths to submit. Article assets e.g. images, fonts etc.. */
   private $files = [];
 
-  /** @var array Multipart data. */
+  /** @var (array) Multipart data. */
   private $multipart = [];
 
   /**
@@ -66,10 +66,10 @@ class PushAPI extends Base {
   /**
    * Initialize variables needed to make a request.
    *
-   * @param string $method Request method (POST/GET/DELETE).
-   * @param string $path Path to API endpoint.
-   * @param array $path_args Endpoint path arguments to replace tokens in the path.
-   * @param array $data Data to pass to the endpoint (expect for POST, see $this->Post()).
+   * @param (string) $method Request method (POST/GET/DELETE).
+   * @param (string) $path Path to API endpoint.
+   * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
+   * @param (array) $data Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
   protected function PreprocessData($method, $path, Array $path_args = [], Array $data = []) {
     // Set endpoint paths defined in abstract class and used to create requests.
@@ -83,9 +83,9 @@ class PushAPI extends Base {
   /**
    * Create GET request to a specified endpoint.
    *
-   * @param string $path Path to API endpoint.
-   * @param string $path_args Endpoint path arguments to replace tokens in the path.
-   * @param string $data Raw content of the request or associative array to pass to endpoints.
+   * @param (string) $path Path to API endpoint.
+   * @param (string) $path_args Endpoint path arguments to replace tokens in the path.
+   * @param (string) $data Raw content of the request or associative array to pass to endpoints.
    *
    * @return object Preprocessed structured object.
    */
@@ -107,9 +107,9 @@ class PushAPI extends Base {
   /**
    * Create DELETE request to a specified endpoint.
    *
-   * @param string $path Path to API endpoint.
-   * @param string $path_args Endpoint path arguments to replace tokens in the path.
-   * @param string $data Raw content of the request or associative array to pass to endpoints.
+   * @param (string) $path Path to API endpoint.
+   * @param (string) $path_args Endpoint path arguments to replace tokens in the path.
+   * @param (string) $data Raw content of the request or associative array to pass to endpoints.
    *
    * @return object Preprocessed structured object and returns 204 No Content on success, with no response body.
    */
@@ -136,9 +136,9 @@ class PushAPI extends Base {
   /**
    * Create POST request to a specified endpoint.
    *
-   * @param string $path Path to API endpoint.
-   * @param string $path_args Endpoint path arguments to replace tokens in the path.
-   * @param string $data Raw content of the request or associative array to pass to endpoints.
+   * @param (string) $path Path to API endpoint.
+   * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
+   * @param (array) $data Raw content of the request or associative array to pass to endpoints.
    *
    * @return object Preprocessed structured object.
    */
@@ -193,9 +193,9 @@ class PushAPI extends Base {
   /**
    * Load files and prepare them for multipart form data request.
    *
-   * @param string $path Path to a file included in the POST request.
+   * @param (string) $path Path to a file included in the POST request.
    *
-   * @return array Associative array. The array contains information about a file.
+   * @return (array) Associative array. The array contains information about a file.
    */
   protected function AddToMultipart($path) {
     $file = pathinfo($path);
@@ -225,8 +225,8 @@ class PushAPI extends Base {
   /**
    * Generate Multipart data headers.
    *
-   * @param string $content_type HTTP header field name.
-   * @param array $params HTTP header attributes.
+   * @param (string) $content_type HTTP header field name.
+   * @param (array) $params HTTP header attributes.
    *
    * @return string Raw HTTP header for a multipart data.
    */
@@ -243,9 +243,9 @@ class PushAPI extends Base {
   /**
    * Generate Multipart form data chunks.
    *
-   * @param array $files Associative array with information about each file (mimetype, filename, size).
+   * @param (array) $files Associative array with information about each file (mimetype, filename, size).
    *
-   * @return string Raw HTTP multipart data formatted according to the RFC.
+   * @return (string) Raw HTTP multipart data formatted according to the RFC.
    *
    * @see https://www.ietf.org/rfc/rfc2388.txt
    */
