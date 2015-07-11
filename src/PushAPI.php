@@ -14,15 +14,15 @@ namespace ChapterThree\AppleNews;
  * You can also retrieve and delete articles you've already published, 
  * and get basic information about your channel and sections.
  * 
- * @package    PushAPI
- * @subpackage Base
+ * @package    ChapterThree\AppleNews\PushAPI
+ * @subpackage ChapterThree\AppleNews\Base
  */
 class PushAPI extends Base {
 
-  // CRLF
+  /** @var const CRLF */
   const EOL = "\r\n";
 
-  // Valid values for resource part Content-Type.
+  /** @var array Valid values for resource part Content-Type. */
   protected $valid_mimes = [
     'image/jpeg',
     'image/png',
@@ -36,22 +36,22 @@ class PushAPI extends Base {
     'application/octet-stream'
   ];
 
-  // Multipat form data boundary unique string.
+  /** @var string Multipat form data boundary unique string. */
   private $boundary;
 
-  // Content to POST to the API.
+  /** @var string Raw HTTP request Content to POST to the API. */
   private $contents;
 
-  // Additional metadata to post to the API.
+  /** @var string Additional metadata to post to the API. */
   private $metadata;
 
-  // JSON string to be posted to PushAPI instead of article.json file.
+  /** @var string JSON string to be posted to PushAPI instead of article.json file. */
   private $json;
 
-  // Array of files paths to submit. Article assets e.g. images, fonts etc..
+  /** @var array Array of files paths to submit. Article assets e.g. images, fonts etc.. */
   private $files = [];
 
-  // Multipart data.
+  /** @var array Multipart data. */
   private $multipart = [];
 
   /**
@@ -59,7 +59,7 @@ class PushAPI extends Base {
    */
   public function SetHTTPClient() {
     // Use PHP Curl Class
-    // https://github.com/php-curl-class/php-curl-class
+    // @see https://github.com/php-curl-class/php-curl-class
     $this->http_client = new \Curl\Curl;
   }
 
@@ -245,7 +245,9 @@ class PushAPI extends Base {
    *
    * @param array $files Associative array with information about each file (mimetype, filename, size).
    *
-   * @return string Raw HTTP multipart data formatted according to the RFC. https://www.ietf.org/rfc/rfc2388.txt
+   * @return string Raw HTTP multipart data formatted according to the RFC.
+   *
+   * @see https://www.ietf.org/rfc/rfc2388.txt
    */
   protected function EncodeMultipart(Array $files) {
     $multipart = '';

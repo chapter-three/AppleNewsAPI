@@ -14,28 +14,28 @@ namespace ChapterThree\AppleNews;
  */
 abstract class Base {
 
-  // PushAPI API Key ID.
+  /** @var string PushAPI API Key ID. */
   public $api_key_id = '';
 
-  // Push API Secret Key.
+  /** @var string Push API Secret Key. */
   public $api_key_secret = '';
 
-  // PushAPI Endpoint URL.
+  /** @var string PushAPI Endpoint URL. */
   public $endpoint = '';
 
-  // HTTP client class.
+  /** @var object HTTP client class. */
   public $http_client;
 
-  // Endpoint path.
+  /** @var string Endpoint path. */
   protected $path = '';
 
-  // HTTP Method (GET/DELETE/POST).
+  /** @var string HTTP Method (GET/DELETE/POST). */
   protected $method = '';
 
-  // Endpoint path variables to replace.
+  /** @var array Endpoint path variables to replace. */
   protected $path_args = [];
 
-  // ISO 8601 datetime.
+  /** @var date ISO 8601 datetime. */
   protected $datetime;
 
   /**
@@ -115,7 +115,9 @@ abstract class Base {
    * @param string $method Request method (POST/GET/DELETE).
    * @param string $path Path to API endpoint.
    * @param array $path_args Endpoint path arguments to replace tokens in the path.
-   * @param array $data Data to pass to the endpoint (expect for POST, see $this->Post()).
+   * @param array $data Data to pass to the endpoint.
+   *
+   * @see PushAPI::Post().
    */
   protected function PreprocessData($method, $path, Array $path_args, Array $data) {
     $this->method = $method;
@@ -255,7 +257,9 @@ abstract class Base {
    * Error handler.
    *
    * @param string $message Error message to display.
-   * @param const $message_type http://php.net/manual/en/errorfunc.constants.php
+   * @param const $message_type Predefined Constants
+   *
+   * @see http://php.net/manual/en/errorfunc.constants.php
    */
   public function triggerError($message, $message_type = E_USER_NOTICE) {
     $trace = debug_backtrace();
