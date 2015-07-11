@@ -57,7 +57,7 @@ class PushAPI extends Base {
   /**
    * Setup HTTP client to make requests.
    */
-  public function SetHTTPClient() {
+  public function setHTTPClient() {
     // Use PHP Curl Class
     // @see https://github.com/php-curl-class/php-curl-class
     $this->http_client = new \Curl\Curl;
@@ -71,9 +71,9 @@ class PushAPI extends Base {
    * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
    * @param (array) $data Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
-  protected function PreprocessData($method, $path, Array $path_args = [], Array $data = []) {
+  protected function initVars($method, $path, Array $path_args, Array $data) {
     // Set endpoint paths defined in abstract class and used to create requests.
-    parent::PreprocessData($method, $path, $path_args, $data);
+    parent::initVars($method, $path, $path_args, $data);
     $this->boundary = md5(uniqid() . microtime());
     $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
     $this->json = !empty($data['json']) ? $data['json'] : '';
@@ -89,15 +89,15 @@ class PushAPI extends Base {
    *
    * @return object Preprocessed structured object.
    */
-  public function Get($path, Array $path_args = [], Array $data = []) {
-    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
+  public function get($path, Array $path_args = [], Array $data = []) {
+    parent::get($path, $path_args, $data);
     try {
-      $this->SetHeaders(
+      $this->setHeaders(
         [
-          'Authorization' => $this->Authentication()
+          'Authorization' => $this->auth()
         ]
       );
-      return $this->Request($data);
+      return $this->request($data);
     }
     catch (Exception $e) {
       $this->triggerError($e->getMessage());
@@ -113,20 +113,20 @@ class PushAPI extends Base {
    *
    * @return object Preprocessed structured object and returns 204 No Content on success, with no response body.
    */
-  public function Delete($path, Array $path_args = [], Array $data = []) {
-    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
+  public function delete($path, Array $path_args = [], Array $data = []) {
+    parent::delete($path, $path_args, $data);
     try {
-      $this->SetHeaders(
+      $this->setHeaders(
         [
-          'Authorization' => $this->Authentication()
+          'Authorization' => $this->auth()
         ]
       );
-      $this->UnsetHeaders(
+      $this->unsetHeaders(
         [
           'Content-Type'
         ]
       );
-      return $this->Request($data);
+      return $this->request($data);
     }
     catch (Exception $e) {
       $this->triggerError($e->getMessage());
@@ -142,8 +142,8 @@ class PushAPI extends Base {
    *
    * @return object Preprocessed structured object.
    */
-  public function Post($path, Array $path_args, Array $data = []) {
-    $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
+  public function post($path, Array $path_args, Array $data = []) {
+    parent::post($path, $path_args, $data);
     try {
 
       // Submit JSON string as an article.json file.
@@ -161,14 +161,14 @@ class PushAPI extends Base {
 
       // Process each file and generate multipart form data.
       foreach ($this->files as $file) {
-        $this->multipart[] = $this->AddToMultipart($file);
+        $this->multipart[] = $this->addToMultipart($file);
       }
 
       // Set content type and boundary token.
       $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
 
       // Generated multipart data to POST.
-      $this->contents = $this->EncodeMultipart($this->multipart);
+      $this->contents = $this->encodeMultipart($this->multipart);
       // String to add to generate Authorization hash.
       $data_string = $content_type . $this->contents;
 
@@ -179,11 +179,11 @@ class PushAPI extends Base {
           'Accept'          => 'application/json',
           'Content-Type'    => $content_type,
           'Content-Length'  => strlen($this->contents),
-          'Authorization'   => $this->Authentication($data_string)
+          'Authorization'   => $this->auth($data_string)
         ]
       );
       // Send POST request.
-      return $this->Request($this->contents);
+      return $this->request($this->contents);
     }
     catch (Exception $e) {
       $this->triggerError($e->getMessage());
@@ -197,7 +197,7 @@ class PushAPI extends Base {
    *
    * @return (array) Associative array. The array contains information about a file.
    */
-  protected function AddToMultipart($path) {
+  protected function addToMultipart($path) {
     $file = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -230,7 +230,7 @@ class PushAPI extends Base {
    *
    * @return string Raw HTTP header for a multipart data.
    */
-  protected function BuildMultipartHeaders($content_type, Array $params) {
+  protected function buildMultipartHeaders($content_type, Array $params) {
     $headers = 'Content-Type: ' . $content_type . static::EOL;
     $attributes = [];
     foreach ($params as $name => $value) {
@@ -249,12 +249,12 @@ class PushAPI extends Base {
    *
    * @see https://www.ietf.org/rfc/rfc2388.txt
    */
-  protected function EncodeMultipart(Array $files) {
+  protected function encodeMultipart(Array $files) {
     $multipart = '';
     // Adding metadata to multipart
     if (!empty(json_decode($this->metadata))) {
       $multipart .= '--' . $this->boundary . static::EOL;
-      $multipart .= $this->BuildMultipartHeaders('application/json',
+      $multipart .= $this->buildMultipartHeaders('application/json',
         [
           'name' => 'metadata'
         ]
@@ -264,7 +264,7 @@ class PushAPI extends Base {
     // Add files
     foreach ($files as $file) {
       $multipart .= '--' . $this->boundary . static::EOL;
-      $multipart .= $this->BuildMultipartHeaders($file['mimetype'],
+      $multipart .= $this->buildMultipartHeaders($file['mimetype'],
         [
           'filename'   => $file['filename'],
           'name'       => $file['name'],

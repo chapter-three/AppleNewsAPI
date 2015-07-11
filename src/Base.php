@@ -59,7 +59,7 @@ abstract class Base {
   /**
    * Setup HTTP client to make requests.
    */
-  public function SetHTTPClient() {
+  public function setHTTPClient() {
     // Example: $this->http_client = new \Curl\Curl;
     $this->triggerError('No HTTP Client found', E_USER_ERROR);
   }
@@ -71,7 +71,7 @@ abstract class Base {
    *
    * @return (string) Authorization token used in the HTTP headers.
    */
-  protected function HHMAC($data = '') {
+  protected function hhmac($data = '') {
     $key = base64_decode($this->api_key_secret);
     $hashed = hash_hmac('sha256', $data, $key, true);
     $encoded = base64_encode($hashed);
@@ -89,9 +89,9 @@ abstract class Base {
    *
    * @return (string) HMAC cryptographic hash
    */
-  protected function Authentication($string = '') {
-    $data = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $string;
-    return $this->HHMAC($data);
+  protected function auth($string = '') {
+    $data = strtoupper($this->method) . $this->path() . strval($this->datetime) . $string;
+    return $this->hhmac($data);
   }
 
   /**
@@ -99,7 +99,7 @@ abstract class Base {
    *
    * @return (string) URL to create request.
    */
-  protected function Path() {
+  protected function path() {
     $params = [];
     // Take arguments and pass them to the path by replacing {argument} tokens.
     foreach ($this->path_args as $argument => $value) {
@@ -119,7 +119,7 @@ abstract class Base {
    *
    * @see PushAPI::Post().
    */
-  protected function PreprocessData($method, $path, Array $path_args, Array $data) {
+  protected function initVars($method, $path, Array $path_args, Array $data) {
     $this->method = $method;
     $this->path_args = $path_args;
     $this->path = $path;
@@ -130,7 +130,7 @@ abstract class Base {
    *
    * @param (array) $headers Associative array [header field name => value].
    */
-  protected function SetHeaders(Array $headers = []) {
+  protected function setHeaders(Array $headers = []) {
     foreach ($headers as $property => $value) {
       $this->http_client->setHeader($property, $value);
     }
@@ -141,7 +141,7 @@ abstract class Base {
    *
    * @param (array) $headers Associative array [header1, header2, ..., headerN].
    */
-  protected function UnsetHeaders(Array $headers = []) {
+  protected function unsetHeaders(Array $headers = []) {
     foreach ($headers as $property) {
       $this->http_client->unsetHeader($property);
     }
@@ -154,10 +154,10 @@ abstract class Base {
    *
    * @return (object) Structured object.
    */
-  protected function Request($data) {
-    $response = $this->http_client->{$this->method}($this->Path(), $data);
+  protected function request($data) {
+    $response = $this->http_client->{$this->method}($this->path(), $data);
     $this->http_client->close();
-    return $this->Response($response);
+    return $this->response($response);
   }
 
   /**
@@ -167,7 +167,7 @@ abstract class Base {
    *
    * @return (object) Preprocessed structured object.
    */
-  protected function Response($response) {
+  protected function response($response) {
     return $response;
   }
 
@@ -177,7 +177,7 @@ abstract class Base {
    * @param (string) $name The CURLOPT_XXX option to set.
    * @param (string) $value The value to be set on option.
    */
-  public function SetOption($name, $value) {
+  public function setOption($name, $value) {
     // cURL method to set options and it's values.
     $this->http_client->setOpt($name, $value);
   }
@@ -191,7 +191,9 @@ abstract class Base {
    *
    * @return object Preprocessed structured object.
    */
-  abstract public function Get($path, Array $path_args, Array $data);
+  public function get($path, Array $path_args, Array $data) {
+    $this->initVars(__FUNCTION__, $path, $path_args, $data);
+  }
 
   /**
    * Create POST request to a specified endpoint.
@@ -202,7 +204,9 @@ abstract class Base {
    *
    * @return object Preprocessed structured object.
    */
-  abstract public function Post($path, Array $path_args, Array $data);
+  public function post($path, Array $path_args, Array $data) {
+    $this->initVars(__FUNCTION__, $path, $path_args, $data);
+  }
 
   /**
    * Create DELETE request to a specified endpoint.
@@ -213,7 +217,9 @@ abstract class Base {
    *
    * @return object Preprocessed structured object and returns 204 No Content on success, with no response body.
    */
-  abstract public function Delete($path, Array $path_args, Array $data);
+  public function delete($path, Array $path_args, Array $data) {
+    $this->initVars(__FUNCTION__, $path, $path_args, $data);
+  }
 
   /**
    * Implements __get().
