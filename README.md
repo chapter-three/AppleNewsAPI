@@ -87,7 +87,7 @@ $response = $PushAPI->Post('/channels/{channel_id}/articles',
   ],
   [
     // List of files to POST
-    'files' => [], // required
+    'files' => [], // not required when `json` not empty
     // JSON metadata string
     'metadata' => '', // optional
     // Submit contents of the article.json file if

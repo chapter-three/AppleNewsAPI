@@ -2,13 +2,20 @@
 
 /**
  * @file
- * AppleNews PushAPI class.
+ * AppleNews integration class.
  */
 
 namespace ChapterThree\AppleNews;
 
 /**
- * Base class for AppleNews classes.
+ * PushAPI
+ *
+ * The Push API is a RESTful API that allows you to publish articles.
+ * You can also retrieve and delete articles you've already published, 
+ * and get basic information about your channel and sections.
+ * 
+ * @package    PushAPI
+ * @subpackage Base
  */
 class PushAPI extends Base {
 
@@ -41,7 +48,7 @@ class PushAPI extends Base {
   // JSON string to be posted to PushAPI instead of article.json file.
   private $json;
 
-  // Files to be posted to PushAPI.
+  // Array of files paths to submit. Article assets e.g. images, fonts etc..
   private $files = [];
 
   // Multipart data.
@@ -59,19 +66,14 @@ class PushAPI extends Base {
   /**
    * Initialize variables needed to make a request.
    *
-   * @param string $method
-   *   Request method (POST/GET/DELETE).
-   * @param string $path
-   *   Path to API endpoint.
-   * @param array $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param array $data
-   *   Data to pass to the endpoint (expect for POST, see $this->Post()).
+   * @param string $method Request method (POST/GET/DELETE).
+   * @param string $path Path to API endpoint.
+   * @param array $path_args Endpoint path arguments to replace tokens in the path.
+   * @param array $data Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
   protected function PreprocessData($method, $path, Array $path_args = [], Array $data = []) {
-    $this->method = $method;
-    $this->path_args = $path_args;
-    $this->path = $path;
+    // Set endpoint paths defined in abstract class and used to create requests.
+    parent::PreprocessData($method, $path, $path_args, $data);
     $this->boundary = md5(uniqid() . microtime());
     $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
     $this->json = !empty($data['json']) ? $data['json'] : '';
@@ -81,15 +83,11 @@ class PushAPI extends Base {
   /**
    * Create GET request to a specified endpoint.
    *
-   * @param string $path
-   *   Path to API endpoint.
-   * @param string $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param string $data
-   *   Raw content of the request or associative array to pass to endpoints.
+   * @param string $path Path to API endpoint.
+   * @param string $path_args Endpoint path arguments to replace tokens in the path.
+   * @param string $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return object
-   *   Preprocessed structured object.
+   * @return object Preprocessed structured object.
    */
   public function Get($path, Array $path_args = [], Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
@@ -109,16 +107,11 @@ class PushAPI extends Base {
   /**
    * Create DELETE request to a specified endpoint.
    *
-   * @param string $path
-   *   Path to API endpoint.
-   * @param string $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param string $data
-   *   Raw content of the request or associative array to pass to endpoints.
+   * @param string $path Path to API endpoint.
+   * @param string $path_args Endpoint path arguments to replace tokens in the path.
+   * @param string $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return object
-   *   Preprocessed structured object and returns 204 No Content
-   *   on success, with no response body.
+   * @return object Preprocessed structured object and returns 204 No Content on success, with no response body.
    */
   public function Delete($path, Array $path_args = [], Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
@@ -143,15 +136,11 @@ class PushAPI extends Base {
   /**
    * Create POST request to a specified endpoint.
    *
-   * @param string $path
-   *   Path to API endpoint.
-   * @param string $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param string $data
-   *   Raw content of the request or associative array to pass to endpoints.
+   * @param string $path Path to API endpoint.
+   * @param string $path_args Endpoint path arguments to replace tokens in the path.
+   * @param string $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return object
-   *   Preprocessed structured object.
+   * @return object Preprocessed structured object.
    */
   public function Post($path, Array $path_args, Array $data = []) {
     $this->PreprocessData(__FUNCTION__, $path, $path_args, $data);
@@ -204,14 +193,12 @@ class PushAPI extends Base {
   /**
    * Load files and prepare them for multipart form data request.
    *
-   * @param string $path
-   *   Path to a file included in the POST request.
+   * @param string $path Path to a file included in the POST request.
    *
-   * @return array
-   *   Associative array. The array contains information about a file.
+   * @return array Associative array. The array contains information about a file.
    */
   protected function AddToMultipart($path) {
-    $pathinfo = pathinfo($path);
+    $file = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimetype = finfo_file($finfo, $path);
@@ -227,9 +214,9 @@ class PushAPI extends Base {
     $contents = file_get_contents($path);
 
     return [
-      'name'      => str_replace(' ', '-', $pathinfo['filename']),
-      'filename'  => $pathinfo['basename'],
-      'mimetype'  => ($pathinfo['extension'] == 'json') ? 'application/json' : $mimetype,
+      'name'      => str_replace(' ', '-', $file['filename']),
+      'filename'  => $file['basename'],
+      'mimetype'  => ($file['extension'] == 'json') ? 'application/json' : $mimetype,
       'contents'  => $contents,
       'size'      => strlen($contents)
     ];
@@ -238,13 +225,10 @@ class PushAPI extends Base {
   /**
    * Generate Multipart data headers.
    *
-   * @param string $content_type
-   *   HTTP header field name.
-   * @param array $params
-   *   HTTP header attributes.
+   * @param string $content_type HTTP header field name.
+   * @param array $params HTTP header attributes.
    *
-   * @return string
-   *   Raw HTTP header for a multipart data.
+   * @return string Raw HTTP header for a multipart data.
    */
   protected function BuildMultipartHeaders($content_type, Array $params) {
     $headers = 'Content-Type: ' . $content_type . static::EOL;
@@ -259,17 +243,14 @@ class PushAPI extends Base {
   /**
    * Generate Multipart form data chunks.
    *
-   * @param array $files
-   *   Associative array with information about each file (mimetype, filename, size).
+   * @param array $files Associative array with information about each file (mimetype, filename, size).
    *
-   * @return string
-   *   Raw HTTP multipart data formatted according to the RFC.
-   *   https://www.ietf.org/rfc/rfc2388.txt
+   * @return string Raw HTTP multipart data formatted according to the RFC. https://www.ietf.org/rfc/rfc2388.txt
    */
   protected function EncodeMultipart(Array $files) {
     $multipart = '';
     // Adding metadata to multipart
-    if (!empty($this->metadata)) {
+    if (!empty(json_decode($this->metadata))) {
       $multipart .= '--' . $this->boundary . static::EOL;
       $multipart .= $this->BuildMultipartHeaders('application/json',
         [
@@ -279,16 +260,16 @@ class PushAPI extends Base {
       $multipart .= static::EOL . $this->metadata . static::EOL;
     }
     // Add files
-    foreach ($files as $info) {
+    foreach ($files as $file) {
       $multipart .= '--' . $this->boundary . static::EOL;
-      $multipart .= $this->BuildMultipartHeaders($info['mimetype'],
+      $multipart .= $this->BuildMultipartHeaders($file['mimetype'],
         [
-          'filename'   => $info['filename'],
-          'name'       => $info['name'],
-          'size'       => $info['size']
+          'filename'   => $file['filename'],
+          'name'       => $file['name'],
+          'size'       => $file['size']
         ]
       );
-      $multipart .= static::EOL . $info['contents'] . static::EOL;
+      $multipart .= static::EOL . $file['contents'] . static::EOL;
     }
     $multipart .= '--' . $this->boundary  . '--';
     $multipart .= static::EOL;

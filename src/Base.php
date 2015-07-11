@@ -8,7 +8,9 @@
 namespace ChapterThree\AppleNews;
 
 /**
- * Base abstract class for AppleNews classes.
+ * PushAPI Abstract class
+ * 
+ * @package    Base
  */
 abstract class Base {
 
@@ -39,12 +41,9 @@ abstract class Base {
   /**
    * Initialize variables needed in the communication with the API.
    *
-   * @param string $key
-   *   API Key.
-   * @param string $secret
-   *   API Secret Key.
-   * @param string $endpoint
-   *   API endpoint URL.
+   * @param string $key API Key.
+   * @param string $secret API Secret Key.
+   * @param string $endpoint API endpoint URL.
    */
   public function __construct($key, $secret, $endpoint) {
     // Set API required variables.
@@ -68,11 +67,9 @@ abstract class Base {
   /**
    * Generate HMAC cryptographic hash.
    *
-   * @param string $data
-   *   Message to be hashed.
+   * @param string $data Message to be hashed.
    *
-   * @return string
-   *   Authorization token used in the HTTP headers.
+   * @return string Authorization token used in the HTTP headers.
    */
   protected function HHMAC($data = '') {
     $key = base64_decode($this->api_key_secret);
@@ -88,11 +85,9 @@ abstract class Base {
   /**
    * Create canonical version of the request as a byte-wise concatenation.
    *
-   * @param string $string
-   *   String to concatenate (see POST method).
+   * @param string $string String to concatenate (see POST method).
    *
-   * @return string
-   *   HMAC cryptographic hash
+   * @return string HMAC cryptographic hash
    */
   protected function Authentication($string = '') {
     $data = strtoupper($this->method) . $this->Path() . strval($this->datetime) . $string;
@@ -102,8 +97,7 @@ abstract class Base {
   /**
    * Generate URL to request.
    *
-   * @return string
-   *   URL to create request.
+   * @return string URL to create request.
    */
   protected function Path() {
     $params = [];
@@ -118,22 +112,21 @@ abstract class Base {
   /**
    * Initialize variables needed to make a request.
    *
-   * @param string $method
-   *   Request method (POST/GET/DELETE).
-   * @param string $path
-   *   Path to API endpoint.
-   * @param array $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param array $data
-   *   Data to pass to the endpoint (expect for POST, see $this->Post()).
+   * @param string $method Request method (POST/GET/DELETE).
+   * @param string $path Path to API endpoint.
+   * @param array $path_args Endpoint path arguments to replace tokens in the path.
+   * @param array $data Data to pass to the endpoint (expect for POST, see $this->Post()).
    */
-  abstract protected function PreprocessData($method, $path, Array $path_args, Array $data);
+  protected function PreprocessData($method, $path, Array $path_args, Array $data) {
+    $this->method = $method;
+    $this->path_args = $path_args;
+    $this->path = $path;
+  }
 
   /**
    * Set HTTP headers.
    *
-   * @param array $headers
-   *   Associative array [header field name => value].
+   * @param array $headers Associative array [header field name => value].
    */
   protected function SetHeaders(Array $headers = []) {
     foreach ($headers as $property => $value) {
@@ -144,8 +137,7 @@ abstract class Base {
   /**
    * Remove specified header names from HTTP request.
    *
-   * @param array $headers
-   *   Associative array [header1, header2, ..., headerN].
+   * @param array $headers Associative array [header1, header2, ..., headerN].
    */
   protected function UnsetHeaders(Array $headers = []) {
     foreach ($headers as $property) {
@@ -156,11 +148,9 @@ abstract class Base {
   /**
    * Create HTTP request.
    *
-   * @param mixed $data
-   *   Raw content of the request or associative array to pass to endpoints.
+   * @param mixed $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return object
-   *   Structured object.
+   * @return object Structured object.
    */
   protected function Request($data) {
     $response = $this->http_client->{$this->method}($this->Path(), $data);
@@ -171,11 +161,9 @@ abstract class Base {
   /**
    * Preprocess HTTP response.
    *
-   * @param object $response
-   *   Structured object.
+   * @param object $response Structured object.
    *
-   * @return object
-   *   Preprocessed structured object.
+   * @return object Preprocessed structured object.
    */
   protected function Response($response) {
     return $response;
@@ -184,63 +172,51 @@ abstract class Base {
   /**
    * Sets an option on the given cURL session handle.
    * 
-   * @param string $name
-   *   The CURLOPT_XXX option to set.
-   * @param string $value
-   *   The value to be set on option.
+   * @param string $name The CURLOPT_XXX option to set.
+   * @param string $value The value to be set on option.
    */
   public function SetOption($name, $value) {
+    // cURL method to set options and it's values.
     $this->http_client->setOpt($name, $value);
   }
 
   /**
    * Create GET request to a specified endpoint.
    *
-   * @param string $path
-   *   Path to API endpoint.
-   * @param string $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param string $data
-   *   Raw content of the request or associative array to pass to endpoints.
+   * @param string $path Path to API endpoint.
+   * @param string $path_args Endpoint path arguments to replace tokens in the path.
+   * @param string $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return object
-   *   Preprocessed structured object.
+   * @return object Preprocessed structured object.
    */
   abstract public function Get($path, Array $path_args, Array $data);
 
   /**
    * Create POST request to a specified endpoint.
    *
-   * @param string $path
-   *   Path to API endpoint.
-   * @param string $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param string $data
-   *   Raw content of the request or associative array to pass to endpoints.
+   * @param string $path Path to API endpoint.
+   * @param string $path_args Endpoint path arguments to replace tokens in the path.
+   * @param string $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return object
-   *   Preprocessed structured object.
+   * @return object Preprocessed structured object.
    */
   abstract public function Post($path, Array $path_args, Array $data);
 
   /**
    * Create DELETE request to a specified endpoint.
    *
-   * @param string $path
-   *   Path to API endpoint.
-   * @param string $path_args
-   *   Endpoint path arguments to replace tokens in the path.
-   * @param string $data
-   *   Raw content of the request or associative array to pass to endpoints.
+   * @param string $path Path to API endpoint.
+   * @param string $path_args Endpoint path arguments to replace tokens in the path.
+   * @param string $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return object
-   *   Preprocessed structured object and returns 204 No Content
-   *   on success, with no response body.
+   * @return object Preprocessed structured object and returns 204 No Content on success, with no response body.
    */
   abstract public function Delete($path, Array $path_args, Array $data);
 
   /**
    * Implements __get().
+   *
+   * @param mixed $name Property name.
    */
   public function __get($name) {
     return $this->$name;
@@ -249,7 +225,8 @@ abstract class Base {
   /**
    * Implements __set().
    *
-   * Intended to be overridden by subclass.
+   * @param mixed $name Property name.
+   * @param mixed $value Property value. 
    */
   public function __set($name, $value) {
     $this->triggerError('Undefined property via __set(): ' . $name);
@@ -258,6 +235,8 @@ abstract class Base {
 
   /**
    * Implements __isset().
+   *
+   * @param mixed $name Property name.
    */
   public function __isset($name) {
     return isset($this->$name);
@@ -265,6 +244,8 @@ abstract class Base {
 
   /**
    * Implements __unset().
+   *
+   * @param mixed $name Property name.
    */
   public function __unset($name) {
     unset($this->$name);
@@ -272,6 +253,9 @@ abstract class Base {
 
   /**
    * Error handler.
+   *
+   * @param string $message Error message to display.
+   * @param const $message_type http://php.net/manual/en/errorfunc.constants.php
    */
   public function triggerError($message, $message_type = E_USER_NOTICE) {
     $trace = debug_backtrace();
