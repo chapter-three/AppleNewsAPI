@@ -15,6 +15,9 @@ use Psr\Http\Message\RequestInterface;
  */
 class PushAPITest extends PHPUnit_Framework_TestCase {
 
+  /** @var (const) CRLF */
+  const EOL = "\r\n";
+
   const API_KEY_ID = '1e3gfc5e-e9f8-4232-a6be-17bf40edad09';
   const API_KEY_SECRET = 'qygOz6+eUsIr1j/YkStHUFP2Wv0SbNZ5RStxQ+lagoA=';
   const CHANNEL_ID = '63a75491-2c4d-3530-af91-819be8c3ace0';
@@ -30,6 +33,23 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
   private $PushAPI;
   private $fileroot;
   private $files = [];
+
+  /** @var (array) Valid values for resource part Content-Type. */
+  protected $valid_mimes = [
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'application/font-sfnt',
+    'application/x-font-truetype',
+    'application/font-truetype',
+    'application/vnd.ms-opentype',
+    'application/x-font-opentype',
+    'application/font-opentype',
+    'application/octet-stream'
+  ];
+
+  /** @var (string) Multipat data boundary unique string. */
+  private $boundary;
 
   protected function setUp() {
 
@@ -93,7 +113,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
         ])
       );
 
-    $request = $this->http_client->Get('/channels/{channel_id}/sections',
+    $request = $this->http_client->get('/channels/{channel_id}/sections',
       [
         'channel_id' => static::CHANNEL_ID
       ]
@@ -118,7 +138,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
         ])
       );
 
-    $request = $this->http_client->Delete('/articles/{article_id}',
+    $request = $this->http_client->delete('/articles/{article_id}',
       [
         'article_id' => static::ARTICLE_ID
       ]
@@ -146,7 +166,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
         ])
       );
 
-    $request = $this->http_client->Post('/channels/{channel_id}/articles',
+    $request = $this->http_client->post('/channels/{channel_id}/articles',
       [
         'channel_id' => static::CHANNEL_ID
       ],
@@ -154,6 +174,94 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
         'files' => $this->files
       ]
     );
+
+  }
+
+  private function getFileInformation($path) {
+    $file = pathinfo($path);
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimetype = finfo_file($finfo, $path);
+
+    if (!in_array($mimetype, $this->valid_mimes)) {
+      if ($mimetype == 'text/plain') {
+        $mimetype = 'application/octet-stream';
+      }
+      else {
+        throw new \Exception('Unsupported mime type: ' . $mimetype);
+      }
+    }
+
+    $contents = file_get_contents($path);
+
+    return [
+      'name'      => str_replace(' ', '-', $file['filename']),
+      'filename'  => $file['basename'],
+      'mimetype'  => ($file['extension'] == 'json') ? 'application/json' : $mimetype,
+      'contents'  => $contents,
+      'size'      => strlen($contents)
+    ];
+  }
+
+  private function multipartPart(Array $attributes, $mimetype = null, $contents = null) {
+    $multipart = '';
+    $headers = [];
+    foreach ($attributes as $name => $value) {
+      $headers[] = $name . '=' . $value;
+    }
+    // Generate multipart data and contents.
+    $multipart .= '--' . static::BOUNDARY . static::EOL;
+    $multipart .= 'Content-Type: ' . $mimetype . static::EOL;
+    $multipart .= 'Content-Disposition: form-data; ' . join('; ', $headers) . static::EOL;
+    $multipart .= static::EOL . $contents . static::EOL;
+    return $multipart;
+  }
+
+  private function multipartFinalize(Array $multiparts = []) {
+    $contents = '';
+    foreach ($multiparts as $multipart) {
+      $contents .= $multipart;
+    }
+    $contents .= '--' . static::BOUNDARY  . '--';
+    $contents .= static::EOL;
+    return $contents;
+  }
+
+  public function testGetFileInformation() {
+
+    // Process each file and generate multipart form data.
+    foreach ($this->files as $path) {
+      // Load file information.
+      $file = $this->getFileInformation($path);
+      $expected = 
+  	    [
+  	      'name'      => 'image',
+  	      'filename'  => 'image.gif',
+  	      'mimetype'  => 'image/gif',
+  	      'contents'  => base64_decode(static::BASE64_1X1_GIF),
+  	      'size'      => strlen(base64_decode(static::BASE64_1X1_GIF))
+  	    ];
+       $this->assertEquals(0, count(array_diff($file, $expected)));
+    }
+
+  }
+
+  public function testMultipartPart() {
+
+    // Process each file and generate multipart form data.
+    foreach ($this->files as $path) {
+      // Load file information.
+      $file = $this->getFileInformation($path);
+      $multiparts[] = $this->multipartPart(
+        [
+          'filename'   => $file['filename'],
+          'name'       => $file['name'],
+          'size'       => $file['size']
+        ],
+        $file['mimetype'],
+        $file['contents']
+      );
+    }
 
   }
 
