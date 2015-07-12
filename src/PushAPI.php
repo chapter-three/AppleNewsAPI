@@ -36,23 +36,20 @@ class PushAPI extends Base {
     'application/octet-stream'
   ];
 
-  /** @var (string) Multipat form data boundary unique string. */
+  /** @var (string) Multipat data boundary unique string. */
   private $boundary;
 
-  /** @var (string) Raw HTTP request Content to POST to the API. */
-  private $contents;
-
-  /** @var (string) Additional metadata to post to the API. */
-  private $metadata;
-
-  /** @var (string) JSON string to be posted to PushAPI instead of article.json file. */
-  private $json;
-
-  /** @var (array) Array of files paths to submit. Article assets e.g. images, fonts etc.. */
-  private $files = [];
-
-  /** @var (array) Multipart data. */
-  private $multipart = [];
+  /**
+   * Initialize variables needed in the communication with the API.
+   *
+   * @param (string) $key API Key.
+   * @param (string) $secret API Secret Key.
+   * @param (string) $endpoint API endpoint URL.
+   */
+  public function __construct($key, $secret, $endpoint) {
+    parent::__construct($key, $secret, $endpoint);
+    $this->boundary = md5(uniqid() . microtime());
+  }
 
   /**
    * Setup HTTP client to make requests.
@@ -61,23 +58,6 @@ class PushAPI extends Base {
     // Use PHP Curl Class
     // @see https://github.com/php-curl-class/php-curl-class
     $this->http_client = new \Curl\Curl;
-  }
-
-  /**
-   * Initialize variables needed to make a request.
-   *
-   * @param (string) $method Request method (POST/GET/DELETE).
-   * @param (string) $path Path to API endpoint.
-   * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
-   * @param (array) $data Data to pass to the endpoint (expect for POST, see $this->Post()).
-   */
-  protected function initVars($method, $path, Array $path_args, Array $data) {
-    // Set endpoint paths defined in abstract class and used to create requests.
-    parent::initVars($method, $path, $path_args, $data);
-    $this->boundary = md5(uniqid() . microtime());
-    $this->metadata = !empty($data['metadata']) ? $data['metadata'] : '';
-    $this->json = !empty($data['json']) ? $data['json'] : '';
-    $this->files = !empty($data['files']) ? $data['files'] : [];
   }
 
   /**
@@ -134,31 +114,64 @@ class PushAPI extends Base {
    */
   public function post($path, Array $path_args, Array $data = []) {
     parent::post($path, $path_args, $data);
-    // Submit JSON string as an article.json file.
+
+    // JSON string to be posted to PushAPI instead of article.json file.
+    $json = !empty($data['json']) ? $data['json'] : '';
+
+    // Article assests (article.json, images, fonts etc...).
+    $files = !empty($data['files']) ? $data['files'] : [];
+
+    // Raw HTTP contents of the POST request.
+    $multiparts = [];
+
     // Make sure you don't submit article.json if you passing json
     // as a parameter to Post method.
-    if (!empty($this->json)) {
-      $this->multipart[] = [
-        'name'      => 'article',
-        'filename'  => 'article.json',
-        'mimetype'  => 'application/json',
-        'contents'  => $this->json,
-        'size'      => strlen($this->json)
-      ];
+    if (!empty($json)) {
+      $multiparts[] = $this->multipartPart(
+        [
+          'name'      => 'article',
+          'filename'  => 'article.json',
+          'mimetype'  => 'application/json',
+          'size'      => strlen($json)
+        ],
+        'application/json',
+        $json
+      );
+    }
+
+    if (!empty($data['metadata'])) {
+      $multiparts[] = $this->multipartPart(
+        [
+          'name' => 'metadata'
+        ],
+        'application/json',
+        $data['metadata']
+      );
     }
 
     // Process each file and generate multipart form data.
-    foreach ($this->files as $file) {
-      $this->multipart[] = $this->addToMultipart($file);
+    foreach ($files as $path) {
+      // Load file information.
+      $file = $this->getFileInformation($path);
+      $multiparts[] = $this->multipartPart(
+        [
+          'filename'   => $file['filename'],
+          'name'       => $file['name'],
+          'size'       => $file['size']
+        ],
+        $file['mimetype'],
+        $file['contents']
+      );
     }
 
     // Set content type and boundary token.
     $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
 
-    // Generated multipart data to POST.
-    $this->contents = $this->encodeMultipart($this->multipart);
+    // Put together all the multipart data.
+    $contents = $this->multipartFinalize($multiparts);
+
     // String to add to generate Authorization hash.
-    $data_string = $content_type . $this->contents;
+    $data_string = $content_type . $contents;
 
     // Make sure no USERAGENET in headers.
     $this->SetOption(CURLOPT_USERAGENT, NULL);
@@ -166,22 +179,22 @@ class PushAPI extends Base {
       [
         'Accept'          => 'application/json',
         'Content-Type'    => $content_type,
-        'Content-Length'  => strlen($this->contents),
+        'Content-Length'  => strlen($contents),
         'Authorization'   => $this->auth($data_string)
       ]
     );
     // Send POST request.
-    return $this->request($this->contents);
+    return $this->request($contents);
   }
 
   /**
-   * Load files and prepare them for multipart form data request.
+   * Get file information and its contents to upload.
    *
    * @param (string) $path Path to a file included in the POST request.
    *
    * @return (array) Associative array. The array contains information about a file.
    */
-  protected function addToMultipart($path) {
+  protected function getFileInformation($path) {
     $file = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -207,59 +220,47 @@ class PushAPI extends Base {
   }
 
   /**
-   * Generate Multipart data headers.
+   * Generate individual multipart data parts.
    *
-   * @param (string) $content_type HTTP header field name.
-   * @param (array) $params HTTP header attributes.
+   * @param (array) $attributes Associative array with information about each file (mimetype, filename, size).
+   * @param (string) $mimetype Multipart mime type.
+   * @param (string) $contents Contents of the multipart content chunk.
    *
-   * @return string Raw HTTP header for a multipart data.
+   * @return (string) Raw HTTP multipart chunk formatted according to the RFC.
+   *
+   * @see https://www.ietf.org/rfc/rfc2388.txt
    */
-  protected function buildMultipartHeaders($content_type, Array $params) {
-    $headers = 'Content-Type: ' . $content_type . static::EOL;
-    $attributes = [];
-    foreach ($params as $name => $value) {
-      $attributes[] = $name . '=' . $value;
+  protected function multipartPart(Array $attributes, $mimetype = null, $contents = null) {
+    $multipart = '';
+    $headers = [];
+    foreach ($attributes as $name => $value) {
+      $headers[] = $name . '=' . $value;
     }
-    $headers .= 'Content-Disposition: form-data; ' . join('; ', $attributes) . static::EOL;
-    return $headers;
+    // Generate multipart data and contents.
+    $multipart .= '--' . $this->boundary . static::EOL;
+    $multipart .= 'Content-Type: ' . $mimetype . static::EOL;
+    $multipart .= 'Content-Disposition: form-data; ' . join('; ', $headers) . static::EOL;
+    $multipart .= static::EOL . $contents . static::EOL;
+    return $multipart;
   }
 
   /**
-   * Generate Multipart form data chunks.
+   * Finalize multipart data.
    *
-   * @param (array) $files Associative array with information about each file (mimetype, filename, size).
+   * @param (array) $multiparts Multipart data with its headers.
    *
    * @return (string) Raw HTTP multipart data formatted according to the RFC.
    *
    * @see https://www.ietf.org/rfc/rfc2388.txt
    */
-  protected function encodeMultipart(Array $files) {
-    $multipart = '';
-    // Adding metadata to multipart
-    if (!empty(json_decode($this->metadata))) {
-      $multipart .= '--' . $this->boundary . static::EOL;
-      $multipart .= $this->buildMultipartHeaders('application/json',
-        [
-          'name' => 'metadata'
-        ]
-      );
-      $multipart .= static::EOL . $this->metadata . static::EOL;
+  protected function multipartFinalize(Array $multiparts = []) {
+    $contents = '';
+    foreach ($multiparts as $multipart) {
+      $contents .= $multipart;
     }
-    // Add files
-    foreach ($files as $file) {
-      $multipart .= '--' . $this->boundary . static::EOL;
-      $multipart .= $this->buildMultipartHeaders($file['mimetype'],
-        [
-          'filename'   => $file['filename'],
-          'name'       => $file['name'],
-          'size'       => $file['size']
-        ]
-      );
-      $multipart .= static::EOL . $file['contents'] . static::EOL;
-    }
-    $multipart .= '--' . $this->boundary  . '--';
-    $multipart .= static::EOL;
-    return $multipart;
+    $contents .= '--' . $this->boundary  . '--';
+    $contents .= static::EOL;
+    return $contents;
   }
 
 }
