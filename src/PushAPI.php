@@ -91,17 +91,12 @@ class PushAPI extends Base {
    */
   public function get($path, Array $path_args = [], Array $data = []) {
     parent::get($path, $path_args, $data);
-    try {
-      $this->setHeaders(
-        [
-          'Authorization' => $this->auth()
-        ]
-      );
-      return $this->request($data);
-    }
-    catch (Exception $e) {
-      $this->triggerError($e->getMessage());
-    }
+    $this->setHeaders(
+      [
+        'Authorization' => $this->auth()
+      ]
+    );
+    return $this->request($data);
   }
 
   /**
@@ -115,22 +110,17 @@ class PushAPI extends Base {
    */
   public function delete($path, Array $path_args = [], Array $data = []) {
     parent::delete($path, $path_args, $data);
-    try {
-      $this->setHeaders(
-        [
-          'Authorization' => $this->auth()
-        ]
-      );
-      $this->unsetHeaders(
-        [
-          'Content-Type'
-        ]
-      );
-      return $this->request($data);
-    }
-    catch (Exception $e) {
-      $this->triggerError($e->getMessage());
-    }
+    $this->setHeaders(
+      [
+        'Authorization' => $this->auth()
+      ]
+    );
+    $this->unsetHeaders(
+      [
+        'Content-Type'
+      ]
+    );
+    return $this->request($data);
   }
 
   /**
@@ -144,50 +134,44 @@ class PushAPI extends Base {
    */
   public function post($path, Array $path_args, Array $data = []) {
     parent::post($path, $path_args, $data);
-    try {
-
-      // Submit JSON string as an article.json file.
-      // Make sure you don't submit article.json if you passing json
-      // as a parameter to Post method.
-      if (!empty($this->json)) {
-        $this->multipart[] = [
-          'name'      => 'article',
-          'filename'  => 'article.json',
-          'mimetype'  => 'application/json',
-          'contents'  => $this->json,
-          'size'      => strlen($this->json)
-        ];
-      }
-
-      // Process each file and generate multipart form data.
-      foreach ($this->files as $file) {
-        $this->multipart[] = $this->addToMultipart($file);
-      }
-
-      // Set content type and boundary token.
-      $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
-
-      // Generated multipart data to POST.
-      $this->contents = $this->encodeMultipart($this->multipart);
-      // String to add to generate Authorization hash.
-      $data_string = $content_type . $this->contents;
-
-      // Make sure no USERAGENET in headers.
-      $this->SetOption(CURLOPT_USERAGENT, NULL);
-      $this->SetHeaders(
-        [
-          'Accept'          => 'application/json',
-          'Content-Type'    => $content_type,
-          'Content-Length'  => strlen($this->contents),
-          'Authorization'   => $this->auth($data_string)
-        ]
-      );
-      // Send POST request.
-      return $this->request($this->contents);
+    // Submit JSON string as an article.json file.
+    // Make sure you don't submit article.json if you passing json
+    // as a parameter to Post method.
+    if (!empty($this->json)) {
+      $this->multipart[] = [
+        'name'      => 'article',
+        'filename'  => 'article.json',
+        'mimetype'  => 'application/json',
+        'contents'  => $this->json,
+        'size'      => strlen($this->json)
+      ];
     }
-    catch (Exception $e) {
-      $this->triggerError($e->getMessage());
+
+    // Process each file and generate multipart form data.
+    foreach ($this->files as $file) {
+      $this->multipart[] = $this->addToMultipart($file);
     }
+
+    // Set content type and boundary token.
+    $content_type = sprintf('multipart/form-data; boundary=%s', $this->boundary);
+
+    // Generated multipart data to POST.
+    $this->contents = $this->encodeMultipart($this->multipart);
+    // String to add to generate Authorization hash.
+    $data_string = $content_type . $this->contents;
+
+    // Make sure no USERAGENET in headers.
+    $this->SetOption(CURLOPT_USERAGENT, NULL);
+    $this->SetHeaders(
+      [
+        'Accept'          => 'application/json',
+        'Content-Type'    => $content_type,
+        'Content-Length'  => strlen($this->contents),
+        'Authorization'   => $this->auth($data_string)
+      ]
+    );
+    // Send POST request.
+    return $this->request($this->contents);
   }
 
   /**

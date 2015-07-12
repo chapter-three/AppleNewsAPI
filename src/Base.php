@@ -71,7 +71,7 @@ abstract class Base {
    *
    * @return (string) Authorization token used in the HTTP headers.
    */
-  protected function hhmac($data = '') {
+  final protected function hhmac($data = '') {
     $key = base64_decode($this->api_key_secret);
     $hashed = hash_hmac('sha256', $data, $key, true);
     $encoded = base64_encode($hashed);
@@ -89,13 +89,13 @@ abstract class Base {
    *
    * @return (string) HMAC cryptographic hash
    */
-  protected function auth($string = '') {
+  final protected function auth($string = '') {
     $data = strtoupper($this->method) . $this->path() . strval($this->datetime) . $string;
     return $this->hhmac($data);
   }
 
   /**
-   * Generate URL to request.
+   * Generate HTTP request URL.
    *
    * @return (string) URL to create request.
    */
@@ -117,7 +117,7 @@ abstract class Base {
    * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
    * @param (array) $data Data to pass to the endpoint.
    *
-   * @see PushAPI::Post().
+   * @see PushAPI::post().
    */
   protected function initVars($method, $path, Array $path_args, Array $data) {
     $this->method = $method;
@@ -155,9 +155,17 @@ abstract class Base {
    * @return (object) Structured object.
    */
   protected function request($data) {
-    $response = $this->http_client->{$this->method}($this->path(), $data);
-    $this->http_client->close();
-    return $this->response($response);
+    try {
+      $response = $this->http_client->{$this->method}($this->path(), $data);
+      $this->http_client->close();
+    }
+    catch (\Exception $e) {
+      // Throw an expection if something goes wrong.
+      $this->triggerError($e->getMessage());
+    }
+    finally {
+      return $this->response($response);
+    }
   }
 
   /**
@@ -168,7 +176,34 @@ abstract class Base {
    * @return (object) Preprocessed structured object.
    */
   protected function response($response) {
+    // Check for HTTP response error codes.
+    if ($this->http_client->error) {
+      $this->onErrorResponse(
+        $this->http_client->error_code,
+        $this->http_client->error_message,
+        $response
+      );
+    }
     return $response;
+  }
+
+  /**
+   * Log HTTP response error messages.
+   *
+   * @param (int) $error_code HTTP status code.
+   * @param (string) $error_message HTTP status message.
+   * @param (object) $response Structured object.
+   */
+  protected function onErrorResponse($error_code, $error_message, $response) {
+    $message = print_r(
+      [
+        'code'      => $error_code,
+        'message'   => $error_message,
+        'response'  => $response
+      ],
+      true
+    );
+    $this->triggerError($message);
   }
 
   /**
@@ -268,9 +303,9 @@ abstract class Base {
    * @see http://php.net/manual/en/errorfunc.constants.php
    */
   public function triggerError($message, $message_type = E_USER_NOTICE) {
-    $trace = debug_backtrace();
-    trigger_error($message . ' in ' . $trace[0]['file'] . ' on line ' .
-      $trace[0]['line'], $message_type);
+    $trace = next(debug_backtrace());
+    $message = sprintf('%s in %s on line %d', $message, $trace['file'], $trace['line']);
+    trigger_error($message, $message_type);
   }
 
 }
