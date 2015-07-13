@@ -195,7 +195,7 @@ class PushAPI extends Base {
    *
    * @return (array) Associative array. The array contains information about a file.
    */
-  private function getFileInformation($path) {
+  protected function getFileInformation($path) {
     $file = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -232,7 +232,7 @@ class PushAPI extends Base {
    *
    * @see https://www.ietf.org/rfc/rfc2388.txt
    */
-  private function multipartPart(Array $attributes, $mimetype = null, $contents = null) {
+  protected function multipartPart(Array $attributes, $mimetype = null, $contents = null) {
     $multipart = '';
     $headers = [];
     foreach ($attributes as $name => $value) {
@@ -255,7 +255,7 @@ class PushAPI extends Base {
    *
    * @see https://www.ietf.org/rfc/rfc2388.txt
    */
-  private function multipartFinalize(Array $multiparts = []) {
+  protected function multipartFinalize(Array $multiparts = []) {
     $contents = '';
     foreach ($multiparts as $multipart) {
       $contents .= $multipart;
