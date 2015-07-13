@@ -19,13 +19,16 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
 
   /** @var (const) API Key ID */
   const API_KEY_ID = '1e3gfc5e-e9f8-4232-a6be-17bf40edad09';
+
   /** @var (const) API Key Secret */
   const API_KEY_SECRET = 'qygOz6+eUsIr1j/YkStHUFP2Wv0SbNZ5RStxQ+lagoA=';
+
   /** @var (const) API Endpoint full URL */
   const ENDPOINT = 'https://endpoint_url.com';
 
   /** @var (const) Random Channel ID */
   const CHANNEL_ID = '63a75491-2c4d-3530-af91-819be8c3ace0';
+
   /** @var (const) Random Article ID */
   const ARTICLE_ID = 'fdc30273-f053-46a5-b6e5-84b3a9036dc6';
 
@@ -34,10 +37,13 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
 
   /** @var (object) HTTP client. */
   private $http_client;
+
   /** @var (class) PushAPI class. */
   private $PushAPI;
+
   /** @var (string) File path generated via vfsStream. */
   private $fileroot;
+
   /** @var (array) Array of files to upload via multipart data. */
   private $files = [];
 
