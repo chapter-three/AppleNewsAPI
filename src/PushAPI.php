@@ -19,6 +19,9 @@ namespace ChapterThree\AppleNews;
  */
 class PushAPI extends Base {
 
+  /** @var (const) PushAPI version */
+  const VERSION = '1.0';
+
   /** @var (const) CRLF */
   const EOL = "\r\n";
 
