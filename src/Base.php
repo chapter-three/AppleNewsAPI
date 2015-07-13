@@ -154,7 +154,7 @@ abstract class Base {
    *
    * @param (array|string) $data Raw content of the request or associative array to pass to endpoints.
    *
-   * @return (object) Structured object.
+   * @return (object) HTTP Response object.
    */
   protected function request($data) {
     try {
@@ -175,7 +175,7 @@ abstract class Base {
    *
    * @param (object) $response Structured object.
    *
-   * @return (object) Preprocessed structured object.
+   * @return (object) HTTP Response object.
    */
   protected function response($response) {
     // Check for HTTP response error codes.
@@ -186,11 +186,23 @@ abstract class Base {
         $response
       );
     }
+    else {
+      $this->onSuccessfulResponse($response);
+    }
     return $response;
   }
 
   /**
-   * Log HTTP response error messages.
+   * Callback for successful HTTP response.
+   *
+   * @param (object) $response HTTP Response object.
+   */
+  protected function onSuccessfulResponse($response) {
+    // Perform additional action on success response.
+  }
+
+  /**
+   * Callback for error HTTP response.
    *
    * @param (int) $error_code HTTP status code.
    * @param (string) $error_message HTTP status message.
