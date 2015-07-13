@@ -64,7 +64,7 @@ abstract class Base {
    *
    * @return (string) Authorization token used in the HTTP headers.
    */
-  protected static function hhmac($string, $api_key_secret) {
+  final protected function hhmac($string, $api_key_secret) {
     $key = base64_decode($api_key_secret);
     $hashed = hash_hmac('sha256', $string, $key, true);
     $encoded = base64_encode($hashed);
@@ -81,7 +81,7 @@ abstract class Base {
    */
   final protected function auth($string = '') {
     $canonical = strtoupper($this->method) . $this->path() . strval($this->datetime) . $string;
-    $signature = self::hhmac($canonical, $this->api_key_secret);
+    $signature = $this->hhmac($canonical, $this->api_key_secret);
     return sprintf('HHMAC; key=%s; signature=%s; date=%s',
       $this->api_key_id, $signature,
       $this->datetime
