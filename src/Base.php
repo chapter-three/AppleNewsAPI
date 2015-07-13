@@ -20,7 +20,7 @@ abstract class Base {
   /** @var (string) Push API Secret Key. */
   public $api_key_secret = '';
 
-  /** @var (string) PushAPI Endpoint URL. */
+  /** @var (string) PushAPI Endpoint base URL. */
   public $endpoint = '';
 
   /** @var (object) HTTP client class. */

@@ -60,7 +60,7 @@ class PushAPI extends Base {
   /**
    * Create GET request to a specified endpoint.
    *
-   * @param (string) $path Path to API endpoint.
+   * @param (string) $path API endpoint path.
    * @param (string) $path_args Endpoint path arguments to replace tokens in the path.
    * @param (string) $data Raw content of the request or associative array to pass to endpoints.
    *
@@ -79,7 +79,7 @@ class PushAPI extends Base {
   /**
    * Create DELETE request to a specified endpoint.
    *
-   * @param (string) $path Path to API endpoint.
+   * @param (string) $path API endpoint path.
    * @param (string) $path_args Endpoint path arguments to replace tokens in the path.
    * @param (string) $data Raw content of the request or associative array to pass to endpoints.
    *
@@ -103,7 +103,7 @@ class PushAPI extends Base {
   /**
    * Create POST request to a specified endpoint.
    *
-   * @param (string) $path Path to API endpoint.
+   * @param (string) $path API endpoint path.
    * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
    * @param (array) $data Raw content of the request or associative array to pass to endpoints.
    *
