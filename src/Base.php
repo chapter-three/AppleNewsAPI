@@ -57,29 +57,19 @@ abstract class Base {
   }
 
   /**
-   * Setup HTTP client to make requests.
-   */
-  public function setHTTPClient() {
-    // Example: $this->http_client = new \Curl\Curl;
-    $this->triggerError('No HTTP Client found', E_USER_ERROR);
-  }
-
-  /**
    * Generate HMAC cryptographic hash.
    *
-   * @param (string) $data Message to be hashed.
+   * @param (string) $string Message to be hashed.
+   * @param (string) $api_key_secret Shared secret key used for generating the HMAC.
    *
    * @return (string) Authorization token used in the HTTP headers.
    */
-  final protected function hhmac($data = '') {
-    $key = base64_decode($this->api_key_secret);
-    $hashed = hash_hmac('sha256', $data, $key, true);
+  protected static function hhmac($string, $api_key_secret) {
+    $key = base64_decode($api_key_secret);
+    $hashed = hash_hmac('sha256', $string, $key, true);
     $encoded = base64_encode($hashed);
     $signature = rtrim($encoded, "\n");
-    return sprintf('HHMAC; key=%s; signature=%s; date=%s',
-      $this->api_key_id, strval($signature),
-      $this->datetime
-    );
+    return strval($signature);
   }
 
   /**
@@ -90,8 +80,20 @@ abstract class Base {
    * @return (string) HMAC cryptographic hash
    */
   final protected function auth($string = '') {
-    $data = strtoupper($this->method) . $this->path() . strval($this->datetime) . $string;
-    return $this->hhmac($data);
+    $canonical = strtoupper($this->method) . $this->path() . strval($this->datetime) . $string;
+    $signature = self::hhmac($canonical, $this->api_key_secret);
+    return sprintf('HHMAC; key=%s; signature=%s; date=%s',
+      $this->api_key_id, $signature,
+      $this->datetime
+    );
+  }
+
+  /**
+   * Setup HTTP client to make requests.
+   */
+  public function setHTTPClient() {
+    // Example: $this->http_client = new \Curl\Curl;
+    $this->triggerError('No HTTP Client found', E_USER_ERROR);
   }
 
   /**
