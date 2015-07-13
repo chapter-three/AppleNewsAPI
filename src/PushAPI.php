@@ -159,7 +159,7 @@ class PushAPI extends Base {
           'name'       => $file['name'],
           'size'       => $file['size']
         ],
-        $file['mimetype'],
+        ($file['extension'] == 'json') ? 'application/json' : $file['mimetype'],
         $file['contents']
       );
     }
@@ -213,7 +213,8 @@ class PushAPI extends Base {
     return [
       'name'      => str_replace(' ', '-', $file['filename']),
       'filename'  => $file['basename'],
-      'mimetype'  => ($file['extension'] == 'json') ? 'application/json' : $mimetype,
+      'extension' => $file['extension'],
+      'mimetype'  => $mimetype,
       'contents'  => $contents,
       'size'      => strlen($contents)
     ];
