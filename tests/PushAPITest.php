@@ -18,39 +18,30 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
   /** @var (const) CRLF */
   const EOL = "\r\n";
 
+  /** @var (const) API Key ID */
   const API_KEY_ID = '1e3gfc5e-e9f8-4232-a6be-17bf40edad09';
+  /** @var (const) API Key Secret */
   const API_KEY_SECRET = 'qygOz6+eUsIr1j/YkStHUFP2Wv0SbNZ5RStxQ+lagoA=';
+  /** @var (const) API Endpoint full URL */
+  const ENDPOINT = 'https://endpoint_url.com';
+
   const CHANNEL_ID = '63a75491-2c4d-3530-af91-819be8c3ace0';
   const ARTICLE_ID = 'fdc30273-f053-46a5-b6e5-84b3a9036dc6';
-  const ENDPOINT = 'https://u48r14.digitalhub.com';
 
   const BASE64_1X1_GIF = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-  const JSON = '{"key": ["value1", "value2"]}';
-  const BOUNDARY = '093dcc6f59daad142436f172b5c2124c';
-  const POSTDATE = '2015-07-10T12:34:56+00:00';
 
+  /** @var (object) HTTP client. */
   private $http_client;
+  /** @var (class) PushAPI class. */
   private $PushAPI;
+  /** @var (string) File path generated via vfsStream. */
   private $fileroot;
+  /** @var (array) Array of files to upload via multipart data. */
   private $files = [];
 
-  /** @var (array) Valid values for resource part Content-Type. */
-  protected $valid_mimes = [
-    'image/jpeg',
-    'image/png',
-    'image/gif',
-    'application/font-sfnt',
-    'application/x-font-truetype',
-    'application/font-truetype',
-    'application/vnd.ms-opentype',
-    'application/x-font-opentype',
-    'application/font-opentype',
-    'application/octet-stream'
-  ];
-
-  /** @var (string) Multipat data boundary unique string. */
-  private $boundary;
-
+  /**
+   *  Create objects against which we will test.
+   */
   protected function setUp() {
 
     // Set up virtual file system.
@@ -64,7 +55,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
     // Add file path to files.
     $this->files[] = $file->url();
 
-    // Set up cURL client.
+    // Setup cURL client.
     $this->http_client = $this->getMockBuilder('\Curl\Curl')
       ->setMethods([
       	  'post',
@@ -88,16 +79,16 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Constructor test.
+   * Test __constructor().
    */
   public function testConstruct() {
     $this->assertEquals(static::API_KEY_ID, $this->PushAPI->api_key_id);
     $this->assertEquals(static::API_KEY_SECRET, $this->PushAPI->api_key_secret);
-    $this->assertEquals(static::ENDPOINT,   $this->PushAPI->endpoint);
+    $this->assertEquals(static::ENDPOINT, $this->PushAPI->endpoint);
   }
 
   /**
-   * Test GET request.
+   * Test PushAPI::get().
    */
   public function testGet() {
 
@@ -105,7 +96,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
     // with certain expected parameters.
     $this->http_client
       ->expects($this->once())
-      ->method('Get')
+      ->method('get')
       ->with(
         $this->equalTo('/channels/{channel_id}/sections'),
         $this->equalTo([
@@ -122,7 +113,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test DELETE request.
+   * Test PushAPI::delete().
    */
   public function testDelete() {
 
@@ -130,7 +121,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
     // with certain expected parameters.
     $this->http_client
       ->expects($this->once())
-      ->method('Delete')
+      ->method('delete')
       ->with(
         $this->equalTo('/articles/{article_id}'),
         $this->equalTo([
@@ -147,7 +138,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test POST request.
+   * Test PushAPI::post().
    */
   public function testPost() {
 
@@ -155,7 +146,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
     // with certain expected parameters.
     $this->http_client
       ->expects($this->once())
-      ->method('Post')
+      ->method('post')
       ->with(
         $this->equalTo('/channels/{channel_id}/articles'),
         $this->equalTo([
@@ -177,91 +168,96 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
 
   }
 
-  private function getFileInformation($path) {
-    $file = pathinfo($path);
-
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimetype = finfo_file($finfo, $path);
-
-    if (!in_array($mimetype, $this->valid_mimes)) {
-      if ($mimetype == 'text/plain') {
-        $mimetype = 'application/octet-stream';
-      }
-      else {
-        throw new \Exception('Unsupported mime type: ' . $mimetype);
-      }
-    }
-
-    $contents = file_get_contents($path);
-
-    return [
-      'name'      => str_replace(' ', '-', $file['filename']),
-      'filename'  => $file['basename'],
-      'mimetype'  => ($file['extension'] == 'json') ? 'application/json' : $mimetype,
-      'contents'  => $contents,
-      'size'      => strlen($contents)
-    ];
-  }
-
-  private function multipartPart(Array $attributes, $mimetype = null, $contents = null) {
-    $multipart = '';
-    $headers = [];
-    foreach ($attributes as $name => $value) {
-      $headers[] = $name . '=' . $value;
-    }
-    // Generate multipart data and contents.
-    $multipart .= '--' . static::BOUNDARY . static::EOL;
-    $multipart .= 'Content-Type: ' . $mimetype . static::EOL;
-    $multipart .= 'Content-Disposition: form-data; ' . join('; ', $headers) . static::EOL;
-    $multipart .= static::EOL . $contents . static::EOL;
-    return $multipart;
-  }
-
-  private function multipartFinalize(Array $multiparts = []) {
-    $contents = '';
-    foreach ($multiparts as $multipart) {
-      $contents .= $multipart;
-    }
-    $contents .= '--' . static::BOUNDARY  . '--';
-    $contents .= static::EOL;
-    return $contents;
-  }
-
+  /**
+   * Test PushAPI::getFileInformation().
+   */
   public function testGetFileInformation() {
+
+  	$reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI');
+    $method = $reflection->getMethod('getFileInformation');
+    $method->setAccessible(true);
 
     // Process each file and generate multipart form data.
     foreach ($this->files as $path) {
       // Load file information.
-      $file = $this->getFileInformation($path);
+      $file = $method->invokeArgs($this->PushAPI, [$path]);
       $expected = 
   	    [
   	      'name'      => 'image',
   	      'filename'  => 'image.gif',
+  	      'extension' => 'gif',
   	      'mimetype'  => 'image/gif',
   	      'contents'  => base64_decode(static::BASE64_1X1_GIF),
   	      'size'      => strlen(base64_decode(static::BASE64_1X1_GIF))
   	    ];
+  	    // Check file information
        $this->assertEquals(0, count(array_diff($file, $expected)));
     }
 
   }
 
+  /**
+   * Test PushAPI::getFileInformation().
+   * Test PushAPI::multipartPart().
+   * Test PushAPI::multipartFinalize().
+   */
   public function testMultipartPart() {
+
+  	$reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI');
+
+  	// Access protected method getFileInformation().
+    $getFileInformation = $reflection->getMethod('getFileInformation');
+    $getFileInformation->setAccessible(true);
+
+    // Access protected method multipartPart().
+    $multipartPart = $reflection->getMethod('multipartPart');
+    $multipartPart->setAccessible(true);
+
+    // Access protected method multipartFinalize().
+    $multipartFinalize = $reflection->getMethod('multipartFinalize');
+    $multipartFinalize->setAccessible(true);
+
+    // Get private property.
+    $getBoundary = $reflection->getProperty('boundary');
+    $getBoundary->setAccessible(true);
+    $boundary = $getBoundary->getValue($this->PushAPI);
+
+    $multiparts = [];
 
     // Process each file and generate multipart form data.
     foreach ($this->files as $path) {
       // Load file information.
-      $file = $this->getFileInformation($path);
-      $multiparts[] = $this->multipartPart(
-        [
-          'filename'   => $file['filename'],
-          'name'       => $file['name'],
-          'size'       => $file['size']
-        ],
-        $file['mimetype'],
-        $file['contents']
+      $file = $getFileInformation->invokeArgs($this->PushAPI, [$path]);
+      $multiparts[] = $multipartPart->invokeArgs(
+      	$this->PushAPI,
+      	[
+          [
+            'filename'   => $file['filename'],
+            'name'       => $file['name'],
+            'size'       => $file['size']
+          ],
+          $file['mimetype'],
+          $file['contents']
+        ]
       );
     }
+
+    // Generate finalized version of the multipart data.
+    $contents = $multipartFinalize->invokeArgs($this->PushAPI, [$multiparts]);
+    // Get rid of first boundary.
+    $multipart1 = '--' . $boundary . static::EOL .  preg_replace('/^.+\n/', '', $contents);
+
+    // Load test file.
+    $file = $getFileInformation->invokeArgs($this->PushAPI, [$this->files[0]]);
+
+    $multipart2 = '--' . $boundary . static::EOL;
+    $multipart2 .= 'Content-Type: image/gif'. static::EOL;
+    $multipart2 .= 'Content-Disposition: form-data; filename=image.gif; name=image; size=42' . static::EOL;
+    $multipart2 .= static::EOL . $file['contents'] . static::EOL;
+    $multipart2 .= '--' . $boundary . '--' . static::EOL;
+
+    // Test Multipart data headers and content.
+    $this->assertEquals($multipart1, $multipart2);
 
   }
 
