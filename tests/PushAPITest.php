@@ -24,9 +24,12 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
   /** @var (const) API Endpoint full URL */
   const ENDPOINT = 'https://endpoint_url.com';
 
+  /** @var (const) Random Channel ID */
   const CHANNEL_ID = '63a75491-2c4d-3530-af91-819be8c3ace0';
+  /** @var (const) Random Article ID */
   const ARTICLE_ID = 'fdc30273-f053-46a5-b6e5-84b3a9036dc6';
 
+  /** @var (const) Contents of the test GIF file */
   const BASE64_1X1_GIF = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   /** @var (object) HTTP client. */
@@ -250,6 +253,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
     // Load test file.
     $file = $getFileInformation->invokeArgs($this->PushAPI, [$this->files[0]]);
 
+    // Expected multipart content.
     $multipart2 = '--' . $boundary . static::EOL;
     $multipart2 .= 'Content-Type: image/gif'. static::EOL;
     $multipart2 .= 'Content-Disposition: form-data; filename=image.gif; name=image; size=42' . static::EOL;
