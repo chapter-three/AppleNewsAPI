@@ -221,6 +221,7 @@ class PushAPITest extends PHPUnit_Framework_TestCase {
     $getBoundary->setAccessible(true);
     $boundary = $getBoundary->getValue($this->PushAPI);
 
+    // Multiparts
     $multiparts = [];
 
     // Process each file and generate multipart form data.
