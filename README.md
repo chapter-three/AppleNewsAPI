@@ -33,8 +33,6 @@ $PushAPI = new ChapterThree\AppleNews\PushAPI(
 );
 ```
 
-### GET Methods
-
 ##### GET Channel
 
 ```php
@@ -79,8 +77,6 @@ $response = $PushAPI->get('/articles/{article_id}',
 );
 ```
 
-### POST Methods
-
 ##### POST Article
 
 ```php
@@ -100,8 +96,6 @@ $response = $PushAPI->post('/channels/{channel_id}/articles',
   ]
 );
 ```
-
-### DELETE Methods
 
 ##### DELETE Article
 
