@@ -166,7 +166,7 @@ class PushAPI extends Base {
     $contents = $this->multipartFinalize($multiparts);
 
     // String to add to generate Authorization hash.
-    $data_string = $content_type . $contents;
+    $string = $content_type . $contents;
 
     // Make sure no USERAGENET in headers.
     $this->SetOption(CURLOPT_USERAGENT, NULL);
@@ -175,7 +175,7 @@ class PushAPI extends Base {
         'Accept'          => 'application/json',
         'Content-Type'    => $content_type,
         'Content-Length'  => strlen($contents),
-        'Authorization'   => $this->auth($data_string)
+        'Authorization'   => $this->auth($string)
       ]
     );
     // Send POST request.
