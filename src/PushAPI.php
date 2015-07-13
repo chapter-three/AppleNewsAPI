@@ -139,6 +139,7 @@ class PushAPI extends Base {
       );
     }
 
+    // Article metadata.
     if (!empty($data['metadata'])) {
       $multiparts[] = $this->multipartPart(
         [
@@ -194,7 +195,7 @@ class PushAPI extends Base {
    *
    * @return (array) Associative array. The array contains information about a file.
    */
-  protected function getFileInformation($path) {
+  private function getFileInformation($path) {
     $file = pathinfo($path);
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -231,7 +232,7 @@ class PushAPI extends Base {
    *
    * @see https://www.ietf.org/rfc/rfc2388.txt
    */
-  protected function multipartPart(Array $attributes, $mimetype = null, $contents = null) {
+  private function multipartPart(Array $attributes, $mimetype = null, $contents = null) {
     $multipart = '';
     $headers = [];
     foreach ($attributes as $name => $value) {
@@ -254,7 +255,7 @@ class PushAPI extends Base {
    *
    * @see https://www.ietf.org/rfc/rfc2388.txt
    */
-  protected function multipartFinalize(Array $multiparts = []) {
+  private function multipartFinalize(Array $multiparts = []) {
     $contents = '';
     foreach ($multiparts as $multipart) {
       $contents .= $multipart;

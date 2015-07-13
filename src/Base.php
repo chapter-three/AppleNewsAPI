@@ -121,8 +121,8 @@ abstract class Base {
    */
   protected function initVars($method, $path, Array $path_args, Array $data) {
     $this->method = $method;
-    $this->path_args = $path_args;
     $this->path = $path;
+    $this->path_args = $path_args;
   }
 
   /**
