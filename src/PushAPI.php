@@ -27,12 +27,6 @@ class PushAPI extends Base {
     'image/jpeg',
     'image/png',
     'image/gif',
-    'application/font-sfnt',
-    'application/x-font-truetype',
-    'application/font-truetype',
-    'application/vnd.ms-opentype',
-    'application/x-font-opentype',
-    'application/font-opentype',
     'application/octet-stream'
   ];
 
