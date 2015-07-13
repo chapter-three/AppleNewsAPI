@@ -8,7 +8,6 @@
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\content\LargeFileContent;
-use Psr\Http\Message\RequestInterface;
 
 /**
  * A test class for PushAPI.
