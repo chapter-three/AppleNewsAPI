@@ -5,7 +5,7 @@
  * Example: POST Article
  */
 
-require '../src/PushAPI.php';
+require '../../src/PushAPI.php';
 
 use \ChapterThree\AppleNews;
 

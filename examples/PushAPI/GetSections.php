@@ -5,7 +5,7 @@
  * Example: GET Sections
  */
 
-require '../src/PushAPI.php';
+require '../../src/PushAPI.php';
 
 use \ChapterThree\AppleNews;
 
