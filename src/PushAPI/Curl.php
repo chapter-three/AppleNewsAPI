@@ -51,7 +51,7 @@ class Curl extends Base {
    * @param string $value
    *   The value to be set on option.
    */
-  public function SetOption($name, $value) {
+  public function setOption($name, $value) {
     $this->client->setOpt($name, $value);
   }
 
