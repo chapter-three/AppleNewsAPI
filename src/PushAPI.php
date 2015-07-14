@@ -8,9 +8,9 @@
 namespace ChapterThree\AppleNews;
 
 /**
- * PushAPI
+ * AppleNews PushAPI
  *
- * The Push API is a RESTful API that allows you to publish articles.
+ * The PushAPI is a PHP library that allows you to publish articles.
  * You can also retrieve and delete articles you've already published, 
  * and get basic information about your channel and sections.
  * 
