@@ -8,6 +8,8 @@
 
 To install, simply:
 
+@todo composer instructions
+
 ```shell
 git clone git@github.com:chapter-three/ApppleNews.git
 cd AppleNews
