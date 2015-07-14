@@ -2,15 +2,15 @@
 
 /**
  * @file
- * AppleNews PushAPI abstract class.
+ * PushAPI Base abstract class.
  */
 
-namespace ChapterThree\AppleNews;
+namespace ChapterThree\AppleNews\PushAPI;
 
 /**
  * PushAPI Abstract class
  * 
- * @package    ChapterThree\AppleNews\Base
+ * @package    ChapterThree\AppleNews\PushAPI\Base
  */
 abstract class Base {
 
@@ -24,7 +24,7 @@ abstract class Base {
   public $endpoint = '';
 
   /** @var (object) HTTP client class. */
-  public $http_client;
+  public $client;
 
   /** @var (string) Endpoint path. */
   protected $path = '';
@@ -92,7 +92,7 @@ abstract class Base {
    * Setup HTTP client to make requests.
    */
   public function setHTTPClient() {
-    // Example: $this->http_client = new \Curl\Curl;
+    // Example: $this->client = new \Curl\Curl;
     $this->triggerError('No HTTP Client found', E_USER_ERROR);
   }
 
@@ -132,22 +132,14 @@ abstract class Base {
    *
    * @param (array) $headers Associative array [header field name => value].
    */
-  protected function setHeaders(Array $headers = []) {
-    foreach ($headers as $property => $value) {
-      $this->http_client->setHeader($property, $value);
-    }
-  }
+  abstract protected function setHeaders(Array $headers = []);
 
   /**
    * Remove specified header names from HTTP request.
    *
    * @param (array) $headers Associative array [header1, header2, ..., headerN].
    */
-  protected function unsetHeaders(Array $headers = []) {
-    foreach ($headers as $property) {
-      $this->http_client->unsetHeader($property);
-    }
-  }
+  abstract protected function unsetHeaders(Array $headers = []);
 
   /**
    * Create HTTP request.
@@ -156,19 +148,7 @@ abstract class Base {
    *
    * @return (object) HTTP Response object.
    */
-  protected function request($data) {
-    try {
-      $response = $this->http_client->{$this->method}($this->path(), $data);
-      $this->http_client->close();
-    }
-    catch (\Exception $e) {
-      // Throw an expection if something goes wrong.
-      $this->triggerError($e->getMessage());
-    }
-    finally {
-      return $this->response($response);
-    }
-  }
+  abstract protected function request($data);
 
   /**
    * Preprocess HTTP response.
@@ -177,20 +157,7 @@ abstract class Base {
    *
    * @return (object) HTTP Response object.
    */
-  protected function response($response) {
-    // Check for HTTP response error codes.
-    if ($this->http_client->error) {
-      $this->onErrorResponse(
-        $this->http_client->error_code,
-        $this->http_client->error_message,
-        $response
-      );
-    }
-    else {
-      $this->onSuccessfulResponse($response);
-    }
-    return $response;
-  }
+  abstract protected function response($response);
 
   /**
    * Callback for successful HTTP response.
@@ -198,7 +165,7 @@ abstract class Base {
    * @param (object) $response HTTP Response object.
    */
   protected function onSuccessfulResponse($response) {
-    // Perform additional action on success response.
+    // Perform some operations on success response.
   }
 
   /**
@@ -226,10 +193,7 @@ abstract class Base {
    * @param (string) $name The CURLOPT_XXX option to set.
    * @param (string) $value The value to be set on option.
    */
-  public function setOption($name, $value) {
-    // cURL method to set options and it's values.
-    $this->http_client->setOpt($name, $value);
-  }
+  abstract public function setOption($name, $value);
 
   /**
    * Create GET request to a specified endpoint.

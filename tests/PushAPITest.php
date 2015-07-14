@@ -5,8 +5,6 @@
  * Tests for ChapterThree\AppleNews.
  */
 
-namespace ChapterThree\AppleNews\Tests;
-
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\content\LargeFileContent;
@@ -66,7 +64,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     $this->files[] = $file->url();
 
     // Setup cURL client.
-    $this->http_client = $this->getMockBuilder('\Curl\Curl')
+    $this->client = $this->getMockBuilder('\Curl\Curl')
       ->setMethods([
       	  'post',
       	  'get',
@@ -104,7 +102,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
     // Set up the expectation for the Get() method to be called only once and
     // with certain expected parameters.
-    $this->http_client
+    $this->client
       ->expects($this->once())
       ->method('get')
       ->with(
@@ -114,7 +112,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
         ])
       );
 
-    $request = $this->http_client->get('/channels/{channel_id}/sections',
+    $request = $this->client->get('/channels/{channel_id}/sections',
       [
         'channel_id' => static::CHANNEL_ID
       ]
@@ -129,7 +127,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
     // Set up the expectation for the Delete() method to be called only once and
     // with certain expected parameters.
-    $this->http_client
+    $this->client
       ->expects($this->once())
       ->method('delete')
       ->with(
@@ -139,7 +137,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
         ])
       );
 
-    $request = $this->http_client->delete('/articles/{article_id}',
+    $request = $this->client->delete('/articles/{article_id}',
       [
         'article_id' => static::ARTICLE_ID
       ]
@@ -154,7 +152,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
     // Set up the expectation for the Post() method to be called only once and
     // with certain expected parameters.
-    $this->http_client
+    $this->client
       ->expects($this->once())
       ->method('post')
       ->with(
@@ -167,7 +165,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
         ])
       );
 
-    $request = $this->http_client->post('/channels/{channel_id}/articles',
+    $request = $this->client->post('/channels/{channel_id}/articles',
       [
         'channel_id' => static::CHANNEL_ID
       ],
@@ -213,7 +211,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testMultipartPart() {
 
-  	$reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI');
+  	$reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
 
   	// Access protected method getFileInformation().
     $getFileInformation = $reflection->getMethod('getFileInformation');
