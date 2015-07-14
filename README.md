@@ -1,10 +1,12 @@
-# AppleNews PushAPI class
+# AppleNews
 
-The PushAPI is a PHP library that allows you to publish articles. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
+`AppleNews\PushAPI` is a PHP library that allows you to publish content to Apple News. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
+
+`AppleNews\Document` is a PHP library that helps construct documents in the Apple News native JSON format.
 
 ## Installation
 
-To install PushAPI library, simply:
+To install, simply:
 
 ```shell
 git clone git@github.com:chapter-three/ApppleNews.git
@@ -13,13 +15,13 @@ curl -sS https://getcomposer.org/installer | php
 ./composer.phar install
 ```
 
-## Unit Tests
+### Unit Tests
 
 ```shell
 ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests
 ```
 
-## Quick Start and Examples
+## PushAPI class Quick Start and Examples
 
 ```php
 $api_key_id = "";
@@ -107,3 +109,7 @@ $response = $PushAPI->delete('/articles/{article_id}',
   ]
 );
 ```
+
+## Document class Quick Start and Examples
+
+@todo
