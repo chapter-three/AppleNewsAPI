@@ -80,9 +80,7 @@ class Curl extends Base {
       // Throw an expection if something goes wrong.
       $this->triggerError($e->getMessage());
     }
-    finally {
-      return $this->response($response);
-    }
+    return $this->response($response);
   }
 
   /**
