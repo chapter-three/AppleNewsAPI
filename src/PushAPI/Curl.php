@@ -43,6 +43,19 @@ class Curl extends Base {
   }
 
   /**
+   * cURL specific function.
+   * Sets an option on the given cURL session handle.
+   * 
+   * @param string $name
+   *   The CURLOPT_XXX option to set.
+   * @param string $value
+   *   The value to be set on option.
+   */
+  public function SetOption($name, $value) {
+    $this->client->setOpt($name, $value);
+  }
+
+  /**
    * Set HTTP headers.
    *
    * @param (array) $headers Associative array [header field name => value].
