@@ -38,6 +38,14 @@ abstract class Base {
   /** @var (datetime) ISO 8601 datetime. */
   protected $datetime;
 
+  /** @var (array) Valid values for resource part Content-Type. */
+  protected $valid_mimes = [
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'application/octet-stream'
+  ];
+
   /**
    * Initialize variables needed in the communication with the API.
    *

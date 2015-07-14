@@ -15,19 +15,8 @@ namespace ChapterThree\AppleNews\PushAPI;
  */
 class Curl extends Base {
 
-  /** @var (const) PushAPI version */
-  const VERSION = '1.0';
-
   /** @var (const) CRLF */
   const EOL = "\r\n";
-
-  /** @var (array) Valid values for resource part Content-Type. */
-  protected $valid_mimes = [
-    'image/jpeg',
-    'image/png',
-    'image/gif',
-    'application/octet-stream'
-  ];
 
   /** @var (string) Multipat data boundary unique string. */
   private $boundary;
@@ -258,6 +247,7 @@ class Curl extends Base {
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimetype = finfo_file($finfo, $path);
+    // Check if mimetype is supported.
     if (!in_array($mimetype, $this->valid_mimes)) {
       if ($mimetype == 'text/plain') {
         $mimetype = 'application/octet-stream';
