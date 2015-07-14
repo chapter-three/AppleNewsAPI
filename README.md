@@ -1,10 +1,10 @@
 # AppleNews PushAPI class
 
-The Push API is a PHP class that allows you to publish articles. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
+The PushAPI is a PHP class that allows you to publish articles. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
 
 ## Installation
 
-To install PushAPI Class, simply:
+To install PushAPI library, simply:
 
 ```shell
 git clone git@github.com:chapter-three/ApppleNews.git
