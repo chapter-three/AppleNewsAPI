@@ -119,17 +119,6 @@ class Curl extends Base {
   }
 
   /**
-   * Sets an option on the given cURL session handle.
-   * 
-   * @param (string) $name The CURLOPT_XXX option to set.
-   * @param (string) $value The value to be set on option.
-   */
-  public function setOption($name, $value) {
-    // cURL method to set options and it's values.
-    $this->client->setOpt($name, $value);
-  }
-
-  /**
    * Create GET request to a specified endpoint.
    *
    * @param (string) $path API endpoint path.
@@ -244,7 +233,7 @@ class Curl extends Base {
     $string = $content_type . $contents;
 
     // Make sure no USERAGENET in headers.
-    $this->SetOption(CURLOPT_USERAGENT, NULL);
+    $this->client->setOpt(CURLOPT_USERAGENT, NULL);
     $this->SetHeaders(
       [
         'Accept'          => 'application/json',

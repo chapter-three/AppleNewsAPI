@@ -157,7 +157,9 @@ abstract class Base {
    *
    * @return (object) HTTP Response object.
    */
-  abstract protected function response($response);
+  protected function response($response) {
+    // Process responsed data.
+  }
 
   /**
    * Callback for successful HTTP response.
@@ -186,14 +188,6 @@ abstract class Base {
     );
     $this->triggerError($message);
   }
-
-  /**
-   * Sets an option on the given cURL session handle.
-   * 
-   * @param (string) $name The CURLOPT_XXX option to set.
-   * @param (string) $value The value to be set on option.
-   */
-  abstract public function setOption($name, $value);
 
   /**
    * Create GET request to a specified endpoint.
