@@ -5,9 +5,11 @@
  * An Apple News Document.
  */
 
-namespace ChapterThree\AppleNews\Document;
+namespace ChapterThree\AppleNews;
 
+use ChapterThree\AppleNews\Document\Base;
 use ChapterThree\AppleNews\Document\Components\Component;
+use ChapterThree\AppleNews\Document\Metadata;
 use ChapterThree\AppleNews\Document\Styles\ComponentTextStyle;
 use ChapterThree\AppleNews\Document\Styles\DocumentStyle;
 use ChapterThree\AppleNews\Document\Styles\TextStyle;

@@ -8,7 +8,7 @@
 namespace ChapterThree\AppleNews\Document\Components;
 
 use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Document;
+use ChapterThree\AppleNews\Document;
 use ChapterThree\AppleNews\Document\Anchor;
 use ChapterThree\AppleNews\Document\Animations\ComponentAnimations\ComponentAnimation;
 use ChapterThree\AppleNews\Document\Behaviors\Behavior;
@@ -109,7 +109,7 @@ abstract class Component extends Base {
    * @param \ChapterThree\AppleNews\Document\Layouts\ComponentLayout|string $layout
    *   Either a ComponentLayout object, or a string reference to one defined in
    *   $document.
-   * @param \ChapterThree\AppleNews\Document\Document|NULL $document
+   * @param \ChapterThree\AppleNews\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this
@@ -148,7 +148,7 @@ abstract class Component extends Base {
    * @param \ChapterThree\AppleNews\Document\Styles\ComponentStyle|string $style
    *   Either a ComponentStyle object, or a string reference to one defined in
    *   $document.
-   * @param \ChapterThree\AppleNews\Document\Document|NULL $document
+   * @param \ChapterThree\AppleNews\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this

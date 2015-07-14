@@ -8,7 +8,7 @@
 use ChapterThree\AppleNews\Document\Components\Component;
 use ChapterThree\AppleNews\Document\Layouts\Layout;
 use ChapterThree\AppleNews\Document\Layouts\ComponentLayout;
-use ChapterThree\AppleNews\Document\Document;
+use ChapterThree\AppleNews\Document;
 
 /**
  * A test class for Component.

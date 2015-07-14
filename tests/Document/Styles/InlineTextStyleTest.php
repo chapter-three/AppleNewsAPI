@@ -5,7 +5,7 @@
  * Tests for ChapterThree\AppleNews\Document\Styles\StrokeStyle.
  */
 
-use ChapterThree\AppleNews\Document\Document;
+use ChapterThree\AppleNews\Document;
 use ChapterThree\AppleNews\Document\Styles\StrokeStyle;
 use ChapterThree\AppleNews\Document\Styles\TextStyle;
 

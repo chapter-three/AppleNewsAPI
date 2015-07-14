@@ -7,7 +7,7 @@
 
 namespace ChapterThree\AppleNews\Document\Components;
 
-use ChapterThree\AppleNews\Document\Document;
+use ChapterThree\AppleNews\Document;
 use ChapterThree\AppleNews\Document\Styles\InlineTextStyle;
 
 /**
@@ -100,7 +100,7 @@ abstract class Text extends Component {
    * @param \ChapterThree\AppleNews\Document\Styles\ComponentTextStyle|string $text_style
    *   Either a ComponentTextStyle object, or a string reference to one defined
    *   in $document.
-   * @param \ChapterThree\AppleNews\Document\Document|NULL $document
+   * @param \ChapterThree\AppleNews\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this

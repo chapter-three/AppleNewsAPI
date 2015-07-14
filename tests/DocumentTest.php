@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Document.
+ * Tests for ChapterThree\AppleNews\Document.
  */
 
-use ChapterThree\AppleNews\Document\Document;
+use ChapterThree\AppleNews\Document;
 use ChapterThree\AppleNews\Document\Components\Body;
 use ChapterThree\AppleNews\Document\Layouts\Layout;
 use ChapterThree\AppleNews\Document\Styles\ComponentTextStyle;

@@ -8,7 +8,7 @@
 namespace ChapterThree\AppleNews\Document\Styles;
 
 use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Document;
+use ChapterThree\AppleNews\Document;
 
 /**
  * An Apple News Document InlineTextStyle.
@@ -72,7 +72,7 @@ class InlineTextStyle extends Base {
    * @param string|\ChapterThree\AppleNews\Document\Styles\TextStyle $value
    *   Either a TextStyle object, or a string reference to one defined
    *   in $document.
-   * @param \ChapterThree\AppleNews\Document\Document|NULL $document
+   * @param \ChapterThree\AppleNews\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this
