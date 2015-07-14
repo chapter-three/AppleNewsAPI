@@ -5,6 +5,8 @@
  * Tests for ChapterThree\AppleNews.
  */
 
+namespace ChapterThree\AppleNews\Tests;
+
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\content\LargeFileContent;
@@ -12,7 +14,7 @@ use org\bovigo\vfs\content\LargeFileContent;
 /**
  * A test class for PushAPI.
  */
-class PushAPITest extends PHPUnit_Framework_TestCase {
+class PushAPITest extends \PHPUnit_Framework_TestCase {
 
   /** @var (const) CRLF */
   const EOL = "\r\n";
