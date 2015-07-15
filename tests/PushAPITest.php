@@ -86,7 +86,8 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    * Test PushAPI::get().
    *
    * Usage:
-   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] get /channels/{channel_id}
+   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php
+   *     [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] get /channels/{channel_id}
    */
   public function testGet() {
 
@@ -108,7 +109,8 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    * Test PushAPI::delete().
    *
    * Usage:
-   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] delete /articles/{article_id}
+   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php
+   *     [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] delete /articles/{article_id}
    */
   public function testDelete() {
 
@@ -131,7 +133,8 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    * Test PushAPI::post().
    *
    * Usage:
-   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] post /channels/{channel_id}/articles
+   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php
+   *     [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] post /channels/{channel_id}/articles
    */
   public function testPost() {
 
