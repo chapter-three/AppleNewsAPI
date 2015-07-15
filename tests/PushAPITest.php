@@ -72,7 +72,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     fwrite(STDOUT, "\nPushAPI Unit Tests:\n\n");
     // Make sure user provides credentials to test PushAPI endpoints.
     if (empty(static::$api_key) && empty(static::$api_key_secret) && empty(static::$endpoint)) {
-      fwrite(STDOUT, "Please speciy PushAPI credentials. See documentation for more details about PushAPI unit tests.\n");
+      fwrite(STDOUT, "Please specify PushAPI credentials. See documentation for more details about PushAPI unit tests.\n");
       fwrite(STDOUT, "When no credentials specified, only PushAPI helper methods will be tested.\n\n");
     }
 
