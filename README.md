@@ -23,7 +23,7 @@ curl -sS https://getcomposer.org/installer | php
 ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests
 ```
 
-To test request methods use the following pattern:
+To test PushAPI GET/POST/DELETE methods use the following pattern:
 
 ```shell
 ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php 
