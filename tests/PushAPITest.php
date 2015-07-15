@@ -167,7 +167,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetFileInformation() {
 
-  	$reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI');
+    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI');
     $method = $reflection->getMethod('getFileInformation');
     $method->setAccessible(true);
 
@@ -197,7 +197,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testMultipartPart() {
 
-  	$reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
+    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
 
   	// Access protected method getFileInformation().
     $getFileInformation = $reflection->getMethod('getFileInformation');
