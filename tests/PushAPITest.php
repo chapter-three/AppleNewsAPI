@@ -50,12 +50,14 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   protected function setUp() {
     global $argv, $argc;
 
+    // Get variables from the unit test command string.
     $this->api_key = isset($argv[6]) ? $argv[6] : '';
     $this->api_key_secret = isset($argv[7]) ? $argv[7] : '';
     $this->endpoint = isset($argv[8]) ? $argv[8] : '';
     $this->endpoint_method = isset($argv[9]) ? strtolower($argv[9]) : '';
     $this->endpoint_path = isset($argv[10]) ? $argv[10] : '';
 
+    // Make sure user provides credentials to test PushAPI endpoints.
     if (empty($this->api_key) && empty($this->api_key_secret) && empty($this->endpoint)) {
       die('Please speciy PushAPI credentials. See documentation for more details about PushAPI unit tests.');
     }
@@ -199,7 +201,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
     $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
 
-  	// Access protected method getFileInformation().
+    // Access protected method getFileInformation().
     $getFileInformation = $reflection->getMethod('getFileInformation');
     $getFileInformation->setAccessible(true);
 
