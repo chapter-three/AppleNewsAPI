@@ -45,6 +45,18 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   private $files = [];
 
   /**
+   * Check PushAPI credentials.
+   */
+  private function checkPushAPICredentials() {
+    if (empty($this->api_key) && empty($this->api_key_secret) && empty($this->endpoint)) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  /**
    *  Create objects against which we will test.
    */
   protected function setUp() {
@@ -58,8 +70,8 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     $this->endpoint_path = isset($argv[10]) ? $argv[10] : '';
 
     // Make sure user provides credentials to test PushAPI endpoints.
-    if (empty($this->api_key) && empty($this->api_key_secret) && empty($this->endpoint)) {
-      die('Please speciy PushAPI credentials. See documentation for more details about PushAPI unit tests.');
+    if (!$this->checkPushAPICredentials()) {
+      print('Please speciy PushAPI credentials. See documentation for more details about PushAPI unit tests.');
     }
 
     // Set up PushAPI object.
@@ -91,7 +103,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testGet() {
 
-    if ($this->endpoint_method == 'get') {
+    if ($this->endpoint_method == 'get' && $this->checkPushAPICredentials()) {
 
       $response = $this->PushAPI->get($this->endpoint_path);
       if (isset($response->errors)) {
@@ -114,7 +126,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testDelete() {
 
-    if ($this->endpoint_method == 'delete') {
+    if ($this->endpoint_method == 'delete' && $this->checkPushAPICredentials()) {
 
       $response = $this->PushAPI->delete($this->endpoint_path);
       if (isset($response->errors)) {
@@ -138,7 +150,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testPost() {
 
-    if ($this->endpoint_method == 'post') {
+    if ($this->endpoint_method == 'post' && $this->checkPushAPICredentials()) {
 
       $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
 
