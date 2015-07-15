@@ -27,7 +27,7 @@ To test request methods use the following pattern:
 
 ```shell
 ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php 
-tests/PushAPITest.php [API_KEY_ID] [SECRET_KEY] [ENDPOINT] [METHOD] [ENDPOINT_PATH]
+tests/PushAPITest.php [API_KEY] [API_SECRET] [ENDPOINT_URL] [METHOD] [ENDPOINT_PATH]
 ```
 
 ## PushAPI class Quick Start and Examples
