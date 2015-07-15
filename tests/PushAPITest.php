@@ -18,19 +18,19 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   const EOL = "\r\n";
 
   /** @var (string) API Key ID */
-  private $api_key = '';
+  private static $api_key = '';
 
   /** @var (string) API Key Secret */
-  private $api_key_secret = '';
+  private static $api_key_secret = '';
 
   /** @var (string) API Endpoint full URL */
-  private $endpoint = '';
+  private static $endpoint = '';
 
   /** @var (string) Endpoint method to test */
-  private $endpoint_method = '';
+  private static $endpoint_method = '';
 
   /** @var (string) Endpoint path to test */
-  private $endpoint_path = '';
+  private static $endpoint_path = '';
 
   /** @var (object) PushAPI class object */
   private $PushAPI;
@@ -48,7 +48,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    * Check PushAPI credentials.
    */
   private function checkPushAPICredentials() {
-    if (empty($this->api_key) && empty($this->api_key_secret) && empty($this->endpoint)) {
+    if (empty(static::$api_key) && empty(static::$api_key_secret) && empty(static::$endpoint)) {
       return false;
     }
     else {
@@ -57,28 +57,37 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *  Create objects against which we will test.
+   * Run before all tests.
    */
-  protected function setUp() {
+  public static function setUpBeforeClass() {
     global $argv, $argc;
 
     // Get variables from the unit test command string.
-    $this->api_key = isset($argv[6]) ? $argv[6] : '';
-    $this->api_key_secret = isset($argv[7]) ? $argv[7] : '';
-    $this->endpoint = isset($argv[8]) ? $argv[8] : '';
-    $this->endpoint_method = isset($argv[9]) ? strtolower($argv[9]) : '';
-    $this->endpoint_path = isset($argv[10]) ? $argv[10] : '';
+    static::$api_key = isset($argv[6]) ? $argv[6] : '';
+    static::$api_key_secret = isset($argv[7]) ? $argv[7] : '';
+    static::$endpoint = isset($argv[8]) ? $argv[8] : '';
+    static::$endpoint_method = isset($argv[9]) ? strtolower($argv[9]) : '';
+    static::$endpoint_path = isset($argv[10]) ? $argv[10] : '';
 
+    fwrite(STDOUT, "\nPushAPI Unit Tests:\n\n");
     // Make sure user provides credentials to test PushAPI endpoints.
-    if (!$this->checkPushAPICredentials()) {
-      print('Please speciy PushAPI credentials. See documentation for more details about PushAPI unit tests.');
+    if (empty(static::$api_key) && empty(static::$api_key_secret) && empty(static::$endpoint)) {
+      fwrite(STDOUT, "Please speciy PushAPI credentials. See documentation for more details about PushAPI unit tests.\n");
+      fwrite(STDOUT, "When no credentials specified, only PushAPI helper methods will be tested.\n\n");
     }
+
+  }
+
+  /**
+   *  Create objects against which we will test.
+   */
+  protected function setUp() {
 
     // Set up PushAPI object.
     $this->PushAPI = new \ChapterThree\AppleNews\PushAPI(
-      $this->api_key,
-      $this->api_key_secret,
-      $this->endpoint
+      self::$api_key,
+      self::$api_key_secret,
+      self::$endpoint
     );
 
     // Set up virtual file system.
@@ -103,13 +112,14 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testGet() {
 
-    if ($this->endpoint_method == 'get' && $this->checkPushAPICredentials()) {
+    if (static::$endpoint_method == 'get' && $this->checkPushAPICredentials()) {
 
-      $response = $this->PushAPI->get($this->endpoint_path);
+      $response = $this->PushAPI->get(static::$endpoint_path);
       if (isset($response->errors)) {
         $this->assertTrue(false);
       }
       else {
+        fwrite(STDOUT, "Successfully passed GET method test.\n");
         $this->assertTrue(true);
       }
 
@@ -126,13 +136,14 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testDelete() {
 
-    if ($this->endpoint_method == 'delete' && $this->checkPushAPICredentials()) {
+    if (static::$endpoint_method == 'delete' && $this->checkPushAPICredentials()) {
 
-      $response = $this->PushAPI->delete($this->endpoint_path);
+      $response = $this->PushAPI->delete(static::$endpoint_path);
       if (isset($response->errors)) {
         $this->assertTrue(false);
       }
       else {
+        fwrite(STDOUT, "Successfully passed DELETE method test.\n");
         $this->assertTrue(true);
       }
 
@@ -150,7 +161,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   public function testPost() {
 
-    if ($this->endpoint_method == 'post' && $this->checkPushAPICredentials()) {
+    if (static::$endpoint_method == 'post' && $this->checkPushAPICredentials()) {
 
       $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
 
@@ -161,7 +172,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
       // Add test article.json file.
       $this->files[] = __DIR__ . '/PushAPI/article.json';
 
-      $response = $this->PushAPI->post($this->endpoint_path, [],
+      $response = $this->PushAPI->post(static::$endpoint_path, [],
         [
           'files' => $this->files,
           'json'  => '',
@@ -172,6 +183,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(false);
       }
       else {
+        fwrite(STDOUT, "Successfully passed POST method test.\n");
         $this->assertTrue(true);
       }
 
@@ -183,6 +195,8 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    * Test PushAPI::getFileInformation().
    */
   public function testGetFileInformation() {
+
+    fwrite(STDOUT, "Tested GetFileInformation().\n");
 
     $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI');
     $method = $reflection->getMethod('getFileInformation');
@@ -202,7 +216,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   	      'size'      => strlen(base64_decode(static::BASE64_1X1_GIF))
   	    ];
   	    // Check file information
-       $this->assertEquals(0, count(array_diff($file, $expected)));
+      $this->assertEquals(0, count(array_diff($file, $expected)));
     }
 
   }
@@ -213,6 +227,8 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    * Test PushAPI::multipartFinalize().
    */
   public function testMultipartPart() {
+
+    fwrite(STDOUT, "Tested multipart generator methods.\n");
 
     $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
 
