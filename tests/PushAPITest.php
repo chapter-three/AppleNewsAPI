@@ -17,29 +17,26 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   /** @var (const) CRLF */
   const EOL = "\r\n";
 
-  /** @var (const) API Key ID */
-  const API_KEY_ID = '1e3gfc5e-e9f8-4232-a6be-17bf40edad09';
+  /** @var (string) API Key ID */
+  private $api_key = '';
 
-  /** @var (const) API Key Secret */
-  const API_KEY_SECRET = 'qygOz6+eUsIr1j/YkStHUFP2Wv0SbNZ5RStxQ+lagoA=';
+  /** @var (string) API Key Secret */
+  private $api_key_secret = '';
 
-  /** @var (const) API Endpoint full URL */
-  const ENDPOINT = 'https://endpoint_url.com';
+  /** @var (string) API Endpoint full URL */
+  private $endpoint = '';
 
-  /** @var (const) Random Channel ID */
-  const CHANNEL_ID = '63a75491-2c4d-3530-af91-819be8c3ace0';
+  /** @var (string) Endpoint method to test */
+  private $endpoint_method = '';
 
-  /** @var (const) Random Article ID */
-  const ARTICLE_ID = 'fdc30273-f053-46a5-b6e5-84b3a9036dc6';
+  /** @var (string) Endpoint path to test */
+  private $endpoint_path = '';
+
+  /** @var (object) PushAPI class object */
+  private $PushAPI;
 
   /** @var (const) Contents of the test GIF file */
   const BASE64_1X1_GIF = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-
-  /** @var (object) HTTP client. */
-  private $http_client;
-
-  /** @var (class) PushAPI class. */
-  private $PushAPI;
 
   /** @var (string) File path generated via vfsStream. */
   private $fileroot;
@@ -51,6 +48,24 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    *  Create objects against which we will test.
    */
   protected function setUp() {
+    global $argv, $argc;
+
+    $this->api_key = isset($argv[6]) ? $argv[6] : '';
+    $this->api_key_secret = isset($argv[7]) ? $argv[7] : '';
+    $this->endpoint = isset($argv[8]) ? $argv[8] : '';
+    $this->endpoint_method = isset($argv[9]) ? strtolower($argv[9]) : '';
+    $this->endpoint_path = isset($argv[10]) ? $argv[10] : '';
+
+    if (empty($this->api_key) && empty($this->api_key_secret) && empty($this->endpoint)) {
+      die('Please speciy PushAPI credentials. See documentation for more details about PushAPI unit tests.');
+    }
+
+    // Set up PushAPI object.
+    $this->PushAPI = new \ChapterThree\AppleNews\PushAPI(
+      $this->api_key,
+      $this->api_key_secret,
+      $this->endpoint
+    );
 
     // Set up virtual file system.
     $this->fileroot = vfsStream::setup();
@@ -63,116 +78,87 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     // Add file path to files.
     $this->files[] = $file->url();
 
-    // Setup cURL client.
-    $this->client = $this->getMockBuilder('\Curl\Curl')
-      ->setMethods([
-      	  'post',
-      	  'get',
-      	  'delete',
-      	  'setHeader',
-      	  'unsetHeader',
-      	  'setOpt',
-      	  'close'
-      	]
-      )
-      ->getMock();
-
-    // Set up PushAPI object.
-    $this->PushAPI = new \ChapterThree\AppleNews\PushAPI(
-      static::API_KEY_ID,
-      static::API_KEY_SECRET,
-      static::ENDPOINT
-    );
-
-  }
-
-  /**
-   * Test __constructor().
-   */
-  public function testConstruct() {
-    $this->assertEquals(static::API_KEY_ID, $this->PushAPI->api_key_id);
-    $this->assertEquals(static::API_KEY_SECRET, $this->PushAPI->api_key_secret);
-    $this->assertEquals(static::ENDPOINT, $this->PushAPI->endpoint);
   }
 
   /**
    * Test PushAPI::get().
+   *
+   * Usage:
+   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] get /channels/{channel_id}
    */
   public function testGet() {
 
-    // Set up the expectation for the Get() method to be called only once and
-    // with certain expected parameters.
-    $this->client
-      ->expects($this->once())
-      ->method('get')
-      ->with(
-        $this->equalTo('/channels/{channel_id}/sections'),
-        $this->equalTo([
-          'channel_id' => static::CHANNEL_ID
-        ])
-      );
+    if ($this->endpoint_method == 'get') {
 
-    $request = $this->client->get('/channels/{channel_id}/sections',
-      [
-        'channel_id' => static::CHANNEL_ID
-      ]
-    );
+      $response = $this->PushAPI->get($this->endpoint_path);
+      if (isset($response->errors)) {
+        $this->assertTrue(false);
+      }
+      else {
+        $this->assertTrue(true);
+      }
+
+    }
 
   }
 
   /**
    * Test PushAPI::delete().
+   *
+   * Usage:
+   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] delete /articles/{article_id}
    */
   public function testDelete() {
 
-    // Set up the expectation for the Delete() method to be called only once and
-    // with certain expected parameters.
-    $this->client
-      ->expects($this->once())
-      ->method('delete')
-      ->with(
-        $this->equalTo('/articles/{article_id}'),
-        $this->equalTo([
-          'article_id' => static::ARTICLE_ID
-        ])
-      );
+    if ($this->endpoint_method == 'delete') {
 
-    $request = $this->client->delete('/articles/{article_id}',
-      [
-        'article_id' => static::ARTICLE_ID
-      ]
-    );
+      $response = $this->PushAPI->delete($this->endpoint_path);
+      if (isset($response->errors)) {
+        $this->assertTrue(false);
+      }
+      else {
+        $this->assertTrue(true);
+      }
+
+    }
 
   }
 
+
   /**
    * Test PushAPI::post().
+   *
+   * Usage:
+   *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php [API_KEY_ID] [API_SECRET_KEY] [ENDPOINT_URL] post /channels/{channel_id}/articles
    */
   public function testPost() {
 
-    // Set up the expectation for the Post() method to be called only once and
-    // with certain expected parameters.
-    $this->client
-      ->expects($this->once())
-      ->method('post')
-      ->with(
-        $this->equalTo('/channels/{channel_id}/articles'),
-        $this->equalTo([
-          'channel_id' => static::CHANNEL_ID
-        ]),
-        $this->equalTo([
-          'files' => $this->files
-        ])
+    if ($this->endpoint_method == 'post') {
+
+      $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
+
+      // Access protected method getFileInformation().
+      $getFileInformation = $reflection->getMethod('getFileInformation');
+      $getFileInformation->setAccessible(true);
+
+      // Add test article.json file.
+      $this->files[] = __DIR__ . '/PushAPI/article.json';
+
+      $response = $this->PushAPI->post($this->endpoint_path, [],
+        [
+          'files' => $this->files,
+          'json'  => '',
+        ]
       );
 
-    $request = $this->client->post('/channels/{channel_id}/articles',
-      [
-        'channel_id' => static::CHANNEL_ID
-      ],
-      [
-        'files' => $this->files
-      ]
-    );
+      if (isset($response->errors)) {
+        $this->assertTrue(false);
+      }
+      else {
+        $this->assertTrue(true);
+      }
+
+    }
 
   }
 
