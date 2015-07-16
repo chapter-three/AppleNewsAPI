@@ -163,12 +163,6 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
     if (static::$endpoint_method == 'post' && $this->checkPushAPICredentials()) {
 
-      $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
-
-      // Access protected method getFileInformation().
-      $getFileInformation = $reflection->getMethod('getFileInformation');
-      $getFileInformation->setAccessible(true);
-
       // Add test article.json file.
       $this->files[] = __DIR__ . '/PushAPI/article.json';
 
