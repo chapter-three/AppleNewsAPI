@@ -17,13 +17,11 @@ class Heading extends Text {
    *
    * @param mixed $text
    *   Text.
-   * @param string $role
-   *   One of "heading" or "heading1" through "heading6", defaults to "heading".
    * @param mixed $identifier
    *   Identifier.
    */
-  public function __construct($text, $role = 'heading', $identifier = NULL) {
-    return parent::__construct($role, $text, $identifier);
+  public function __construct($text, $identifier = NULL) {
+    return parent::__construct('heading', $text, $identifier);
   }
 
   /**
