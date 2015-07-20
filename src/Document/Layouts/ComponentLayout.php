@@ -148,7 +148,7 @@ class ComponentLayout extends Base {
    *
    * @return $this
    */
-  public function setIgnoreDocumentMargin($value) {
+  public function setIgnoreDocumentMargin($value = TRUE) {
     if ($this->validateIgnoreDocumentMargin($value)) {
       $this->ignoreDocumentMargin = $value;
     }
@@ -170,7 +170,7 @@ class ComponentLayout extends Base {
    *
    * @return $this
    */
-  public function setIgnoreDocumentGutter($value) {
+  public function setIgnoreDocumentGutter($value = TRUE) {
     if ($this->validateIgnoreDocumentGutter($value)) {
       $this->ignoreDocumentGutter = $value;
     }
@@ -187,7 +187,7 @@ class ComponentLayout extends Base {
   /**
    * Setter for minimumHeight.
    *
-   * @param float $value
+   * @param int|string $value
    *   MinimumHeight.
    *
    * @return $this
