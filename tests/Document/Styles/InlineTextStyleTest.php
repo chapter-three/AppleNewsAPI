@@ -6,41 +6,40 @@
  */
 
 use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Styles\StrokeStyle;
+use ChapterThree\AppleNews\Document\Layouts\Layout;
+use ChapterThree\AppleNews\Document\Styles\InlineTextStyle;
 use ChapterThree\AppleNews\Document\Styles\TextStyle;
 
 /**
  * Tests for the TextStrokeStyle class.
  */
-class InlineStrokeStyleTest extends PHPUnit_Framework_TestCase {
+class InlineTextStyleTest extends PHPUnit_Framework_TestCase {
 
   /**
    * Setting properties and outputting json.
    */
   public function testSetters() {
 
-    $obj = new StrokeStyle();
+    $obj = new InlineTextStyle(0, 1, new TextStyle());
 
-    $json = '{}';
-    $this->assertEquals($json, $obj->json());
+    $expected = '{"rangeStart":0,"rangeLength":1,"textStyle":{}}';
+    $this->assertJsonStringEqualsJsonString($expected, $obj->json());
 
-    // Test Validation.
-    @$obj->setColor('000000');
-    $this->assertEquals($json, $obj->json());
-    @$obj->setColor('#00000');
-    $this->assertEquals($json, $obj->json());
-    @$obj->setColor('blue');
-    $this->assertEquals($json, $obj->json());
-    @$obj->setStyle('asdf');
-    $this->assertEquals($json, $obj->json());
+    $expected = '{"rangeStart":1,"rangeLength":10,"textStyle":{}}';
+    $obj->setRangeLength(10);
+    $obj->setRangeStart(1);
+    $this->assertJsonStringEqualsJsonString($expected, $obj->json());
 
-    // Optional properties.
-    $json = '{"color":"#12345678","width":100,"style":"dashed"}';
-    $obj = new StrokeStyle();
-    $obj->setColor('#12345678')
-      ->setWidth(100)
-      ->setStyle('dashed');
-    $this->assertJsonStringEqualsJsonString($json, $obj->json());
+    // Test assigning document level objects.
+    $document = new Document('1', 'title', 'en-us', new Layout(2, 512));
+
+    $expected = '{"rangeStart":1,"rangeLength":10,"textStyle":"key"}';
+    $style = new TextStyle();
+    $document->addTextStyle('key', $style);
+    $obj->setTextStyle('key', $document);
+    $this->assertJsonStringEqualsJsonString($expected, $obj->json());
+    @$obj->setTextStyle('invalid key', $document);
+    $this->assertJsonStringEqualsJsonString($expected, $obj->json());
 
   }
 

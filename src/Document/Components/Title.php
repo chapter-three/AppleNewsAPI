@@ -2,7 +2,7 @@
 
 /**
  * @file
- * An Apple News Document Title.
+ * An Apple News Document Title Component.
  */
 
 namespace ChapterThree\AppleNews\Document\Components;

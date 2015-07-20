@@ -16,6 +16,21 @@ class Margin extends Base {
   protected $bottom;
 
   /**
+   * Implements __construct().
+   *
+   * @param mixed $target_anchor_position
+   *   TargetAnchorPosition.
+   */
+  public function __construct($top = NULL, $bottom = NULL) {
+    if ($top !== NULL) {
+      $this->setTop($top);
+    }
+    if ($bottom !== NULL) {
+      $this->setBottom($bottom);
+    }
+  }
+
+  /**
    * Define optional properties.
    */
   protected function optional() {

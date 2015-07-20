@@ -113,7 +113,7 @@ abstract class Text extends Component {
         $this->triggerError("Missing second argument");
         return $this;
       }
-      if (empty($document->getComponentLayouts()[$text_style])) {
+      if (empty($document->getComponentTextStyles()[$text_style])) {
         $this->triggerError("No ComponentTextStyle \"${text_style}\" found.");
         return $this;
       }

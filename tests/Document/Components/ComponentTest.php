@@ -36,18 +36,18 @@ class ComponentTest extends PHPUnit_Framework_TestCase {
 
     $obj = new ComponentTestClass();
 
-    $json = '{"role":"role"}';
-    $this->assertEquals($json, $obj->json());
+    $expected = '{"role":"role"}';
+    $this->assertJsonStringEqualsJsonString($expected, $obj->json());
 
     // Test assigning document level objects.
-    $json = '{"role":"role","layout":"key"}';
+    $expected = '{"role":"role","layout":"key"}';
     $layout = new ComponentLayout();
     $document = new Document('1', 'title', 'en-us', new Layout(2, 512));
     $document->addComponentLayout('key', $layout);
     $obj->setLayout('key', $document);
-    $this->assertEquals($json, $obj->json());
+    $this->assertJsonStringEqualsJsonString($expected, $obj->json());
     @$obj->setLayout('invalid key', $document);
-    $this->assertEquals($json, $obj->json());
+    $this->assertJsonStringEqualsJsonString($expected, $obj->json());
 
   }
 
