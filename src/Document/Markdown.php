@@ -175,7 +175,7 @@ class Markdown {
           break;
 
         case \XMLReader::TEXT:
-          $markdown[$line] .= preg_replace('/\s\s+/', ' ', $reader->value);
+          $markdown[$line] .= preg_replace('/\s\s*/', ' ', $reader->value);
           break;
 
       }
