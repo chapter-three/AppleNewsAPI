@@ -24,12 +24,11 @@ class MetadataTest extends PHPUnit_Framework_TestCase {
 
     // Test validation.
     for ($i = 0; $i < 50; $i++) {
-      $obj->addKeyword('')
+      $obj->addKeyword('a');
     }
-    @$obj->setTop('67rndm');
-    @$obj->setBottom('57rndm');
-    $this->assertEquals($json, $obj->json());
-
+    @$obj->addKeyword('a');
+    $this->assertEquals(50, count($obj->getKeywords()),
+      'Max 50 keywords.');
 
   }
 
