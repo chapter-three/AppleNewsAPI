@@ -36,12 +36,12 @@ class DocumentTest extends PHPUnit_Framework_TestCase {
     $obj->addComponent(new Body('body text'))
       ->addComponentTextStyle('default', new ComponentTextStyle());
 
-    $expected = '{"identifier":"1","title":"title","language":"en","layout":{"columns":7,"width":1024},"components":[{"text":"body text","role": "body"}],"componentTextStyles":{"default":{}}}';
+    $expected = '{"version":"' . $obj->getVersion() . '","identifier":"1","title":"title","language":"en","layout":{"columns":7,"width":1024},"components":[{"text":"body text","role": "body"}],"componentTextStyles":{"default":{}}}';
 
     $this->assertJsonStringEqualsJsonString($expected, $obj->json());
 
     // Optional properties.
-    $expected = '{"identifier":"1","title":"title","subtitle":"subtitle","language":"en","layout":{"columns":7,"width":1024},"components":[{"text":"body text","role": "body"}],"componentTextStyles":{"default":{}}}';
+    $expected = '{"version":"' . $obj->getVersion() . '","identifier":"1","title":"title","subtitle":"subtitle","language":"en","layout":{"columns":7,"width":1024},"components":[{"text":"body text","role": "body"}],"componentTextStyles":{"default":{}}}';
 
     $obj->setSubtitle('subtitle');
     $this->assertJsonStringEqualsJsonString($expected, $obj->json());

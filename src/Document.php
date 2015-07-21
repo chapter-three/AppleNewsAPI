@@ -22,7 +22,7 @@ use ChapterThree\AppleNews\Document\Layouts\ComponentLayout;
  */
 class Document extends Base {
 
-  protected static $version = '0.1.2';
+  protected $version = '0.10.1';
   protected $identifier;
   protected $title;
   protected $language;
@@ -69,6 +69,13 @@ class Document extends Base {
       'componentStyles',
       'componentLayouts',
     ));
+  }
+
+  /**
+   * Getter for version.
+   */
+  public function getVersion() {
+    return $this->version;
   }
 
   /**
