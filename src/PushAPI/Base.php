@@ -283,7 +283,8 @@ abstract class Base {
    * @see http://php.net/manual/en/errorfunc.constants.php
    */
   public function triggerError($message, $message_type = E_USER_NOTICE) {
-    $trace = next(debug_backtrace());
+    $debug_backtrace = debug_backtrace();
+    $trace = next($debug_backtrace);
     $message = sprintf('%s in %s on line %d', $message, $trace['file'], $trace['line']);
     trigger_error($message, $message_type);
   }
