@@ -117,7 +117,7 @@ $metadata = json_encode([
     'revision' => REVISION_ID
   ]
 ]);
-$response = $PushAPI->delete('/articles/{article_id}',
+$response = $PushAPI->post('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
   ],
