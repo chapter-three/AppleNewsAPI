@@ -111,12 +111,13 @@ $response = $PushAPI->post('/channels/{channel_id}/articles',
 ##### UPDATE Article
 
 ```php
-// Updates an existing article.
+// Metadata information `revision` is required.
 $metadata = json_encode([
   'data' => [
     'revision' => REVISION_ID
   ]
 ]);
+// Updates an existing article.
 $response = $PushAPI->post('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
