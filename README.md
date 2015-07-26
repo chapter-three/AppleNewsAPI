@@ -125,7 +125,7 @@ $response = $PushAPI->post('/articles/{article_id}',
     // List of files to POST
     'files' => [], // not required when `json` not empty
     // JSON metadata string
-    'metadata' => $metadata, // optional
+    'metadata' => $metadata, // required
     // Submit contents of the article.json file if
     // the file isn't provied in the `files` array
     'json' => '', // optional
