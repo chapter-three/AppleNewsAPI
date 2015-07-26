@@ -20,6 +20,6 @@ namespace ChapterThree\AppleNews;
 class PushAPI extends \ChapterThree\AppleNews\PushAPI\Curl {
 
   /** @var (const) PushAPI version */
-  const VERSION = '0.1.2';
+  const VERSION = '0.1.5';
 
 }
