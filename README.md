@@ -112,7 +112,7 @@ $response = $PushAPI->post('/channels/{channel_id}/articles',
 
 ```php
 // Updates an existing article.
-$json = json_encode([
+$metadata = json_encode([
   'data' => [
     'revision' => REVISION_ID
   ]
@@ -125,7 +125,7 @@ $response = $PushAPI->delete('/articles/{article_id}',
     // List of files to POST
     'files' => [], // not required when `json` not empty
     // JSON metadata string
-    'metadata' => $json, // optional
+    'metadata' => $metadata, // optional
     // Submit contents of the article.json file if
     // the file isn't provied in the `files` array
     'json' => '', // optional
