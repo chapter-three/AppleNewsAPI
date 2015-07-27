@@ -92,6 +92,7 @@ $response = $PushAPI->get('/articles/{article_id}',
 
 ```php
 // Publishes a new article to a channel.
+// $response contains an article ID and revision ID.
 $response = $PushAPI->post('/channels/{channel_id}/articles',
   [
     'channel_id' => CHANNEL_ID
@@ -118,6 +119,7 @@ $metadata = json_encode([
   ]
 ]);
 // Updates an existing article.
+// See $response variable to get a new revision ID.
 $response = $PushAPI->post('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
