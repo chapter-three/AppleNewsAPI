@@ -12,6 +12,8 @@ namespace ChapterThree\AppleNews\Document;
  */
 class Markdown {
 
+  const ESCAPEDCHARS = '\`*_{}[]()#+-!';
+
   /**
    * Convert HTML to Apple News Markdown.
    *
@@ -23,6 +25,12 @@ class Markdown {
    *   Markdown representation of the HTML.
    */
   public static function convert($html) {
+
+    // Arguments for str_replace().
+    $escaped_chars = str_split(self::ESCAPEDCHARS);
+    $escaped_chars_replace = array_map(function($char) {
+      return '\\' . $char;
+    }, $escaped_chars);
 
     // Ensure a root element.
     $html = '<html>' . trim($html) . '</html>';
@@ -175,7 +183,12 @@ class Markdown {
           break;
 
         case \XMLReader::TEXT:
-          $markdown[$line] .= preg_replace('/\s\s*/', ' ', $reader->value);
+          $markdown[$line] .=
+            // Special Characters.
+            str_replace($escaped_chars, $escaped_chars_replace,
+              // Ignored whitespace.
+              preg_replace('/\s\s*/', ' ', $reader->value)
+            );
           break;
 
       }

@@ -209,4 +209,22 @@ EOD;
       'Convert HTML with ignored elements to Markdown.');
   }
 
+  /**
+   * Ignored tags.
+   */
+  public function testSpecialChars() {
+    $html = <<<'EOD'
+<p>some paragraph content with special characters \ ` * _ {} [] () # + - !</p>
+<p>here is an exclamation point!<a href="http://apple.com">followed by a link</a> (not an image)</p>
+EOD;
+    $expected = <<<'EOD'
+some paragraph content with special characters \\ \` \* \_ \{\} \[\] \(\) \# \+ \- \!
+
+here is an exclamation point\![followed by a link](http://apple.com) \(not an image\)
+EOD;
+    $markdown = Markdown::convert($html);
+    $this->assertEquals(trim($expected), trim($markdown),
+      'Convert HTML with ignored elements to Markdown.');
+  }
+
 }
