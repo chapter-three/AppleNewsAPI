@@ -25,7 +25,6 @@ $PushAPI = new PushAPI(
 // the article will be published to the channel's default section.
 $metadata =  [
   'data' => [
-    'isCandidateToBeFeatured' => true,
     'isSponsored' => true,
     'links' => [
       'sections' => [
