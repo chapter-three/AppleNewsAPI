@@ -12,7 +12,7 @@ namespace ChapterThree\AppleNews\Document\Components;
  */
 class Image extends Component {
 
-  protected $url;
+  protected $URL;
 
   protected $caption;
   protected $accessibilityCaption;
@@ -46,7 +46,7 @@ class Image extends Component {
    * Getter for url.
    */
   public function getUrl() {
-    return $this->url;
+    return $this->URL;
   }
 
   /**
@@ -58,7 +58,8 @@ class Image extends Component {
    * @return $this
    */
   public function setUrl($value) {
-    $this->url = $value;
+    $slashes = explode("/", $value);
+    $this->URL = 'bundle://' . $slashes[count($slashes) - 1];
     return $this;
   }
 
