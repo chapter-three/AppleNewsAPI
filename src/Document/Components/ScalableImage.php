@@ -2,15 +2,15 @@
 
 /**
  * @file
- * An Apple News Document Image.
+ * An Apple News Document ScalableImage.
  */
 
 namespace ChapterThree\AppleNews\Document\Components;
 
 /**
- * An Apple News Document Image.
+ * An Apple News Document ScalableImage.
  */
-class Image extends Component {
+abstract class ScalableImage extends Component {
 
   protected $URL;
 
@@ -21,13 +21,15 @@ class Image extends Component {
   /**
    * Implements __construct().
    *
-   * @param string $url
+   * @param mixed $role
    *   Role.
+   * @param mixed $url
+   *   Text.
    * @param mixed $identifier
    *   Identifier.
    */
-  public function __construct($url, $identifier = NULL) {
-    parent::__construct('image', $identifier);
+  public function __construct($role, $url, $identifier = NULL) {
+    parent::__construct($role, $identifier);
     $this->setUrl($url);
   }
 
@@ -52,13 +54,13 @@ class Image extends Component {
   /**
    * Setter for url.
    *
-   * @param mixed $value
+   * @param mixed $url
    *   Url.
    *
    * @return $this
    */
-  public function setUrl($value) {
-    $this->URL = $value;
+  public function setUrl($url) {
+    $this->URL = $url;
     return $this;
   }
 

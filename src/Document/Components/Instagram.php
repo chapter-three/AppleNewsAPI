@@ -2,15 +2,15 @@
 
 /**
  * @file
- * An Apple News Document Tweet.
+ * An Apple News Document Instagram.
  */
 
 namespace ChapterThree\AppleNews\Document\Components;
 
 /**
- * An Apple News Document Tweet.
+ * An Apple News Document Instagram.
  */
-class Tweet extends Component {
+class Instagram extends Component {
 
   protected $URL;
 
@@ -23,7 +23,7 @@ class Tweet extends Component {
    *   Identifier.
    */
   public function __construct($url, $identifier = NULL) {
-    parent::__construct('tweet', $identifier);
+    parent::__construct('instagram', $identifier);
     $this->setUrl($url);
   }
 

@@ -2,32 +2,35 @@
 
 /**
  * @file
- * An Apple News Document Image.
+ * An Apple News Document Audio.
  */
 
 namespace ChapterThree\AppleNews\Document\Components;
 
 /**
- * An Apple News Document Image.
+ * An Apple News Document Audio.
  */
-class Image extends Component {
+abstract class Audio extends Component {
 
   protected $URL;
 
   protected $caption;
+  protected $imageURL;
   protected $accessibilityCaption;
   protected $explicitContent;
 
   /**
    * Implements __construct().
    *
-   * @param string $url
+   * @param mixed $role
    *   Role.
+   * @param mixed $url
+   *   Text.
    * @param mixed $identifier
    *   Identifier.
    */
-  public function __construct($url, $identifier = NULL) {
-    parent::__construct('image', $identifier);
+  public function __construct($role, $url, $identifier = NULL) {
+    parent::__construct($role, $identifier);
     $this->setUrl($url);
   }
 
@@ -37,6 +40,7 @@ class Image extends Component {
   protected function optional() {
     return array_merge(parent::optional(), array(
       'caption',
+      'imageURL',
       'accessibilityCaption',
       'explicitContent',
     ));
@@ -52,13 +56,13 @@ class Image extends Component {
   /**
    * Setter for url.
    *
-   * @param mixed $value
+   * @param mixed $url
    *   Url.
    *
    * @return $this
    */
-  public function setUrl($value) {
-    $this->URL = $value;
+  public function setUrl($url) {
+    $this->URL = $url;
     return $this;
   }
 
@@ -79,6 +83,26 @@ class Image extends Component {
    */
   public function setCaption($value) {
     $this->caption = (string) $value;
+    return $this;
+  }
+
+  /**
+   * Getter for imageURL.
+   */
+  public function getImageURL() {
+    return $this->imageURL;
+  }
+
+  /**
+   * Setter for imageURL.
+   *
+   * @param string $value
+   *   ImageURL.
+   *
+   * @return $this
+   */
+  public function setImageURL($value) {
+    $this->imageURL = (string) $value;
     return $this;
   }
 

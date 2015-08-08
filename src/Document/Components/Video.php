@@ -2,18 +2,20 @@
 
 /**
  * @file
- * An Apple News Document Image.
+ * An Apple News Document Video.
  */
 
 namespace ChapterThree\AppleNews\Document\Components;
 
 /**
- * An Apple News Document Image.
+ * An Apple News Document Video.
  */
-class Image extends Component {
+class Video extends Component {
 
   protected $URL;
 
+  protected $stillURL;
+  protected $aspectRatio;
   protected $caption;
   protected $accessibilityCaption;
   protected $explicitContent;
@@ -27,7 +29,7 @@ class Image extends Component {
    *   Identifier.
    */
   public function __construct($url, $identifier = NULL) {
-    parent::__construct('image', $identifier);
+    parent::__construct('video', $identifier);
     $this->setUrl($url);
   }
 
@@ -37,6 +39,8 @@ class Image extends Component {
   protected function optional() {
     return array_merge(parent::optional(), array(
       'caption',
+      'stillURL',
+      'aspectRatio',
       'accessibilityCaption',
       'explicitContent',
     ));
@@ -52,13 +56,53 @@ class Image extends Component {
   /**
    * Setter for url.
    *
-   * @param mixed $value
+   * @param mixed $url
    *   Url.
    *
    * @return $this
    */
-  public function setUrl($value) {
-    $this->URL = $value;
+  public function setUrl($url) {
+    $this->URL = $url;
+    return $this;
+  }
+
+  /**
+   * Getter for stillURL.
+   */
+  public function getStillURL() {
+    return $this->stillURL;
+  }
+
+  /**
+   * Setter for stillURL.
+   *
+   * @param bool $value
+   *   ExplicitContent.
+   *
+   * @return $this
+   */
+  public function setStillURL($value) {
+    $this->stillURL = $value;
+    return $this;
+  }
+
+  /**
+   * Getter for aspectRatio.
+   */
+  public function getAspectRatio() {
+    return $this->aspectRatio;
+  }
+
+  /**
+   * Setter for aspectRatio.
+   *
+   * @param bool $value
+   *   ExplicitContent.
+   *
+   * @return $this
+   */
+  public function setAspectRatio($value) {
+    $this->aspectRatio = $value;
     return $this;
   }
 
