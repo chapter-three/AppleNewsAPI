@@ -12,7 +12,7 @@ namespace ChapterThree\AppleNews\Document\Styles\Fills;
  */
 class ImageFill extends Fill {
 
-  protected $url;
+  protected $URL;
   protected $fillMode;
   protected $verticalAlignment;
   protected $horizontalAlignment;
@@ -43,7 +43,7 @@ class ImageFill extends Fill {
    * Getter for url.
    */
   public function getUrl() {
-    return $this->url;
+    return $this->URL;
   }
 
   /**
@@ -55,7 +55,7 @@ class ImageFill extends Fill {
    * @return $this
    */
   public function setUrl($value) {
-    $this->url = $value;
+    $this->URL = $value;
     return $this;
   }
 
