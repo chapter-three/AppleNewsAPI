@@ -10,7 +10,7 @@ namespace ChapterThree\AppleNews\Document\Components;
 /**
  * An Apple News Document Image.
  */
-class Image extends Component {
+abstract class Image extends Component {
 
   protected $URL;
 
@@ -21,13 +21,15 @@ class Image extends Component {
   /**
    * Implements __construct().
    *
-   * @param string $url
+   * @param mixed $role
    *   Role.
+   * @param string $url
+   *   Image URL.
    * @param mixed $identifier
    *   Identifier.
    */
-  public function __construct($url, $identifier = NULL) {
-    parent::__construct('image', $identifier);
+  public function __construct($role, $url, $identifier = NULL) {
+    parent::__construct($role, $identifier);
     $this->setUrl($url);
   }
 

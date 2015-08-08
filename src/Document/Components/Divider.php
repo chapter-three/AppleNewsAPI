@@ -15,8 +15,6 @@ use ChapterThree\AppleNews\Document\Styles\StrokeStyle;
  */
 class Divider extends Component {
 
-  protected $URL;
-
   protected $stroke;
 
   /**
