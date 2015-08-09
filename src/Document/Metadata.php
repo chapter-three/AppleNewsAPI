@@ -24,6 +24,7 @@ class Metadata extends Base {
   protected $keywords;
   protected $excerpt;
   protected $campaignData;
+  protected $transparentToolbar;
 
   /**
    * Define optional properties.
@@ -41,9 +42,8 @@ class Metadata extends Base {
       'thumbnailURL',
       'keywords',
       'excerpt',
-      'authorName',
-      'authorIdentifier',
       'campaignData',
+      'transparentToolbar',
     ));
   }
 
@@ -286,6 +286,26 @@ class Metadata extends Base {
    */
   public function setCampaignData(array $value) {
     $this->campaignData = (object) $value;
+    return $this;
+  }
+
+  /**
+   * Getter for transparentToolbar.
+   */
+  public function getTransparentToolbar() {
+    return $this->transparentToolbar;
+  }
+
+  /**
+   * Setter for transparentToolbar.
+   *
+   * @param bool $value
+   *   TransparentToolbar.
+   *
+   * @return $this
+   */
+  public function setTransparentToolbar($value) {
+    $this->transparentToolbar = (bool) $value;
     return $this;
   }
 
