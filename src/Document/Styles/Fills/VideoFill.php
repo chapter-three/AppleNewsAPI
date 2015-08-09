@@ -2,17 +2,18 @@
 
 /**
  * @file
- * An Apple News Document ImageFill.
+ * An Apple News Document VideoFill.
  */
 
 namespace ChapterThree\AppleNews\Document\Styles\Fills;
 
 /**
- * An Apple News Document ImageFill.
+ * An Apple News Document VideoFill.
  */
-class ImageFill extends Fill {
+class VideoFill extends Fill {
 
   protected $URL;
+  protected $stillURL;
   protected $fillMode;
   protected $verticalAlignment;
   protected $horizontalAlignment;
@@ -22,10 +23,13 @@ class ImageFill extends Fill {
    *
    * @param string $url
    *   URL.
+   * @param string $stillURL
+   *   URL.
    */
-  public function __construct($url) {
-    parent::__construct('image');
+  public function __construct($url, $stillURL) {
+    parent::__construct('video');
     $this->setUrl($url);
+    $this->setStillURL($stillURL);
   }
 
   /**
@@ -56,6 +60,26 @@ class ImageFill extends Fill {
    */
   public function setUrl($value) {
     $this->URL = $value;
+    return $this;
+  }
+
+  /**
+   * Getter for stillURL.
+   */
+  public function getStillURL() {
+    return $this->stillURL;
+  }
+
+  /**
+   * Setter for stillURL.
+   *
+   * @param string $value
+   *   Url.
+   *
+   * @return $this
+   */
+  public function setStillURL($value) {
+    $this->stillURL = $value;
     return $this;
   }
 
