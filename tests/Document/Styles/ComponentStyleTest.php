@@ -25,12 +25,12 @@ class ComponentStyleTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($json, $obj->json());
 
     // Optional properties.
-    $json = '{"fill":{"type":"image","url":"bundle://header-image.png"},"border":{}}';
+    $json = '{"fill":{"type":"image","URL":"bundle://header-image.png"},"border":{}}';
     $obj->setFill(new ImageFill('bundle://header-image.png'))
       ->setBorder(new Border());
     $this->assertJsonStringEqualsJsonString($json, $obj->json());
 
-    $json = '{"backgroundColor":"#FFFFFF","fill":{"type":"image","url":"bundle://header-image.png"},"opacity":1,"border":{}}';
+    $json = '{"backgroundColor":"#FFFFFF","fill":{"type":"image","URL":"bundle://header-image.png"},"opacity":1,"border":{}}';
     $obj->setBackgroundColor('#FFFFFF')
       ->setOpacity(1);
     $this->assertJsonStringEqualsJsonString($json, $obj->json());
