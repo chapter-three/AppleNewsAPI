@@ -9,7 +9,7 @@ use ChapterThree\AppleNews\Document\Base;
 use ChapterThree\AppleNews\Document\Styles\Fills\Fill;
 
 /**
- * A test class for Text.
+ * A test class for Fill.
  */
 class FillTestClass extends Fill {
 
@@ -23,7 +23,7 @@ class FillTestClass extends Fill {
 }
 
 /**
- * Tests for the Text class.
+ * Tests for the Fill class.
  */
 class FillTest extends PHPUnit_Framework_TestCase {
 

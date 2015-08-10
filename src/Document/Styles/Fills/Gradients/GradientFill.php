@@ -9,6 +9,7 @@ namespace ChapterThree\AppleNews\Document\Styles\Fills\Gradients;
 
 use ChapterThree\AppleNews\Document\Base;
 use ChapterThree\AppleNews\Document\Styles\Fills;
+use ChapterThree\AppleNews\Document\Styles\Fills\Fill;
 
 /**
  * An Apple News Document GradientFill.

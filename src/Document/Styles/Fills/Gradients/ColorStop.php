@@ -23,7 +23,7 @@ class ColorStop extends Base {
    * @param string $color
    */
   public function __construct($color) {
-    $this->setColor($colorStops);
+    $this->setColor($color);
   }
 
   /**
