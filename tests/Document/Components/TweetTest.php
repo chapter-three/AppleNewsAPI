@@ -20,7 +20,7 @@ class TweetTest extends PHPUnit_Framework_TestCase {
     $obj = new Tweet('https://twitter.com/NASAhistory/status/617747276635635714');
 
     // Optional properties.
-    $expected = '{"role":"tweet","url":"https://twitter.com/NASAhistory/status/617747276635635714"}';
+    $expected = '{"role":"tweet","URL":"https://twitter.com/NASAhistory/status/617747276635635714"}';
     $this->assertJsonStringEqualsJsonString($expected, $obj->json());
 
   }

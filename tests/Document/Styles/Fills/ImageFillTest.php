@@ -4,7 +4,8 @@
  * @file
  * Tests for ChapterThree\AppleNews\Document\Styles\Fills\ImageFill.
  */
-
+use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNews\Document\Styles\Fills;
 use ChapterThree\AppleNews\Document\Styles\Fills\ImageFill;
 
 /**
@@ -19,13 +20,12 @@ class ImageFillTest extends PHPUnit_Framework_TestCase {
 
     $obj = new ImageFill('bundle://header-image.png');
 
-    $json = '{"url":"bundle:\/\/header-image.png","type":"image"}';
+    $json = '{"URL":"bundle:\/\/header-image.png","type":"image"}';
 
-    $obj->setType('image');
     $this->assertJsonStringEqualsJsonString($json, $obj->json());
 
     // Optional properties.
-    $json = '{"url":"bundle:\/\/header-image.png","fillMode":"cover","verticalAlignment":"top","horizontalAlignment":"center","type":"image","attachment":"fixed"}';
+    $json = '{"URL":"bundle:\/\/header-image.png","fillMode":"cover","verticalAlignment":"top","horizontalAlignment":"center","type":"image","attachment":"fixed"}';
     $obj->setAttachment('fixed')
       ->setFillMode('cover')
       ->setVerticalAlignment('top')
