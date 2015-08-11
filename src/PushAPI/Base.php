@@ -284,9 +284,9 @@ abstract class Base {
    */
   public function triggerError($message, $message_type = E_USER_NOTICE) {
     $debug_backtrace = debug_backtrace();
-    $trace = next($debug_backtrace);
-    $message = sprintf('%s in %s on line %d', $message, $trace['file'], $trace['line']);
-    trigger_error($message, $message_type);
+    $trace = $debug_backtrace[0];
+    trigger_error($message . ' in ' . $trace['file'] . ' on line ' .
+      $trace['line'], $message_type);
   }
 
 }
