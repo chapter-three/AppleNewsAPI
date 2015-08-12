@@ -152,8 +152,12 @@ class Curl extends Base {
    * Create POST request to a specified endpoint.
    *
    * @param (string) $path API endpoint path.
-   * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
-   * @param (array) $data Raw content of the request or associative array to pass to endpoints.
+   * @param (array) $path_args Endpoint path arguments to replace tokens in the
+   *   path.
+   * @param (array) $data Associative array to pass to endpoints, with keys:
+   *   - json - JSON string.
+   *   - files - Array of file paths keyed on URL used to reference file in json.
+   *   - metadata - Associative array of metadata.
    *
    * @return object Preprocessed structured object.
    */
@@ -196,17 +200,17 @@ class Curl extends Base {
     }
 
     // Process each file and generate multipart form data.
-    foreach ($files as $path) {
+    foreach ($files as $url => $path) {
       // Load file information.
-      $file = $this->getFileInformation($path);
+      $info = $this->getFileInformation($path);
       $multiparts[] = $this->multipartPart(
         [
-          'filename'   => $file['filename'],
-          'name'       => $file['name'],
-          'size'       => $file['size']
+          'filename'   => pathinfo($url, PATHINFO_BASENAME),
+          'name'       => pathinfo($url, PATHINFO_FILENAME),
+          'size'       => $info['size'],
         ],
-        ($file['extension'] == 'json') ? 'application/json' : $file['mimetype'],
-        $file['contents']
+        ($info['extension'] == 'json') ? 'application/json' : $info['mimetype'],
+        $info['contents']
       );
     }
 
