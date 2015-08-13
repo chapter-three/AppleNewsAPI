@@ -22,7 +22,7 @@ use ChapterThree\AppleNews\Document\Layouts\ComponentLayout;
  */
 class Document extends Base {
 
-  protected $version = '0.10.1';
+  protected $version = '0.10.13';
   protected $identifier;
   protected $title;
   protected $language;
