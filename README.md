@@ -99,12 +99,10 @@ $response = $PushAPI->post('/channels/{channel_id}/articles',
   ],
   [
     // List of files to POST
-    'files' => [], // not required when `json` not empty
+    'files' => [], // optional. A list of article assets [uri => path]
     // JSON metadata string
-    'metadata' => '', // optional
-    // Submit contents of the article.json file if
-    // the file isn't provied in the `files` array
-    'json' => '', // optional
+    'metadata' => $metadata, // required
+    'json' => '', // required. Apple News Native formatted JSON string.
   ]
 );
 ```
@@ -126,12 +124,11 @@ $response = $PushAPI->post('/articles/{article_id}',
   ],
   [
     // List of files to POST
-    'files' => [], // not required when `json` not empty
+    'files' => [], // optional. A list of article assets [uri => path]
     // JSON metadata string
     'metadata' => $metadata, // required
-    // Submit contents of the article.json file if
-    // the file isn't provied in the `files` array
-    'json' => '', // optional
+    // Apple News Native formatted JSON string. See examples.
+    'json' => '', // required.
   ]
 );
 ```

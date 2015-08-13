@@ -28,7 +28,7 @@ $metadata =  [
     'isSponsored' => true,
     'links' => [
       'sections' => [
-        'https://endpoint_url/sections/f4706267-95fa-3571-9a26-273903e0b1ed',
+        'https://endpoint_url/sections/{your_section_id}',
       ],
     ],
     'revision' => REVISION_ID // required.
@@ -42,14 +42,13 @@ $response = $PushAPI->post('/articles/{article_id}',
     'article_id' => ARTICLE_ID
   ],
   [
+    // required. Apple News Native formatted JSON string.
+    'json' => '{"version":"0.10.13","identifier":"10","title":"Test article","language":"en","layout":{"columns":7,"width":1024},"components":[{"text":"Test article content\n\n","format":"markdown","role":"body"},{"URL":"bundle:\/\/article.jpg","role":"photo"}],"componentTextStyles":{"default":{}}}',
     // List of files to POST
     'files' => [
-      __DIR__ . '/files/article.json',
-    ], // not required when `json` not empty
+      'bundle://article.jpg' => __DIR__ . '/files/article.jpg',
+    ], // optional
     // JSON metadata string
     'metadata' => json_encode($metadata, JSON_UNESCAPED_SLASHES), // optional
-    // Submit contents of the article.json file if
-    // the file isn't provied in the `files` array
-    'json' => '', // optional
   ]
 );
