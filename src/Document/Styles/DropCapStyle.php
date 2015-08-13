@@ -158,7 +158,7 @@ class DropCapStyle extends Base {
   /**
    * Setter for padding.
    *
-   * @param bool $value
+   * @param int $value
    *   Padding.
    *
    * @return $this
