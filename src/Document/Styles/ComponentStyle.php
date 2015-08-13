@@ -47,7 +47,7 @@ class ComponentStyle extends Base {
    *
    * @return $this
    */
-  public function setBackgroundColor($value) {
+  public function setBackgroundColor($value = 'transparent') {
     if ($this->validateBackgroundColor($value)) {
       $this->backgroundColor = $value;
     }
@@ -69,7 +69,7 @@ class ComponentStyle extends Base {
    *
    * @return $this
    */
-  public function setOpacity($value) {
+  public function setOpacity($value = 1) {
     if ($this->validateOpacity($value)) {
       $this->opacity = $value;
     }

@@ -98,7 +98,7 @@ class VideoFill extends Fill {
    *
    * @return $this
    */
-  public function setFillMode($value) {
+  public function setFillMode($value = 'cover') {
     if ($this->validateFillMode($value)) {
       $this->fillMode = $value;
     }
@@ -120,7 +120,7 @@ class VideoFill extends Fill {
    *
    * @return $this
    */
-  public function setVerticalAlignment($value) {
+  public function setVerticalAlignment($value = 'center') {
     if ($this->validateVerticalAlignment($value)) {
       $this->verticalAlignment = $value;
     }
@@ -142,7 +142,7 @@ class VideoFill extends Fill {
    *
    * @return $this
    */
-  public function setHorizontalAlignment($value) {
+  public function setHorizontalAlignment($value = 'center') {
     if ($this->validateHorizontalAlignment($value)) {
       $this->horizontalAlignment = $value;
     }

@@ -51,9 +51,22 @@ class BannerAdvertisement extends Component {
    *
    * @return $this
    */
-  public function setBannerType($value) {
-    $this->bannerType = $value;
+  public function setBannerType($value = 'any') {
+    if ($this->validateBannerType($value)) {
+      $this->bannerType = $value;
+    }
     return $this;
+  }
+
+  /**
+   * Validates the bannerType attribute.
+   */
+  protected function validateBannerType($value) {
+    if (!in_array($value, ['any', 'standard', 'double_height', 'large'])) {
+      $this->triggerError('bannerType not one of "any", "standard", "double_height" or "large".');
+      return FALSE;
+    }
+    return TRUE;
   }
 
 }

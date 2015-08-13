@@ -54,7 +54,7 @@ class Border extends Base {
    *
    * @return $this
    */
-  public function setTop($value) {
+  public function setTop($value = true) {
     $this->top = $value;
     return $this;
   }
@@ -74,7 +74,7 @@ class Border extends Base {
    *
    * @return $this
    */
-  public function setBottom($value) {
+  public function setBottom($value = true) {
     $this->bottom = $value;
     return $this;
   }
@@ -94,7 +94,7 @@ class Border extends Base {
    *
    * @return $this
    */
-  public function setLeft($value) {
+  public function setLeft($value = true) {
     $this->left = $value;
     return $this;
   }
@@ -114,7 +114,7 @@ class Border extends Base {
    *
    * @return $this
    */
-  public function setRight($value) {
+  public function setRight($value = true) {
     $this->right = $value;
     return $this;
   }
