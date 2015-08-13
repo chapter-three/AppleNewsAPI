@@ -167,7 +167,7 @@ abstract class Component extends Base {
       }
     }
     elseif (!is_a($style, $class)) {
-      $this->triggerError("Layout not of class ${class}.");
+      $this->triggerError("Style not of class ${class}.");
       return $this;
     }
     $this->style = $style;
