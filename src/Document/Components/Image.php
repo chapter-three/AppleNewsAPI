@@ -119,7 +119,7 @@ abstract class Image extends Component {
    *
    * @return $this
    */
-  public function setExplicitContent($value) {
+  public function setExplicitContent($value = false) {
     $this->explicitContent = $value;
     return $this;
   }

@@ -82,7 +82,8 @@ abstract class Text extends Component {
    *
    * @return $this
    */
-  public function setFormat($value) {
+  public function setFormat($value = 'none') {
+    // Inline text styles are ignored when format is set to markdown.
     $this->format = (string) $value;
     return $this;
   }
@@ -144,6 +145,17 @@ abstract class Text extends Component {
   public function addInlineTextStyles(InlineTextStyle $inline_text_style) {
     $this->inlineTextStyles[] = $inline_text_style;
     return $this;
+  }
+
+  /**
+   * Validates the format attribute.
+   */
+  protected function validateFormat($value) {
+    if (!in_array($value, ['none', 'markdown'])) {
+      $this->triggerError('format not one of "none" or "markdown"');
+      return FALSE;
+    }
+    return TRUE;
   }
 
 }
