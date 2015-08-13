@@ -29,6 +29,7 @@ class FadeInAnimation extends ComponentAnimation {
   protected function optional() {
     return array_merge(parent::optional(), array(
       'initialAlpha',
+      'userControllable',
     ));
   }
 
