@@ -14,6 +14,8 @@ class FadeInAnimation extends ComponentAnimation {
 
   protected $initialAlpha;
 
+  protected $userControllable;
+
   /**
    * Implements __construct().
    */
@@ -49,6 +51,26 @@ class FadeInAnimation extends ComponentAnimation {
     if ($this->validateInitialAlpha($value)) {
       $this->initialAlpha = $value;
     }
+    return $this;
+  }
+
+  /**
+   * Getter for userControllable.
+   */
+  public function getUserControllable() {
+    return $this->userControllable;
+  }
+
+  /**
+   * Setter for userControllable.
+   *
+   * @param boolean $value
+   *   userControllable.
+   *
+   * @return $this
+   */
+  public function setUserControllable($value) {
+    $this->userControllable = $value;
     return $this;
   }
 
