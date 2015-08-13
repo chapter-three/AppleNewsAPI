@@ -46,13 +46,13 @@ class BannerAdvertisement extends Component {
   /**
    * Setter for bannerType.
    *
-   * @param mixed $bannerType
+   * @param mixed $value
    *   bannerType.
    *
    * @return $this
    */
-  public function setBannerType($bannerType) {
-    $this->bannerType = $bannerType;
+  public function setBannerType($value) {
+    $this->bannerType = $value;
     return $this;
   }
 

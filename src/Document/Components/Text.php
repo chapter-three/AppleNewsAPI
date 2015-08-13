@@ -57,13 +57,13 @@ abstract class Text extends Component {
   /**
    * Setter for text.
    *
-   * @param mixed $text
+   * @param mixed $value
    *   Text.
    *
    * @return $this
    */
-  public function setText($text) {
-    $this->text = (string) $text;
+  public function setText($value) {
+    $this->text = (string) $value;
     return $this;
   }
 
@@ -77,13 +77,13 @@ abstract class Text extends Component {
   /**
    * Setter for format.
    *
-   * @param mixed $format
+   * @param mixed $value
    *   Format.
    *
    * @return $this
    */
-  public function setFormat($format) {
-    $this->format = (string) $format;
+  public function setFormat($value) {
+    $this->format = (string) $value;
     return $this;
   }
 

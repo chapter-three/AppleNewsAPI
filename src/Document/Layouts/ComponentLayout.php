@@ -23,6 +23,8 @@ class ComponentLayout extends Base {
   protected $ignoreDocumentMargin;
   protected $ignoreDocumentGutter;
   protected $minimumHeight;
+  protected $maximumContentWidth;
+  protected $horizontalContentAlignment;
 
   /**
    * Define optional properties.
@@ -36,6 +38,8 @@ class ComponentLayout extends Base {
       'ignoreDocumentMargin',
       'ignoreDocumentGutter',
       'minimumHeight',
+      'maximumContentWidth',
+      'horizontalContentAlignment'
     ));
   }
 
@@ -200,6 +204,50 @@ class ComponentLayout extends Base {
   }
 
   /**
+   * Getter for maximumContentWidth.
+   */
+  public function getMaximumContentWidth() {
+    return $this->minimumHeight;
+  }
+
+  /**
+   * Setter for maximumContentWidth.
+   *
+   * @param int|string $value
+   *   maximumContentWidth.
+   *
+   * @return $this
+   */
+  public function setMaximumContentWidth($value) {
+    if ($this->validateMaximumContentWidth($value)) {
+      $this->minimumHeight = $value;
+    }
+    return $this;
+  }
+
+  /**
+   * Getter for horizontalContentAlignment.
+   */
+  public function getHorizontalContentAlignment() {
+    return $this->minimumHeight;
+  }
+
+  /**
+   * Setter for horizontalContentAlignment.
+   *
+   * @param string $value
+   *   horizontalContentAlignment.
+   *
+   * @return $this
+   */
+  public function setHorizontalContentAlignment($value = 'center') {
+    if ($this->validateHorizontalContentAlignment($value)) {
+      $this->minimumHeight = $value;
+    }
+    return $this;
+  }
+
+  /**
    * Implements JsonSerializable::jsonSerialize().
    */
   public function jsonSerialize() {
@@ -220,7 +268,7 @@ class ComponentLayout extends Base {
    */
   protected function validateIgnoreDocumentMargin($value) {
     if (!is_bool($value) &&
-        !in_array($value, array('none', 'left', 'right', 'both'))
+        !in_array($value, ['none', 'left', 'right', 'both'])
     ) {
       $this->triggerError('ignoreDocumentMargin is not valid');
       return FALSE;
@@ -233,7 +281,7 @@ class ComponentLayout extends Base {
    */
   protected function validateIgnoreDocumentGutter($value) {
     if (!is_bool($value) &&
-        !in_array($value, array('none', 'left', 'right', 'both'))
+        !in_array($value, ['none', 'left', 'right', 'both'])
     ) {
       $this->triggerError('ignoreDocumentGutter is not valid');
       return FALSE;
@@ -249,6 +297,30 @@ class ComponentLayout extends Base {
         !$this->isSupportedUnit($value)
     ) {
       $this->triggerError('minimumHeight is not valid');
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+  /**
+   * Validates the maximumContentWidth attribute.
+   */
+  protected function validateMaximumContentWidth($value) {
+    if (!is_int($value) &&
+        !$this->isSupportedUnit($value)
+    ) {
+      $this->triggerError('maximumContentWidth is not valid');
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+  /**
+   * Validates the horizontalContentAlignment attribute.
+   */
+  protected function validateHorizontalContentAlignment($value) {
+    if (!in_array($value, ['center', 'left', 'right'])) {
+      $this->triggerError('horizontalContentAlignment is not valid');
       return FALSE;
     }
     return TRUE;

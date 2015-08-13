@@ -37,13 +37,13 @@ class Instagram extends Component {
   /**
    * Setter for url.
    *
-   * @param mixed $url
+   * @param mixed $value
    *   Url.
    *
    * @return $this
    */
-  public function setUrl($url) {
-    $this->URL = $url;
+  public function setUrl($value) {
+    $this->URL = $value;
     return $this;
   }
 
