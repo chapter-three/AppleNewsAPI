@@ -73,7 +73,12 @@ class Curl extends Base {
    */
   protected function request($data) {
     try {
-      $response = $this->client->{$this->method}($this->path(), $data);
+      if ($this->method == 'delete') {
+        $response = $this->client->{$this->method}($this->path(), [], $data);
+      }
+      else {
+        $response = $this->client->{$this->method}($this->path(), $data);
+      }
       $this->client->close();
     }
     catch (\Exception $e) {
@@ -94,8 +99,8 @@ class Curl extends Base {
     // Check for HTTP response error codes.
     if ($this->client->error) {
       $this->onErrorResponse(
-        $this->client->error_code,
-        $this->client->error_message,
+        $this->client->errorCode,
+        $this->client->errorMessage,
         $response
       );
     }
