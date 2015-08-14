@@ -7,8 +7,7 @@
 
 namespace ChapterThree\AppleNews\Document\Components\Advertisements;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Components;
+use ChapterThree\AppleNews\Document\Components\Component;
 
 /**
  * An Apple News Document BannerAdvertisement.
