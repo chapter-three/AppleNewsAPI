@@ -37,6 +37,8 @@ class Document extends Base {
   protected $componentStyles;
   protected $componentLayouts;
 
+  private $baseIdentifier = 1;
+
   /**
    * Implements __construct().
    *
@@ -360,6 +362,13 @@ class Document extends Base {
     }
 
     return parent::jsonSerialize();
+  }
+
+  /**
+   * Generates a unique identifier in this document.
+   */
+  public function generateIdentifier() {
+    return '_' . $this->baseIdentifier++;
   }
 
 }
