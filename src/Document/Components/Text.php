@@ -119,7 +119,7 @@ abstract class Text extends Component {
         return $this;
       }
     }
-    elseif (!is_a($text_style, $class)) {
+    elseif (!$text_style instanceof $class) {
       $this->triggerError("Style not of class ${class}.");
       return $this;
     }

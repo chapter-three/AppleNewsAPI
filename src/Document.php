@@ -9,6 +9,7 @@ namespace ChapterThree\AppleNews;
 
 use ChapterThree\AppleNews\Document\Base;
 use ChapterThree\AppleNews\Document\Components\Component;
+use ChapterThree\AppleNews\Document\Components\ComponentNested;
 use ChapterThree\AppleNews\Document\Metadata;
 use ChapterThree\AppleNews\Document\Styles\ComponentTextStyle;
 use ChapterThree\AppleNews\Document\Styles\DocumentStyle;
@@ -180,7 +181,7 @@ class Document extends Base {
     $components = [];
     foreach ($this->getComponents() as $component) {
       $components[] = $component;
-      if (is_a($component, '\ChapterThree\AppleNews\Document\Components\ComponentNested')) {
+      if ($component instanceof ComponentNested) {
         /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $component */
         $descendants = $component->getComponentsFlattened();
         array_merge($components, $descendants);

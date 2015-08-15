@@ -8,6 +8,7 @@
 namespace ChapterThree\AppleNews\Document\Styles;
 
 use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNews\Document\Styles\TextStrokeStyle;
 
 /**
  * An Apple News Document TextStyle.
@@ -141,9 +142,7 @@ class TextStyle extends Base {
    * @return $this
    */
   public function setUnderline($value) {
-    if (is_object($value) &&
-        !is_a($value, '\ChapterThree\AppleNews\Document\Styles\TextStrokeStyle')
-    ) {
+    if (is_object($value) && !$value instanceof TextStrokeStyle) {
       $this->triggerError('Object not of type TextStrokeStyle');
     }
     else {
@@ -168,9 +167,7 @@ class TextStyle extends Base {
    * @return $this
    */
   public function setStrikethrough($value) {
-    if (is_object($value) &&
-        !is_a($value, '\ChapterThree\AppleNews\Document\Styles\TextStrokeStyle')
-    ) {
+    if (is_object($value) && !$value instanceof TextStrokeStyle) {
       $this->triggerError('Object not of type TextStrokeStyle');
     }
     else {

@@ -41,19 +41,19 @@ class Gallery extends Component {
    * Setter for items.
    *
    * @param array $value
-   *   items.
+   *   Items.
    *
    * @return $this
    */
-  public function setItems(array $items) {
-    if (isset($items[0]) && 
-        is_object($items[0]) &&
-        !is_a($items[0], '\ChapterThree\AppleNews\Document\GalleryItem')
+  public function setItems(array $value) {
+    if (isset($value[0]) &&
+        is_object($value[0]) &&
+        !$value[0] instanceof GalleryItem
     ) {
       $this->triggerError('Object not of type GalleryItem');
     }
     else {
-      $this->items = $items;
+      $this->items = $value;
     }
     return $this;
   }

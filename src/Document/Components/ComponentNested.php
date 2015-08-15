@@ -53,7 +53,7 @@ abstract class ComponentNested extends Component {
     foreach ($this->getComponents() as $component) {
       $components[] = $component;
       /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $component */
-      if (is_a($component, '\ChapterThree\AppleNews\Document\Components\ComponentNested')) {
+      if ($component instanceof ComponentNested) {
         $descendants = $component->getComponentsFlattened();
         array_merge($components, $descendants);
       }
@@ -66,11 +66,11 @@ abstract class ComponentNested extends Component {
    */
   public function hasComponentType($class_name) {
     /** @var \ChapterThree\AppleNews\Document\Components\Component $comp */
-    foreach ($this->components as $component) {
-      if (is_a($component, $class_name)) {
+    foreach ($this->components as $comp) {
+      if ($comp instanceof $class_name) {
         return TRUE;
       }
-      if (is_a($comp, '\ChapterThree\AppleNews\Document\Components\ComponentNested')) {
+      if ($comp instanceof ComponentNested) {
         /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $comp */
         if ($comp->hasComponentType($class_name)) {
           return TRUE;

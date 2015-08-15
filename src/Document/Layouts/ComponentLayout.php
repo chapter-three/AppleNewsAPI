@@ -99,9 +99,7 @@ class ComponentLayout extends Base {
    * @return $this
    */
   public function setMargin($value) {
-    if (is_object($value) &&
-        !is_a($value, '\ChapterThree\AppleNews\Document\Margin')
-    ) {
+    if (is_object($value) && !$value instanceof Margin) {
       $this->triggerError('Object not of type Margin');
     }
     else {
@@ -126,9 +124,7 @@ class ComponentLayout extends Base {
    * @return $this
    */
   public function setContentInset($value) {
-    if (is_object($value) &&
-        !is_a($value, '\ChapterThree\AppleNews\Document\ContentInset')
-    ) {
+    if (is_object($value) && !$value instanceof ContentInset) {
       $this->triggerError('Object not of type ContentInset');
     }
     else {

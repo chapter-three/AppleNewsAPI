@@ -107,7 +107,7 @@ class InlineTextStyle extends Base {
         return $this;
       }
     }
-    elseif (!is_a($value, $class)) {
+    elseif (!$value instanceof $class) {
       $this->triggerError("Style not of class ${class}.");
       return $this;
     }

@@ -9,12 +9,11 @@ namespace ChapterThree\AppleNews\Document\Styles\Fills\Gradients;
 
 use ChapterThree\AppleNews\Document\Base;
 use ChapterThree\AppleNews\Document\Styles\Fills;
-use ChapterThree\AppleNews\Document\Styles\Fills\Fill;
 
 /**
  * An Apple News Document GradientFill.
  */
-abstract class GradientFill extends Fill {
+abstract class GradientFill extends Fills\Fill {
 
   protected $colorStops;
 
@@ -23,12 +22,12 @@ abstract class GradientFill extends Fill {
    *
    * @param string $type
    *   The type of gradient; e.g., linear_gradient.
-   * @param array|\ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop $colorStops
+   * @param array|\ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop $color_stops
    *   URL.
    */
-  public function __construct($type, array $colorStops) {
+  public function __construct($type, array $color_stops) {
     parent::__construct($type);
-    $this->setColorStops($colorStops);
+    $this->setColorStops($color_stops);
   }
 
   /**
@@ -47,9 +46,9 @@ abstract class GradientFill extends Fill {
    * @return $this
    */
   public function setColorStops(array $items) {
-    if (isset($items[0]) && 
+    if (isset($items[0]) &&
         is_object($items[0]) &&
-        !is_a($items[0], '\ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop')
+        !$items[0] instanceof Fills\Gradients\ColorStop
     ) {
       $this->triggerError('Object not of type Gradients\ColorStop');
     }
