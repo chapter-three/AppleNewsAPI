@@ -159,10 +159,32 @@ class Document extends Base {
   }
 
   /**
-   * Getter for components.
+   * Getter for child components.
+   *
+   * @return array
+   *   List of \ChapterThree\AppleNews\Document\Components\Component.
    */
   public function getComponents() {
     return $this->components;
+  }
+
+  /**
+   * Gets nested components as a flattened list.
+   *
+   * @return array
+   *   List of \ChapterThree\AppleNews\Document\Components\Component.
+   */
+  public function getComponentsFlattened() {
+    $components = [];
+    foreach ($this->getComponents() as $component) {
+      $components[] = $component;
+      if (is_a($component, '\ChapterThree\AppleNews\Document\Components\ComponentNested')) {
+        /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $component */
+        $descendants = $component->getComponentsFlattened();
+        array_merge($components, $descendants);
+      }
+    }
+    return $components;
   }
 
   /**

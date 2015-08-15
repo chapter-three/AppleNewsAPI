@@ -13,7 +13,7 @@ use ChapterThree\AppleNews\Document\Animations\Scenes\Scene;
 /**
  * An Apple News Document Section.
  */
-class Section extends ContainerBase {
+class Section extends ComponentNested {
 
   protected $scene;
 

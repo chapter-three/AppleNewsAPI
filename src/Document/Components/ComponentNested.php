@@ -2,18 +2,15 @@
 
 /**
  * @file
- * An Apple News Document Container Base Class.
- *
- * Need this because we don't want to expose "role" attribute in classes that
- * extend Container.
+ * An Apple News Document Component with child components.
  */
 
 namespace ChapterThree\AppleNews\Document\Components;
 
 /**
- * An Apple News Document Container Base Class.
+ * An Apple News Document Component with child components.
  */
-abstract class ContainerBase extends Component {
+abstract class ComponentNested extends Component {
 
   protected $components;
 
@@ -43,6 +40,25 @@ abstract class ContainerBase extends Component {
    */
   public function getComponents() {
     return $this->components;
+  }
+
+  /**
+   * Gets nested components as a flattened list.
+   *
+   * @return array
+   *   List of \ChapterThree\AppleNews\Document\Components\Component.
+   */
+  public function getComponentsFlattened() {
+    $components = [];
+    foreach ($this->getComponents() as $component) {
+      $components[] = $component;
+      /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $component */
+      if (is_a($component, '\ChapterThree\AppleNews\Document\Components\ComponentNested')) {
+        $descendants = $component->getComponentsFlattened();
+        array_merge($components, $descendants);
+      }
+    }
+    return $components;
   }
 
   /**

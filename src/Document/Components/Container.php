@@ -10,7 +10,7 @@ namespace ChapterThree\AppleNews\Document\Components;
 /**
  * An Apple News Document Container.
  */
-class Container extends ContainerBase {
+class Container extends ComponentNested {
 
   /**
    * Implements __construct().
