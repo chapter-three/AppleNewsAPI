@@ -62,6 +62,25 @@ abstract class ComponentNested extends Component {
   }
 
   /**
+   * Component has a child of a certain type.
+   */
+  public function hasComponentType($class_name) {
+    /** @var \ChapterThree\AppleNews\Document\Components\Component $comp */
+    foreach ($this->components as $component) {
+      if (is_a($component, $class_name)) {
+        return TRUE;
+      }
+      if (is_a($comp, '\ChapterThree\AppleNews\Document\Components\ComponentNested')) {
+        /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $comp */
+        if ($comp->hasComponentType($class_name)) {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
+  }
+
+  /**
    * Setter for components.
    *
    * @param Component $component
