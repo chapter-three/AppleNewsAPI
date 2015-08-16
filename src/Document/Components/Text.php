@@ -90,6 +90,8 @@ abstract class Text extends Component {
 
   /**
    * Getter for textStyle.
+   *
+   * @return \ChapterThree\AppleNews\Document\Styles\ComponentTextStyle|string
    */
   public function getTextStyle() {
     return $this->textStyle;
