@@ -129,7 +129,7 @@ abstract class Base implements \JsonSerializable {
   /**
    * Helper to validate color hex code.
    *
-   * Valid codes are hexidecimal numbers of length 3, 6 or 8 (with opacity),
+   * Valid codes are hexadecimal numbers of length 3, 6 or 8 (with opacity),
    * prefixed with "#".
    *
    * @param string $value

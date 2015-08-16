@@ -143,6 +143,8 @@ class Document extends Base {
 
   /**
    * Getter for layout.
+   *
+   * @return \ChapterThree\AppleNews\Document\Layouts\Layout
    */
   public function getLayout() {
     return $this->layout;
@@ -151,7 +153,7 @@ class Document extends Base {
   /**
    * Setter for layout.
    *
-   * @param Layout $layout
+   * @param \ChapterThree\AppleNews\Document\Layouts\Layout $layout
    *   Layout.
    *
    * @return $this

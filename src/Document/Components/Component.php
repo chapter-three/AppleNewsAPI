@@ -98,6 +98,9 @@ abstract class Component extends Base {
 
   /**
    * Getter for layout.
+   *
+   * @return \ChapterThree\AppleNews\Document\Layouts\ComponentLayout|string
+   *   Layout object or string reference
    */
   public function getLayout() {
     return $this->layout;
