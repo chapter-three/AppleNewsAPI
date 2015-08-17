@@ -5,7 +5,7 @@
  * Example: POST Article
  */
 
-require '../../src/PushAPI.php';
+require '../../src/PublisherAPI.php';
 
 use \ChapterThree\AppleNews;
 
@@ -13,7 +13,7 @@ $api_key_id = "";
 $api_key_secret = "";
 $endpoint = "https://endpoint_url";
 
-$PushAPI = new PushAPI(
+$PublisherAPI = new PublisherAPI(
   $api_key_id,
   $api_key_secret,
   $endpoint
@@ -37,7 +37,7 @@ $metadata =  [
 
 // Updates an existing article.
 // See $response variable to get a new revision ID.
-$response = $PushAPI->post('/articles/{article_id}',
+$response = $PublisherAPI->post('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
   ],

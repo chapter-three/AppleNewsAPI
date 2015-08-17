@@ -80,9 +80,9 @@ function autoload679875ef60343fd604aa0fa4d353e67e($class) {
             'chapterthree\\applenews\\document\\styles\\strokestyle' => '/src/Document/Styles/StrokeStyle.php',
             'chapterthree\\applenews\\document\\styles\\textstrokestyle' => '/src/Document/Styles/TextStrokeStyle.php',
             'chapterthree\\applenews\\document\\styles\\textstyle' => '/src/Document/Styles/TextStyle.php',
-            'chapterthree\\applenews\\pushapi' => '/src/PushAPI.php',
-            'chapterthree\\applenews\\pushapi\\base' => '/src/PushAPI/Base.php',
-            'chapterthree\\applenews\\pushapi\\curl' => '/src/PushAPI/Curl.php'
+            'chapterthree\\applenews\\publisherapi' => '/src/PublisherAPI.php',
+            'chapterthree\\applenews\\publisherapi\\base' => '/src/PublisherAPI/Base.php',
+            'chapterthree\\applenews\\publisherapi\\curl' => '/src/PublisherAPI/Curl.php'
         );
     }
     $cn = strtolower($class);

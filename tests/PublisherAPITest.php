@@ -12,7 +12,7 @@ use org\bovigo\vfs\content\LargeFileContent;
 /**
  * A test class for PushAPI.
  */
-class PushAPITest extends \PHPUnit_Framework_TestCase {
+class PublisherAPITest extends \PHPUnit_Framework_TestCase {
 
   /** @var (const) CRLF */
   const EOL = "\r\n";
@@ -70,10 +70,10 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     static::$endpoint_path = isset($argv[10]) ? $argv[10] : '';
 
     fwrite(STDOUT, "\nPushAPI Unit Tests:\n\n");
-    // Make sure user provides credentials to test PushAPI endpoints.
+    // Make sure user provides credentials to test PublisherAPI endpoints.
     if (empty(static::$api_key) && empty(static::$api_key_secret) && empty(static::$endpoint)) {
-      fwrite(STDOUT, "Please specify PushAPI credentials. See documentation for more details about PushAPI unit tests.\n");
-      fwrite(STDOUT, "When no credentials specified, only PushAPI helper methods will be tested.\n\n");
+      fwrite(STDOUT, "Please specify PublisherAPI credentials. See documentation for more details about PublisherAPI unit tests.\n");
+      fwrite(STDOUT, "When no credentials specified, only PublisherAPI helper methods will be tested.\n\n");
     }
 
   }
@@ -83,8 +83,8 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
 
-    // Set up PushAPI object.
-    $this->PushAPI = new \ChapterThree\AppleNews\PushAPI(
+    // Set up PublisherAPI object.
+    $this->PublisherAPI = new \ChapterThree\AppleNews\PublisherAPI(
       self::$api_key,
       self::$api_key_secret,
       self::$endpoint
@@ -104,7 +104,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test PushAPI::get().
+   * Test PublisherAPI::get().
    *
    * Usage:
    *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php
@@ -114,7 +114,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
     if (static::$endpoint_method == 'get' && $this->checkPushAPICredentials()) {
 
-      $response = $this->PushAPI->get(static::$endpoint_path);
+      $response = $this->PublisherAPI->get(static::$endpoint_path);
       if (isset($response->errors)) {
         $this->assertTrue(false);
       }
@@ -128,7 +128,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test PushAPI::delete().
+   * Test PublisherAPI::delete().
    *
    * Usage:
    *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php
@@ -138,7 +138,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
     if (static::$endpoint_method == 'delete' && $this->checkPushAPICredentials()) {
 
-      $response = $this->PushAPI->delete(static::$endpoint_path);
+      $response = $this->PublisherAPI->delete(static::$endpoint_path);
       if (isset($response->errors)) {
         $this->assertTrue(false);
       }
@@ -153,7 +153,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
 
 
   /**
-   * Test PushAPI::post().
+   * Test PublisherAPI::post().
    *
    * Usage:
    *   ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests/PushAPITest.php
@@ -164,9 +164,9 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     if (static::$endpoint_method == 'post' && $this->checkPushAPICredentials()) {
 
       // Add test article.json file.
-      $this->files[] = __DIR__ . '/PushAPI/article.json';
+      $this->files[] = __DIR__ . '/PublisherAPI/article.json';
 
-      $response = $this->PushAPI->post(static::$endpoint_path, [],
+      $response = $this->PublisherAPI->post(static::$endpoint_path, [],
         [
           'files' => $this->files,
           'json'  => '',
@@ -186,20 +186,20 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test PushAPI::getFileInformation().
+   * Test PublisherAPI::getFileInformation().
    */
   public function testGetFileInformation() {
 
     fwrite(STDOUT, "Tested GetFileInformation().\n");
 
-    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI');
+    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PublisherAPI');
     $method = $reflection->getMethod('getFileInformation');
     $method->setAccessible(true);
 
     // Process each file and generate multipart form data.
     foreach ($this->files as $path) {
       // Load file information.
-      $file = $method->invokeArgs($this->PushAPI, [$path]);
+      $file = $method->invokeArgs($this->PublisherAPI, [$path]);
       $expected = 
   	    [
   	      'name'      => 'image',
@@ -216,15 +216,15 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test PushAPI::getFileInformation().
-   * Test PushAPI::multipartPart().
-   * Test PushAPI::multipartFinalize().
+   * Test PublisherAPI::getFileInformation().
+   * Test PublisherAPI::multipartPart().
+   * Test PublisherAPI::multipartFinalize().
    */
   public function testMultipartPart() {
 
     fwrite(STDOUT, "Tested multipart generator methods.\n");
 
-    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PushAPI\Curl');
+    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PublisherAPI\Curl');
 
     // Access protected method getFileInformation().
     $getFileInformation = $reflection->getMethod('getFileInformation');
@@ -241,7 +241,7 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     // Get private property.
     $getBoundary = $reflection->getProperty('boundary');
     $getBoundary->setAccessible(true);
-    $boundary = $getBoundary->getValue($this->PushAPI);
+    $boundary = $getBoundary->getValue($this->PublisherAPI);
 
     // Multiparts
     $multiparts = [];
@@ -249,9 +249,9 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     // Process each file and generate multipart form data.
     foreach ($this->files as $path) {
       // Load file information.
-      $file = $getFileInformation->invokeArgs($this->PushAPI, [$path]);
+      $file = $getFileInformation->invokeArgs($this->PublisherAPI, [$path]);
       $multiparts[] = $multipartPart->invokeArgs(
-      	$this->PushAPI,
+      	$this->PublisherAPI,
       	[
           [
             'filename'   => $file['filename'],
@@ -265,12 +265,12 @@ class PushAPITest extends \PHPUnit_Framework_TestCase {
     }
 
     // Generate finalized version of the multipart data.
-    $contents = $multipartFinalize->invokeArgs($this->PushAPI, [$multiparts]);
+    $contents = $multipartFinalize->invokeArgs($this->PublisherAPI, [$multiparts]);
     // Get rid of first boundary.
     $multipart1 = '--' . $boundary . static::EOL .  preg_replace('/^.+\n/', '', $contents);
 
     // Load test file.
-    $file = $getFileInformation->invokeArgs($this->PushAPI, [$this->files[0]]);
+    $file = $getFileInformation->invokeArgs($this->PublisherAPI, [$this->files[0]]);
 
     // Expected multipart content.
     $multipart2 = '--' . $boundary . static::EOL;

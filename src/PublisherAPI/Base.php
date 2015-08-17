@@ -2,25 +2,25 @@
 
 /**
  * @file
- * PushAPI Base abstract class.
+ * PublisherAPI Base abstract class.
  */
 
-namespace ChapterThree\AppleNews\PushAPI;
+namespace ChapterThree\AppleNews\PublisherAPI;
 
 /**
- * PushAPI Abstract class
+ * PublisherAPI Abstract class
  * 
- * @package    ChapterThree\AppleNews\PushAPI\Base
+ * @package    ChapterThree\AppleNews\PublisherAPI\Base
  */
 abstract class Base {
 
-  /** @var (string) PushAPI API Key ID. */
+  /** @var (string) PublisherAPI API Key ID. */
   public $api_key_id = '';
 
-  /** @var (string) Push API Secret Key. */
+  /** @var (string) PublisherAPI Secret Key. */
   public $api_key_secret = '';
 
-  /** @var (string) PushAPI Endpoint base URL. */
+  /** @var (string) PublisherAPI Endpoint base URL. */
   public $endpoint = '';
 
   /** @var (object) HTTP client class. */
@@ -127,7 +127,7 @@ abstract class Base {
    * @param (array) $path_args Endpoint path arguments to replace tokens in the path.
    * @param (array) $data Data to pass to the endpoint.
    *
-   * @see PushAPI::post().
+   * @see PublisherAPI::post().
    */
   protected function initVars($method, $path, Array $path_args, Array $data) {
     $this->method = $method;

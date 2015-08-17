@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Example: Delete articles
+ * Example: Get article
  */
 
-require '../../src/PushAPI.php';
+require '../../src/PublisherAPI.php';
 
 use \ChapterThree\AppleNews;
 
@@ -13,14 +13,14 @@ $api_key_id = "";
 $api_key_secret = "";
 $endpoint = "https://endpoint_url";
 
-$PushAPI = new PushAPI(
+$PublisherAPI = new PublisherAPI(
   $api_key_id,
   $api_key_secret,
   $endpoint
 );
 
-// Deletes an article.
-$response = $PushAPI->Delete('/articles/{article_id}',
+// Fetches an article.
+$response = $PublisherAPI->Get('/articles/{article_id}',
   [
     'article_id' => '[ARTICLE_ID]'
   ]

@@ -2,16 +2,16 @@
 
 /**
  * @file
- * PushAPI cURL HTTP client integration class.
+ * PublisherAPI cURL HTTP client integration class.
  */
 
-namespace ChapterThree\AppleNews\PushAPI;
+namespace ChapterThree\AppleNews\PublisherAPI;
 
 /**
- * PushAPI cURL HTTP client.
+ * PublisherAPI cURL HTTP client.
  * 
- * @package    ChapterThree\AppleNews\PushAPI\Curl
- * @subpackage ChapterThree\AppleNews\PushAPI\Base
+ * @package    ChapterThree\AppleNews\PublisherAPI\Curl
+ * @subpackage ChapterThree\AppleNews\PublisherAPI\Base
  */
 class Curl extends Base {
 
@@ -169,7 +169,7 @@ class Curl extends Base {
   public function post($path, Array $path_args, Array $data = []) {
     parent::post($path, $path_args, $data);
 
-    // JSON string to be posted to PushAPI instead of article.json file.
+    // JSON string to be posted to PublisherAPI instead of article.json file.
     $json = !empty($data['json']) ? $data['json'] : '';
 
     // Article assests (article.json, images, fonts etc...).

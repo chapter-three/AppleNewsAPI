@@ -5,7 +5,7 @@
  * Example: POST Article
  */
 
-require '../../src/PushAPI.php';
+require '../../src/PublisherAPI.php';
 
 use \ChapterThree\AppleNews;
 
@@ -13,7 +13,7 @@ $api_key_id = "";
 $api_key_secret = "";
 $endpoint = "https://endpoint_url";
 
-$PushAPI = new PushAPI(
+$PublisherAPI = new PublisherAPI(
   $api_key_id,
   $api_key_secret,
   $endpoint
@@ -35,7 +35,7 @@ $metadata =  [
 ];
 
 // Publishes a new article to a channel.
-$response = $PushAPI->Post('/channels/{channel_id}/articles',
+$response = $PublisherAPI->Post('/channels/{channel_id}/articles',
   [
     'channel_id' => '[CHANNEL_ID]'
   ],

@@ -1,6 +1,6 @@
 # AppleNews
 
-`AppleNews\PushAPI` is a PHP library that allows you to publish content to Apple News. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
+`AppleNews\PublisherAPI` is a PHP library that allows you to publish content to Apple News. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
 
 `AppleNews\Document` is a PHP library that helps construct documents in the Apple News native JSON format.
 
@@ -23,21 +23,21 @@ curl -sS https://getcomposer.org/installer | php
 ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php tests
 ```
 
-To test PushAPI GET/POST/DELETE methods use the following pattern:
+To test PublisherAPI GET/POST/DELETE methods use the following pattern:
 
 ```shell
 ./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php 
-tests/PushAPITest.php [API_KEY] [API_SECRET] [ENDPOINT_URL] [METHOD] [ENDPOINT_PATH]
+tests/PublisherAPITest.php [API_KEY] [API_SECRET] [ENDPOINT_URL] [METHOD] [ENDPOINT_PATH]
 ```
 
-## PushAPI class Quick Start and Examples
+## PublisherAPI class Quick Start and Examples
 
 ```php
 $api_key_id = "";
 $api_key_secret = "";
 $endpoint = "https://endpoint_url";
 
-$PushAPI = new ChapterThree\AppleNews\PushAPI(
+$PublisherAPI = new ChapterThree\AppleNews\PublisherAPI(
   $api_key_id,
   $api_key_secret,
   $endpoint
@@ -48,7 +48,7 @@ $PushAPI = new ChapterThree\AppleNews\PushAPI(
 
 ```php
 // Fetches information about a channel.
-$response = $PushAPI->get('/channels/{channel_id}',
+$response = $PublisherAPI->get('/channels/{channel_id}',
   [
     'channel_id' => CHANNEL_ID
   ]
@@ -59,7 +59,7 @@ $response = $PushAPI->get('/channels/{channel_id}',
 
 ```php
 // Fetches a list of all sections for a channel.
-$response = $PushAPI->get('/channels/{channel_id}/sections',
+$response = $PublisherAPI->get('/channels/{channel_id}/sections',
   [
     'channel_id' => CHANNEL_ID
   ]
@@ -70,7 +70,7 @@ $response = $PushAPI->get('/channels/{channel_id}/sections',
 
 ```php
 // Fetches information about a single section.
-$response = $PushAPI->get('/sections/{section_id}',
+$response = $PublisherAPI->get('/sections/{section_id}',
   [
     'section_id' => SECTION_ID
   ]
@@ -81,7 +81,7 @@ $response = $PushAPI->get('/sections/{section_id}',
 
 ```php
 // Fetches an article.
-$response = $PushAPI->get('/articles/{article_id}',
+$response = $PublisherAPI->get('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
   ]
@@ -93,7 +93,7 @@ $response = $PushAPI->get('/articles/{article_id}',
 ```php
 // Publishes a new article to a channel.
 // $response contains an article ID and revision ID.
-$response = $PushAPI->post('/channels/{channel_id}/articles',
+$response = $PublisherAPI->post('/channels/{channel_id}/articles',
   [
     'channel_id' => CHANNEL_ID
   ],
@@ -118,7 +118,7 @@ $metadata = json_encode([
 ]);
 // Updates an existing article.
 // See $response variable to get a new revision ID.
-$response = $PushAPI->post('/articles/{article_id}',
+$response = $PublisherAPI->post('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
   ],
@@ -137,7 +137,7 @@ $response = $PushAPI->post('/articles/{article_id}',
 
 ```php
 // Deletes an article.
-$response = $PushAPI->delete('/articles/{article_id}',
+$response = $PublisherAPI->delete('/articles/{article_id}',
   [
     'article_id' => ARTICLE_ID
   ]
