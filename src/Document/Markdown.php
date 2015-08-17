@@ -12,6 +12,7 @@ namespace ChapterThree\AppleNews\Document;
  */
 class Markdown {
 
+  // Markdown special characters.
   const ESCAPEDCHARS = '\`*_{}[]()#+-!';
 
   /**
@@ -169,7 +170,7 @@ class Markdown {
               break;
 
             case 'a':
-              $markdown[$line] .= '](' . $context['a'] . ')';
+              $markdown[$line] .= '](' . htmlentities($context['a']) . ')';
               $context['a'] = '';
               break;
 
@@ -187,7 +188,7 @@ class Markdown {
             // Special Characters.
             str_replace($escaped_chars, $escaped_chars_replace,
               // Ignored whitespace.
-              preg_replace('/\s\s*/', ' ', $reader->value)
+              preg_replace('/\s\s*/', ' ', htmlentities($reader->value))
             );
           break;
 
