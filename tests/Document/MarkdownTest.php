@@ -107,21 +107,21 @@ EOD;
 <p>some paragraph content.</p>
 <hr/><p>some paragraph content.</p>
 <p>some paragraph content.</p>
-<p>some paragraph <hr/>content.</p>
+<p>some paragraph <hr/>content.
 <p>some paragraph content.</p>
 EOD;
     $expected = <<<'EOD'
 some paragraph content.
 
----
+***
 
 some paragraph content.
 
----
+***
 
 some paragraph content.
 
----
+***
 
 some paragraph content.
 
@@ -129,7 +129,7 @@ some paragraph content.
 
 some paragraph
 
----
+***
 
 content.
 
@@ -148,7 +148,7 @@ EOD;
 <p>a ul</p>
 <ul>
 <li>item 1</li>
-<li>item 2</li>
+<li><a href="http://apple.com">item</a> 2</li>
 <li>item 3</li>
 </ul>
 <p>an ol</p>
@@ -157,12 +157,20 @@ EOD;
 <li>item 2</li>
 <li>item 3</li>
 </ol>
+<p>dl to ul</p>
+<dl>
+<dt>definition term 1</dt>
+<dd>definition description 1</dd>
+<dt>definition term 2.1</dt>
+<dt>definition term 2.2</dt>
+<dd>definition description 2</dd>
+</dl>
 EOD;
     $expected = <<<'EOD'
 a ul
 
  - item 1
- - item 2
+ - [item](http://apple.com) 2
  - item 3
 
 an ol
@@ -170,6 +178,11 @@ an ol
  1. item 1
  1. item 2
  1. item 3
+
+dl to ul
+
+ - definition term 1<br/>definition description 1
+ - definition term 2.1<br/>definition term 2.2<br/>definition description 2
 EOD;
     $markdown = Markdown::convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
@@ -182,11 +195,11 @@ EOD;
   public function testIgnored() {
     $html = <<<'EOD'
 <p>some paragraph content</p>
-<p>some paragraph content with <xxx>ignored</xxx> inline tags.</p>
-<p>some paragraph content with <xxx>ignored inline tags.</xxx></p>
-<p><xxx>some paragraph content with ignored</xxx> inline tags.</p>
-<p><xxx>some paragraph content with ignored inline tags.</xxx></p>
-<xxx>some content inside an ignored block tag.</xxx>
+<p>some paragraph content with <span>ignored</span> inline tags.</p>
+<p>some paragraph content with <span>ignored inline tags.</span></p>
+<p><span>some paragraph content with ignored</span> inline tags.</p>
+<p><span>some paragraph content with ignored inline tags.</span></p>
+<noscript>some content inside an ignored block tag.</noscript>
 <p>some paragraph content</p>
 EOD;
     $expected = <<<'EOD'
@@ -200,13 +213,82 @@ some paragraph content with ignored inline tags.
 
 some paragraph content with ignored inline tags.
 
-some content inside an ignored block tag.
-
 some paragraph content
 EOD;
     $markdown = Markdown::convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with ignored elements to Markdown.');
+  }
+
+  /**
+   * Ignored tags.
+   */
+  public function testBlock() {
+    $html = <<<'EOD'
+<p>some paragraph content</p>
+<div>
+  <p>some paragraph content</p>
+  <p>some paragraph content</p>
+  <div>
+    <p>some paragraph content</p>
+    <p>some paragraph content</p>
+  </div>
+  <p>
+    <div><p>some paragraph content</p></div>
+    <div>some paragraph content</div>
+  <p>
+</div>
+<p>
+  <div><p>some paragraph content</p></div>
+  <div>some paragraph content</div>
+<p>
+EOD;
+    $expected = <<<'EOD'
+some paragraph content
+
+some paragraph content
+
+some paragraph content
+
+some paragraph content
+
+some paragraph content
+
+some paragraph content
+
+some paragraph content
+
+some paragraph content
+
+some paragraph content
+EOD;
+    $markdown = Markdown::convert($html);
+    $this->assertEquals(trim($expected), trim($markdown),
+      'Convert HTML with block elements to Markdown.');
+  }
+
+  /**
+   * Ignored tags.
+   */
+  public function testInline() {
+    $html = <<<'EOD'
+<p>some paragraph content</p>
+<p>some paragraph content with <em>emphasized <strong>and strong</strong></em> text.</p>
+<p>some paragraph content with <span><em>nested emphasized</em></span> text.</p>
+<p>some paragraph content with <em><span>nested emphasized</span></em> text.</p>
+EOD;
+    $expected = <<<'EOD'
+some paragraph content
+
+some paragraph content with *emphasized **and strong*** text.
+
+some paragraph content with *nested emphasized* text.
+
+some paragraph content with *nested emphasized* text.
+EOD;
+    $markdown = Markdown::convert($html);
+    $this->assertEquals(trim($expected), trim($markdown),
+      'Convert HTML with block elements to Markdown.');
   }
 
   /**
@@ -224,7 +306,23 @@ here is an exclamation point\![followed by a link](http://apple.com) \(not an im
 EOD;
     $markdown = Markdown::convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
-      'Convert HTML with ignored elements to Markdown.');
+      'Convert HTML with special characters to Markdown.');
+  }
+
+  /**
+   * HTML Entities.
+   */
+  public function testHtmlEntities() {
+    $html = <<<'EOD'
+<p>&lt;img src="<a href="http://example.com/img.png">img.png</a>" /&gt;</p>
+&nbsp;
+<p>&nbsp;</p>
+<p>x</p>
+EOD;
+    $expected = "<img src=\"[img.png](http://example.com/img.png)\" />\n\n \n\n \n\nx";
+    $markdown = Markdown::convert($html);
+    $this->assertEquals(trim($expected), trim($markdown),
+      'Convert HTML with entities to Markdown.');
   }
 
 }

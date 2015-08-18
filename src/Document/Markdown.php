@@ -13,7 +13,30 @@ namespace ChapterThree\AppleNews\Document;
 class Markdown {
 
   // Markdown special characters.
-  const ESCAPEDCHARS = '\`*_{}[]()#+-!';
+  const ESCAPED_CHARACTERS = '\`*_{}[]()#+-!';
+
+  // Markdown block delimiter.
+  const BLOCK_DELIMITER = "\n\n";
+
+  /**
+   * Escape Markdown special characters.
+   *
+   * @param string $string
+   *   A string without any Markdown.
+   *
+   * @return mixed
+   *   $string with any special characters escaped.
+   */
+  public static function escape($string) {
+    $escaped_chars = str_split(self::ESCAPED_CHARACTERS);
+    $escaped_chars_replace = array_map(function($char) {
+      return '\\' . $char;
+    }, $escaped_chars);
+    return str_replace($escaped_chars, $escaped_chars_replace,
+      // Ignored whitespace.
+      preg_replace('/\s\s*/', ' ', $string)
+    );
+  }
 
   /**
    * Convert HTML to Apple News Markdown.
@@ -22,182 +45,258 @@ class Markdown {
    *   HTML to convert. Value is not validated, it is caller's responsibility
    *   to validate.
    *
-   * @return string
-   *   Markdown representation of the HTML.
+   * @return string|NULL
+   *   Markdown representation of the HTML, or NULL if failed.
    */
   public static function convert($html) {
-
-    // Arguments for str_replace().
-    $escaped_chars = str_split(self::ESCAPEDCHARS);
-    $escaped_chars_replace = array_map(function($char) {
-      return '\\' . $char;
-    }, $escaped_chars);
-
-    // Ensure a root element.
-    $html = '<html>' . trim($html) . '</html>';
-
-    $reader = new \XMLReader();
-    if (!$reader->XML($html)) {
-      return FALSE;
+    $doc = new \DOMDocument();
+    if (!$doc->loadHTML(trim($html))) {
+      return NULL;
     }
+    $xp = new \DOMXPath($doc);
+    return implode(self::BLOCK_DELIMITER, self::getBlocks(
+      $xp->query('/html/body')->item(0)->childNodes
+    ));
+  }
 
-    // All necessary state.
-    $context = array(
-      'a' => '',
-      'l' => array(),
-    );
-
-    // The current line is always initialized with empty string.
-    $line = 0;
-    $markdown = array('');
-
-    // Initialize a new line if current line is not empty.
-    $next_line = function() use(&$line, &$markdown) {
-      if ($markdown[$line] !== '') {
-        $markdown[++$line] = '';
+  /**
+   * Converts a \DOMNodeList into a series of Markdown blocks.
+   *
+   * @param \DOMNodeList|array $nodes
+   *   DOM nodes.
+   *
+   * @return array
+   *   Array of string Markdown blocks.
+   */
+  protected static function getBlocks($nodes) {
+    // Each completed block.
+    $blocks = array();
+    // Container for any top-level inline elements.
+    $block = '';
+    // Add a completed block to $blocks.
+    $add_block = function($string = NULL) use(&$blocks, &$block) {
+      if (preg_match('/\S/', $block)) {
+        $blocks[] = trim($block, " \t");
       }
-    };
-
-    // Insert a blank line and initialize next.
-    $next_block = function() use(&$line, &$markdown, &$next_line) {
-      $next_line();
-      if (isset($markdown[$line - 1]) && $markdown[$line - 1] !== '') {
-        $markdown[++$line] = '';
+      if (preg_match('/\S/', $string)) {
+        $blocks[] = rtrim($string, " \t");
       }
+      $block = '';
     };
+    /** @var \DOMNode $node */
+    foreach ($nodes as $node) {
+      switch ($node->nodeType) {
 
-    // Main event loop.
-    while ($reader->read()) {
+        case XML_ELEMENT_NODE:
+          /** @var \DOMElement $node */
+          switch ($node->nodeName) {
 
-      switch ($reader->nodeType) {
-
-        case \XMLREADER::ELEMENT:
-          switch ($reader->localName) {
+            // Explicitly handle these elements.
 
             case 'p':
-              $next_block();
+            case 'pre':
+              $add_block(self::getBlock($node));
               break;
 
             case 'h1':
-              $next_block();
-              $markdown[$line] .= '# ';
+              $add_block('# ' . self::getBlock($node));
               break;
 
             case 'h2':
-              $next_block();
-              $markdown[$line] .= '## ';
+              $add_block('## ' . self::getBlock($node));
               break;
 
             case 'h3':
-              $next_block();
-              $markdown[$line] .= '### ';
+              $add_block('### ' . self::getBlock($node));
               break;
 
             case 'h4':
-              $next_block();
-              $markdown[$line] .= '#### ';
+              $add_block('#### ' . self::getBlock($node));
               break;
 
             case 'h5':
-              $next_block();
-              $markdown[$line] .= '##### ';
+              $add_block('##### ' . self::getBlock($node));
               break;
 
             case 'h6':
-              $next_block();
-              $markdown[$line] .= '###### ';
-              break;
-
-            case 'i':
-            case 'em':
-              $markdown[$line] .= '*';
-              break;
-
-            case 'b':
-            case 'strong':
-              $markdown[$line] .= '**';
-              break;
-
-            case 'a':
-              $reader->moveToAttribute('href');
-              $context['a'] = $reader->value;
-              $markdown[$line] .= '[';
+              $add_block('###### ' . self::getBlock($node));
               break;
 
             case 'hr':
-              $next_block();
-              $markdown[$line] = '---';
-              $next_block();
+              $add_block('***');
               break;
 
-            case 'ol':
             case 'ul':
-              $next_block();
-              $context['l'][] = $reader->localName;
+            case 'ol':
+            case 'dl':
+              $add_block(self::getBlockList($node));
               break;
 
-            case 'li':
-              $next_line();
-              $type = $context['l'][count($context['l']) - 1];
-              $ol = $type == 'ol';
-              $markdown[$line] = $ol ? ' 1. ' : ' - ';
+            // Other block-level elements.
+            case 'article':
+            case 'aside':
+            case 'blockquote':
+            case 'dd':
+            case 'div':
+            case 'fieldset':
+            case 'figcaption':
+            case 'figure':
+            case 'footer':
+            case 'form':
+            case 'header':
+            case 'hgroup':
+            case 'main':
+            case 'nav':
+            case 'output':
+            case 'section':
+              // Recursively handle any descendant elements we care about.
+              foreach (self::getBlocks($node->childNodes) as $b) {
+                $add_block($b);
+              }
+              break;
+
+            // Unsupported.
+            case 'canvas':
+            case 'noscript':
+            case 'script':
+            case 'table':
+            case 'tfoot':
+            case 'video':
+              break;
+
+            // Treat as inline element.
+            default:
+              // Append series of inline elements together, as if they were
+              // inside a block-level element.
+              $block .= self::getBlock($node);
               break;
 
           }
           break;
 
-        case \XMLReader::END_ELEMENT:
-          switch ($reader->localName) {
+        case XML_TEXT_NODE:
+          /** @var \DOMText $node */
+          $block .= self::escape($node->textContent);
+          break;
 
-            case 'p':
-            case 'h1':
-            case 'h2':
-            case 'h3':
-            case 'h4':
-            case 'h5':
-            case 'h6':
-              $next_block();
-              break;
+      }
+    }
+
+    $add_block();
+    return $blocks;
+  }
+
+  /**
+   * Converts a DOM element into a single Markdown block.
+   *
+   * Handles inline elements.
+   *
+   * @param \DOMElement $element
+   *   The Node to transform.
+   *
+   * @return string
+   *   A single Markdown block string.
+   */
+  protected static function getBlock(\DOMElement $element) {
+    $block = '';
+    /** @var \DOMNode $node */
+    foreach ($element->childNodes as $node) {
+      switch ($node->nodeType) {
+
+        case XML_ELEMENT_NODE:
+          /** @var \DOMElement $node */
+          switch ($node->nodeName) {
+
+            // Explicitly handle these elements.
 
             case 'i':
             case 'em':
-              $markdown[$line] .= '*';
+              $block .= '*' . self::getBlock($node) . '*';
               break;
 
             case 'b':
             case 'strong':
-              $markdown[$line] .= '**';
+              $block .= '**' . self::getBlock($node) . '**';
               break;
 
             case 'a':
-              $markdown[$line] .= '](' . htmlentities($context['a']) . ')';
-              $context['a'] = '';
+              if ($node->hasAttribute('href')) {
+                $block .= '[' . self::getBlock($node) . ']' .
+                  '(' . $node->getAttribute('href') . ')';
+              }
               break;
 
-            case 'ol':
-            case 'ul':
-              array_pop($context['l']);
-              $next_block();
+            // Other inline elements.
+            default:
+              // Recursively handle any descendant elements we care about.
+              $block .= self::getBlock($node);
               break;
 
           }
           break;
 
-        case \XMLReader::TEXT:
-          $markdown[$line] .=
-            // Special Characters.
-            str_replace($escaped_chars, $escaped_chars_replace,
-              // Ignored whitespace.
-              preg_replace('/\s\s*/', ' ', htmlentities($reader->value))
-            );
+        case XML_TEXT_NODE:
+          /** @var \DOMText $node */
+          $block .= self::escape($node->textContent);
           break;
 
       }
-
     }
+    return $block;
+  }
 
-    $markdown = array_map('rtrim', $markdown);
-    return implode("\n", array_values($markdown));
+  /**
+   * Converts a list-type \DOMElement into a single Markdown block.
+   *
+   * Note Apple markdown subset does not support nested lists.
+   *
+   * @param \DOMElement $element
+   *   One of ul, ol, dl.
+   *
+   * @return string
+   *   A single Markdown block string.
+   */
+  protected static function getBlockList(\DOMElement $element) {
+    $lines = array();
+    $prefix = $element->nodeName == 'ol' ? ' 1. ' : ' - ';
+    // Markdown does not support definition lists, convert to ul.
+    if ($element->nodeName == 'dl') {
+      $newline = TRUE;
+      /** @var \DOMElement $child */
+      foreach ($element->childNodes as $child) {
+        switch ($child->nodeName) {
+
+          case 'dt':
+            if ($newline) {
+              $lines[] = $prefix . self::getBlock($child);
+            }
+            else {
+              $lines[count($lines) - 1] .= '<br/>' . self::getBlock($child);
+            }
+            $newline = FALSE;
+            break;
+
+          case 'dd':
+            $lines[count($lines) - 1] .= '<br/>' . self::getBlock($child);
+            $newline = TRUE;
+            break;
+
+        }
+      }
+    }
+    else {
+      /** @var \DOMElement $child */
+      foreach ($element->childNodes as $child) {
+        switch ($child->nodeName) {
+
+          case 'li':
+            $lines[] = $prefix . self::getBlock($child);
+            break;
+
+        }
+      }
+    }
+    return implode("\n", $lines);
   }
 
 }
