@@ -20,6 +20,6 @@ namespace ChapterThree\AppleNews;
 class PublisherAPI extends \ChapterThree\AppleNews\PublisherAPI\Curl {
 
   /** @var (const) PublisherAPI version */
-  const VERSION = '0.2.8';
+  const VERSION = '0.2.9';
 
 }
