@@ -61,7 +61,7 @@ abstract class Base {
     // ISO 8601 date and time format.
     $this->datetime = gmdate(\DateTime::ISO8601);
     // Initialize HTTP client.
-    $this->SetHTTPClient();
+    $this->setHTTPClient();
   }
 
   /**
