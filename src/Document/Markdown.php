@@ -69,8 +69,12 @@ class Markdown {
    *   Markdown representation of the HTML, or NULL if failed.
    */
   public function convert($html) {
+    $html = trim($html);
+    if (empty($html)) {
+      return '';
+    }
     $this->dom = new \DOMDocument();
-    if (!$this->dom->loadHTML(trim($html))) {
+    if (!$this->dom->loadHTML($html)) {
       return NULL;
     }
     $xp = new \DOMXPath($this->dom);
