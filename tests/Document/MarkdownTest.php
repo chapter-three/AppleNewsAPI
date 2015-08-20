@@ -28,7 +28,8 @@ some paragraph content with *italic* and *emphasized* text.
 
 some paragraph content with **bold** and **strong** text.
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with paragraphs and inline elements to Markdown.');
   }
@@ -67,7 +68,8 @@ some paragraph content
 
 some paragraph content
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with headers to Markdown.');
   }
@@ -91,7 +93,8 @@ some paragraph content with *[emphasized links](http://apple.com)* or [*emphasiz
 
 some paragraph content with **[strong links](http://apple.com)** or [**strong** links](http://apple.com) text.
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with link elements to Markdown.');
   }
@@ -135,7 +138,8 @@ content.
 
 some paragraph content.
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with hr elements to Markdown.');
   }
@@ -184,7 +188,8 @@ dl to ul
  - definition term 1<br/>definition description 1
  - definition term 2.1<br/>definition term 2.2<br/>definition description 2
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with list elements to Markdown.');
   }
@@ -215,7 +220,8 @@ some paragraph content with ignored inline tags.
 
 some paragraph content
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with ignored elements to Markdown.');
   }
@@ -262,7 +268,8 @@ some paragraph content
 
 some paragraph content
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with block elements to Markdown.');
   }
@@ -286,7 +293,8 @@ some paragraph content with *nested emphasized* text.
 
 some paragraph content with *nested emphasized* text.
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with block elements to Markdown.');
   }
@@ -304,7 +312,8 @@ some paragraph content with special characters \\ \` \* \_ \{\} \[\] \(\) \# \+ 
 
 here is an exclamation point\![followed by a link](http://apple.com) \(not an image\)
 EOD;
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with special characters to Markdown.');
   }
@@ -320,9 +329,38 @@ EOD;
 <p>x</p>
 EOD;
     $expected = "<img src=\"[img.png](http://example.com/img.png)\" />\n\n \n\n \n\nx";
-    $markdown = Markdown::convert($html);
+    $markdown = new Markdown();
+    $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),
       'Convert HTML with entities to Markdown.');
+  }
+
+  /**
+   * Whitelisted elements.
+   */
+  public function testWhitelist() {
+    $html = <<<'EOD'
+<p>some paragraph content with an <img src="http://example.com/image.png"> inline image.</p>
+<p>some paragraph content with a <span>span.</span></p>
+<span>a span.</span>
+<p>some paragraph <span>content <strong>with</strong></span> a span.</p>
+<p><span>some paragraph content with a span.</span></p>
+EOD;
+    $expected = <<<'EOD'
+some paragraph content with an <img src="http://example.com/image.png"/> inline image.
+
+some paragraph content with a <span>span.</span>
+
+<span>a span.</span>
+
+some paragraph <span>content **with**</span> a span.
+
+<span>some paragraph content with a span.</span>
+EOD;
+    $markdown = new Markdown(['img', 'span']);
+    $markdown = $markdown->convert($html);
+    $this->assertEquals(trim($expected), trim($markdown),
+      'Whitelist elements.');
   }
 
 }

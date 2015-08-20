@@ -39,6 +39,26 @@ class Markdown {
   }
 
   /**
+   * @var \DOMDocument
+   */
+  public $dom;
+  
+  /**
+   * @var array
+   */
+  public $white_list;
+
+  /**
+   * Implements __construct().
+   * 
+   * @param array $white_list
+   *   An array of inline-type element names to preserve in situ.
+   */
+  public function __construct($white_list = []) {
+    $this->white_list = $white_list;
+  }
+
+  /**
    * Convert HTML to Apple News Markdown.
    *
    * @param string $html
@@ -48,13 +68,13 @@ class Markdown {
    * @return string|NULL
    *   Markdown representation of the HTML, or NULL if failed.
    */
-  public static function convert($html) {
-    $doc = new \DOMDocument();
-    if (!$doc->loadHTML(trim($html))) {
+  public function convert($html) {
+    $this->dom = new \DOMDocument();
+    if (!$this->dom->loadHTML(trim($html))) {
       return NULL;
     }
-    $xp = new \DOMXPath($doc);
-    return implode(self::BLOCK_DELIMITER, self::getBlocks(
+    $xp = new \DOMXPath($this->dom);
+    return implode(self::BLOCK_DELIMITER, $this->getBlocks(
       $xp->query('/html/body')->item(0)->childNodes
     ));
   }
@@ -68,7 +88,7 @@ class Markdown {
    * @return array
    *   Array of string Markdown blocks.
    */
-  protected static function getBlocks($nodes) {
+  protected function getBlocks($nodes) {
     // Each completed block.
     $blocks = array();
     // Container for any top-level inline elements.
@@ -95,31 +115,31 @@ class Markdown {
 
             case 'p':
             case 'pre':
-              $add_block(self::getBlock($node));
+              $add_block($this->getBlock($node));
               break;
 
             case 'h1':
-              $add_block('# ' . self::getBlock($node));
+              $add_block('# ' . $this->getBlock($node));
               break;
 
             case 'h2':
-              $add_block('## ' . self::getBlock($node));
+              $add_block('## ' . $this->getBlock($node));
               break;
 
             case 'h3':
-              $add_block('### ' . self::getBlock($node));
+              $add_block('### ' . $this->getBlock($node));
               break;
 
             case 'h4':
-              $add_block('#### ' . self::getBlock($node));
+              $add_block('#### ' . $this->getBlock($node));
               break;
 
             case 'h5':
-              $add_block('##### ' . self::getBlock($node));
+              $add_block('##### ' . $this->getBlock($node));
               break;
 
             case 'h6':
-              $add_block('###### ' . self::getBlock($node));
+              $add_block('###### ' . $this->getBlock($node));
               break;
 
             case 'hr':
@@ -129,7 +149,7 @@ class Markdown {
             case 'ul':
             case 'ol':
             case 'dl':
-              $add_block(self::getBlockList($node));
+              $add_block($this->getBlockList($node));
               break;
 
             // Other block-level elements.
@@ -150,7 +170,7 @@ class Markdown {
             case 'output':
             case 'section':
               // Recursively handle any descendant elements we care about.
-              foreach (self::getBlocks($node->childNodes) as $b) {
+              foreach ($this->getBlocks($node->childNodes) as $b) {
                 $add_block($b);
               }
               break;
@@ -168,7 +188,7 @@ class Markdown {
             default:
               // Append series of inline elements together, as if they were
               // inside a block-level element.
-              $block .= self::getBlock($node);
+              $block .= $this->getBlock($node);
               break;
 
           }
@@ -197,7 +217,7 @@ class Markdown {
    * @return string
    *   A single Markdown block string.
    */
-  protected static function getBlock(\DOMElement $element) {
+  protected function getBlock(\DOMElement $element) {
     $block = '';
     /** @var \DOMNode $node */
     foreach ($element->childNodes as $node) {
@@ -211,17 +231,17 @@ class Markdown {
 
             case 'i':
             case 'em':
-              $block .= '*' . self::getBlock($node) . '*';
+              $block .= '*' . $this->getBlock($node) . '*';
               break;
 
             case 'b':
             case 'strong':
-              $block .= '**' . self::getBlock($node) . '**';
+              $block .= '**' . $this->getBlock($node) . '**';
               break;
 
             case 'a':
               if ($node->hasAttribute('href')) {
-                $block .= '[' . self::getBlock($node) . ']' .
+                $block .= '[' . $this->getBlock($node) . ']' .
                   '(' . $node->getAttribute('href') . ')';
               }
               break;
@@ -229,7 +249,7 @@ class Markdown {
             // Other inline elements.
             default:
               // Recursively handle any descendant elements we care about.
-              $block .= self::getBlock($node);
+              $block .= $this->getBlock($node);
               break;
 
           }
@@ -242,6 +262,16 @@ class Markdown {
 
       }
     }
+
+    // Handle white-listed elements.
+    if (in_array($element->nodeName, $this->white_list)) {
+      $tag = $element->cloneNode();
+      if (!empty($block)) {
+        $tag->appendChild(new \DOMText($block));
+      }
+      $block = $this->dom->saveXML($tag);
+    }
+
     return $block;
   }
 
@@ -256,7 +286,7 @@ class Markdown {
    * @return string
    *   A single Markdown block string.
    */
-  protected static function getBlockList(\DOMElement $element) {
+  protected function getBlockList(\DOMElement $element) {
     $lines = array();
     $prefix = $element->nodeName == 'ol' ? ' 1. ' : ' - ';
     // Markdown does not support definition lists, convert to ul.
@@ -268,16 +298,16 @@ class Markdown {
 
           case 'dt':
             if ($newline) {
-              $lines[] = $prefix . self::getBlock($child);
+              $lines[] = $prefix . $this->getBlock($child);
             }
             else {
-              $lines[count($lines) - 1] .= '<br/>' . self::getBlock($child);
+              $lines[count($lines) - 1] .= '<br/>' . $this->getBlock($child);
             }
             $newline = FALSE;
             break;
 
           case 'dd':
-            $lines[count($lines) - 1] .= '<br/>' . self::getBlock($child);
+            $lines[count($lines) - 1] .= '<br/>' . $this->getBlock($child);
             $newline = TRUE;
             break;
 
@@ -290,7 +320,7 @@ class Markdown {
         switch ($child->nodeName) {
 
           case 'li':
-            $lines[] = $prefix . self::getBlock($child);
+            $lines[] = $prefix . $this->getBlock($child);
             break;
 
         }
