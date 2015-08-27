@@ -11,7 +11,7 @@ To install, simply:
 @todo composer instructions
 
 ```shell
-git clone git@github.com:chapter-three/ApppleNews.git
+git clone git@github.com:chapter-three/AppleNews.git
 cd AppleNews
 curl -sS https://getcomposer.org/installer | php
 ./composer.phar install
