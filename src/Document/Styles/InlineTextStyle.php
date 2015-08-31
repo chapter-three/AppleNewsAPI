@@ -98,11 +98,9 @@ class InlineTextStyle extends Base {
     $class = 'ChapterThree\AppleNews\Document\Styles\TextStyle';
     if (is_string($value)) {
       // Check that value exists.
-      if (!$document) {
-        $this->triggerError("Missing second argument");
-        return $this;
-      }
-      if (empty($document->getTextStyles()[$value])) {
+      if ($document &&
+          empty($document->getTextStyles()[$value])
+      ) {
         $this->triggerError("No TextStyle \"${value}\" found.");
         return $this;
       }

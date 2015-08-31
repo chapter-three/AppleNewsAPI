@@ -112,11 +112,9 @@ abstract class Text extends Component {
     $class = 'ChapterThree\AppleNews\Document\Styles\ComponentTextStyle';
     if (is_string($text_style)) {
       // Check that text_style exists.
-      if (!$document) {
-        $this->triggerError("Missing second argument");
-        return $this;
-      }
-      if (empty($document->getComponentTextStyles()[$text_style])) {
+      if ($document &&
+          empty($document->getComponentTextStyles()[$text_style])
+      ) {
         $this->triggerError("No ComponentTextStyle \"${text_style}\" found.");
         return $this;
       }

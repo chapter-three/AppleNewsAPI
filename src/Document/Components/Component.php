@@ -121,11 +121,9 @@ abstract class Component extends Base {
     $class = 'ChapterThree\AppleNews\Document\Layouts\ComponentLayout';
     if (is_string($layout)) {
       // Check that layout exists.
-      if (!$document) {
-        $this->triggerError("Missing second argument");
-        return $this;
-      }
-      if (empty($document->getComponentLayouts()[$layout])) {
+      if ($document &&
+          empty($document->getComponentLayouts()[$layout])
+      ) {
         $this->triggerError("No component layout \"${layout}\" found.");
         return $this;
       }
@@ -160,11 +158,9 @@ abstract class Component extends Base {
     $class = 'ChapterThree\AppleNews\Document\Styles\ComponentStyle';
     if (is_string($style)) {
       // Check that style exists.
-      if (!$document) {
-        $this->triggerError("Missing second argument");
-        return $this;
-      }
-      if (empty($document->getComponentLayouts()[$style])) {
+      if ($document &&
+          empty($document->getComponentLayouts()[$style])
+      ) {
         $this->triggerError("No component style \"${style}\" found.");
         return $this;
       }
