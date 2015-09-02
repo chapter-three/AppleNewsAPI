@@ -328,7 +328,11 @@ EOD;
 <p>&nbsp;</p>
 <p>x</p>
 EOD;
-    $expected = "<img src=\"[img.png](http://example.com/img.png)\" />\n\n \n\n \n\nx";
+    $expected = <<<'EOD'
+<img src="[img.png](http://example.com/img.png)" />
+
+x
+EOD;
     $markdown = new Markdown();
     $markdown = $markdown->convert($html);
     $this->assertEquals(trim($expected), trim($markdown),

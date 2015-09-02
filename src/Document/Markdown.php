@@ -32,10 +32,9 @@ class Markdown {
     $escaped_chars_replace = array_map(function($char) {
       return '\\' . $char;
     }, $escaped_chars);
-    return str_replace($escaped_chars, $escaped_chars_replace,
-      // Ignored whitespace.
-      preg_replace('/\s\s*/', ' ', $string)
-    );
+    $string = str_replace($escaped_chars, $escaped_chars_replace, $string);
+    // Ignored whitespace.
+    return preg_replace('/\s+/u', ' ', $string);
   }
 
   /**
@@ -69,12 +68,8 @@ class Markdown {
    *   Markdown representation of the HTML, or NULL if failed.
    */
   public function convert($html) {
-    $html = trim($html);
-    if (empty($html)) {
-      return '';
-    }
     $this->dom = new \DOMDocument();
-    if (!$this->dom->loadHTML($html)) {
+    if (!$this->dom->loadHTML('<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"></head>' . $html . '</body></html>')) {
       return NULL;
     }
     $xp = new \DOMXPath($this->dom);
@@ -99,10 +94,10 @@ class Markdown {
     $block = '';
     // Add a completed block to $blocks.
     $add_block = function($string = NULL) use(&$blocks, &$block) {
-      if (preg_match('/\S/', $block)) {
+      if (preg_match('/\S/u', $block)) {
         $blocks[] = trim($block, " \t");
       }
-      if (preg_match('/\S/', $string)) {
+      if (preg_match('/\S/u', $string)) {
         $blocks[] = rtrim($string, " \t");
       }
       $block = '';
