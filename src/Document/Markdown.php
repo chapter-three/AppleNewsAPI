@@ -68,8 +68,12 @@ class Markdown {
    *   Markdown representation of the HTML, or NULL if failed.
    */
   public function convert($html) {
+    if (preg_match('/^\s*$/u', $html)) {
+      return '';
+    }
+    $html = '<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"></head>' . $html . '</body></html>';
     $this->dom = new \DOMDocument();
-    if (!$this->dom->loadHTML('<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"></head>' . $html . '</body></html>')) {
+    if (!$this->dom->loadHTML($html)) {
       return NULL;
     }
     $xp = new \DOMXPath($this->dom);
