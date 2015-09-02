@@ -1,7 +1,7 @@
 {
     "name" : "chapter-three/AppleNews",
     "description": "Push content to Apple News.",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "require": {
         "php": ">=5.4.0",
         "php-curl-class/php-curl-class": "^4.6"
