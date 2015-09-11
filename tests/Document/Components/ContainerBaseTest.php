@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\ComponentNested.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\ComponentNested.
  *
  * @see ContainerTest.php
  */

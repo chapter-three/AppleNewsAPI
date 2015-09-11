@@ -5,9 +5,9 @@
  * An Apple News Document ColorStop.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles\Fills\Gradients;
+namespace ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document GradientFill.

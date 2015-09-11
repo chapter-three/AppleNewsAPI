@@ -5,9 +5,9 @@
  * An Apple News Document ComponentAnimation.
  */
 
-namespace ChapterThree\AppleNews\Document\Animations\ComponentAnimations;
+namespace ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document ComponentAnimation.

@@ -5,10 +5,10 @@
  * An Apple News Document LinearGradientFill.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles\Fills\Gradients;
+namespace ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\Fills;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills;
 
 /**
  * An Apple News Document LinearGradientFill.
@@ -20,7 +20,7 @@ class LinearGradientFill extends GradientFill {
   /**
    * Implements __construct().
    *
-   * @param array|\ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop $colorStops
+   * @param array|\ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\ColorStop $colorStops
    *   URL.
    */
   public function __construct(array $colorStops) {

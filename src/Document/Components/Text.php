@@ -5,10 +5,10 @@
  * An Apple News Document Text.
  */
 
-namespace ChapterThree\AppleNews\Document\Components;
+namespace ChapterThree\AppleNewsAPI\Document\Components;
 
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Styles\InlineTextStyle;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Styles\InlineTextStyle;
 
 /**
  * An Apple News Document Text.
@@ -91,7 +91,7 @@ abstract class Text extends Component {
   /**
    * Getter for textStyle.
    *
-   * @return \ChapterThree\AppleNews\Document\Styles\ComponentTextStyle|string
+   * @return \ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle|string
    */
   public function getTextStyle() {
     return $this->textStyle;
@@ -100,16 +100,16 @@ abstract class Text extends Component {
   /**
    * Setter for textStyle.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\ComponentTextStyle|string $text_style
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle|string $text_style
    *   Either a ComponentTextStyle object, or a string reference to one defined
    *   in $document.
-   * @param \ChapterThree\AppleNews\Document|NULL $document
+   * @param \ChapterThree\AppleNewsAPI\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this
    */
   public function setTextStyle($text_style, Document $document = NULL) {
-    $class = 'ChapterThree\AppleNews\Document\Styles\ComponentTextStyle';
+    $class = 'ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle';
     if (is_string($text_style)) {
       // Check that text_style exists.
       if ($document &&
@@ -137,7 +137,7 @@ abstract class Text extends Component {
   /**
    * Setter for inlineTextStyles.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\InlineTextStyle $inline_text_style
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\InlineTextStyle $inline_text_style
    *   InlineTextStyle.
    *
    * @return $this

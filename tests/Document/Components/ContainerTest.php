@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Container.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Container.
  */
 
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Components\Container;
-use ChapterThree\AppleNews\Document\Components\Body;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Components\Container;
+use ChapterThree\AppleNewsAPI\Document\Components\Body;
 
 /**
  * Tests for the Container class.

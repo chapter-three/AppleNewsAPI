@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Tweet.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Tweet.
  */
 
-use ChapterThree\AppleNews\Document\Components\Tweet;
+use ChapterThree\AppleNewsAPI\Document\Components\Tweet;
 
 /**
  * Tests for the Tweet class.

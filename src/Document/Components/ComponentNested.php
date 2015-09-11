@@ -5,7 +5,7 @@
  * An Apple News Document Component with child components.
  */
 
-namespace ChapterThree\AppleNews\Document\Components;
+namespace ChapterThree\AppleNewsAPI\Document\Components;
 
 /**
  * An Apple News Document Component with child components.
@@ -46,13 +46,13 @@ abstract class ComponentNested extends Component {
    * Gets nested components as a flattened list.
    *
    * @return array
-   *   List of \ChapterThree\AppleNews\Document\Components\Component.
+   *   List of \ChapterThree\AppleNewsAPI\Document\Components\Component.
    */
   public function getComponentsFlattened() {
     $components = [];
     foreach ($this->getComponents() as $component) {
       $components[] = $component;
-      /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $component */
+      /** @var \ChapterThree\AppleNewsAPI\Document\Components\ComponentNested $component */
       if ($component instanceof ComponentNested) {
         $descendants = $component->getComponentsFlattened();
         array_merge($components, $descendants);
@@ -65,13 +65,13 @@ abstract class ComponentNested extends Component {
    * Component has a child of a certain type.
    */
   public function hasComponentType($class_name) {
-    /** @var \ChapterThree\AppleNews\Document\Components\Component $comp */
+    /** @var \ChapterThree\AppleNewsAPI\Document\Components\Component $comp */
     foreach ($this->components as $comp) {
       if ($comp instanceof $class_name) {
         return TRUE;
       }
       if ($comp instanceof ComponentNested) {
-        /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $comp */
+        /** @var \ChapterThree\AppleNewsAPI\Document\Components\ComponentNested $comp */
         if ($comp->hasComponentType($class_name)) {
           return TRUE;
         }

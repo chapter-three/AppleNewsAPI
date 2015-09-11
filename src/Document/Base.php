@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Base class for AppleNews\Document classes.
+ * Base class for AppleNewsAPI\Document classes.
  */
 
-namespace ChapterThree\AppleNews\Document;
+namespace ChapterThree\AppleNewsAPI\Document;
 
 /**
- * Base class for AppleNews\Document classes.
+ * Base class for AppleNewsAPI\Document classes.
  */
 abstract class Base implements \JsonSerializable {
 

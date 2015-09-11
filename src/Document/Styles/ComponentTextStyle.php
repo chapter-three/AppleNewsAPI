@@ -5,7 +5,7 @@
  * An Apple News Document ComponentTextStyle.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles;
+namespace ChapterThree\AppleNewsAPI\Document\Styles;
 
 /**
  * An Apple News Document ComponentTextStyle.
@@ -83,7 +83,7 @@ class ComponentTextStyle extends TextStyle {
   /**
    * Setter for dropCapStyle.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\DropCapStyle $value
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\DropCapStyle $value
    *   DropCapStyle.
    *
    * @return $this
@@ -103,7 +103,7 @@ class ComponentTextStyle extends TextStyle {
   /**
    * Setter for linkStyle.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\TextStyle $value
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\TextStyle $value
    *   LinkStyle.
    *
    * @return $this

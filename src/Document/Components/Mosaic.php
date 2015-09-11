@@ -5,10 +5,10 @@
  * An Apple News Document Mosaic.
  */
 
-namespace ChapterThree\AppleNews\Document\Components;
+namespace ChapterThree\AppleNewsAPI\Document\Components;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\GalleryItem;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\GalleryItem;
 
 /**
  * An Apple News Document Mosaic.
@@ -20,7 +20,7 @@ class Mosaic extends Component {
   /**
    * Implements __construct().
    *
-   * @param array|\ChapterThree\AppleNews\Document\GalleryItem $items
+   * @param array|\ChapterThree\AppleNewsAPI\Document\GalleryItem $items
    *   GalleryItem items.
    * @param mixed $identifier
    *   Identifier.

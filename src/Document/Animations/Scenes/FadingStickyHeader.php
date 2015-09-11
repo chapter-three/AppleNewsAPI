@@ -5,9 +5,9 @@
  * An Apple News Document FadingStickyHeader.
  */
 
-namespace ChapterThree\AppleNews\Document\Animations\Scenes;
+namespace ChapterThree\AppleNewsAPI\Document\Animations\Scenes;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document FadingStickyHeader.

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews.
+ * Tests for ChapterThree\AppleNewsAPI.
  */
 
 use org\bovigo\vfs\vfsStream;
@@ -84,7 +84,7 @@ class PublisherAPITest extends \PHPUnit_Framework_TestCase {
   protected function setUp() {
 
     // Set up PublisherAPI object.
-    $this->PublisherAPI = new \ChapterThree\AppleNews\PublisherAPI(
+    $this->PublisherAPI = new \ChapterThree\AppleNewsAPI\PublisherAPI(
       self::$api_key,
       self::$api_key_secret,
       self::$endpoint
@@ -192,7 +192,7 @@ class PublisherAPITest extends \PHPUnit_Framework_TestCase {
 
     fwrite(STDOUT, "Tested GetFileInformation().\n");
 
-    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PublisherAPI');
+    $reflection = new \ReflectionClass('\ChapterThree\AppleNewsAPI\PublisherAPI');
     $method = $reflection->getMethod('getFileInformation');
     $method->setAccessible(true);
 
@@ -200,7 +200,7 @@ class PublisherAPITest extends \PHPUnit_Framework_TestCase {
     foreach ($this->files as $path) {
       // Load file information.
       $file = $method->invokeArgs($this->PublisherAPI, [$path]);
-      $expected = 
+      $expected =
   	    [
   	      'name'      => 'image',
   	      'filename'  => 'image.gif',
@@ -224,7 +224,7 @@ class PublisherAPITest extends \PHPUnit_Framework_TestCase {
 
     fwrite(STDOUT, "Tested multipart generator methods.\n");
 
-    $reflection = new \ReflectionClass('\ChapterThree\AppleNews\PublisherAPI\Curl');
+    $reflection = new \ReflectionClass('\ChapterThree\AppleNewsAPI\PublisherAPI\Curl');
 
     // Access protected method getFileInformation().
     $getFileInformation = $reflection->getMethod('getFileInformation');

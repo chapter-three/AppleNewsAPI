@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Illustrator.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Illustrator.
  */
 
-use ChapterThree\AppleNews\Document\Components\Illustrator;
+use ChapterThree\AppleNewsAPI\Document\Components\Illustrator;
 
 /**
  * Tests for the Illustrator class.

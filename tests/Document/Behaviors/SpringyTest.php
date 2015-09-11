@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Behaviors\Springy.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Behaviors\Springy.
  */
 
-use ChapterThree\AppleNews\Document\Behaviors\Springy;
+use ChapterThree\AppleNewsAPI\Document\Behaviors\Springy;
 
 /**
  * Tests for the Springy class.

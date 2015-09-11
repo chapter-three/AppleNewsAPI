@@ -5,10 +5,10 @@
  * An Apple News Document TextStyle.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles;
+namespace ChapterThree\AppleNewsAPI\Document\Styles;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\TextStrokeStyle;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle;
 
 /**
  * An Apple News Document TextStyle.
@@ -136,7 +136,7 @@ class TextStyle extends Base {
   /**
    * Setter for underline.
    *
-   * @param bool|\ChapterThree\AppleNews\Document\Styles\TextStrokeStyle $value
+   * @param bool|\ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle $value
    *   Underline.
    *
    * @return $this
@@ -161,7 +161,7 @@ class TextStyle extends Base {
   /**
    * Setter for strikethrough.
    *
-   * @param bool|\ChapterThree\AppleNews\Document\Styles\TextStrokeStyle $value
+   * @param bool|\ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle $value
    *   Strikethrough.
    *
    * @return $this

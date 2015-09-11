@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Styles\Fills\Gradients\GradientFill.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\GradientFill.
  */
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\Fills\Fill;
-use ChapterThree\AppleNews\Document\Styles\Fills\Gradients;
-use ChapterThree\AppleNews\Document\Styles\Fills\Gradients\GradientFill;
-use ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\Fill;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\GradientFill;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\ColorStop;
 
 /**
  * A test class for GradientFill.

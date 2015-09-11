@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Markdown.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Markdown.
  */
 
-use ChapterThree\AppleNews\Document\Markdown;
+use ChapterThree\AppleNewsAPI\Document\Markdown;
 
 /**
  * Tests for the Markdown class.

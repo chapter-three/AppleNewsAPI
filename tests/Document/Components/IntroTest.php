@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Intro.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Intro.
  */
 
-use ChapterThree\AppleNews\Document\Components\Intro;
+use ChapterThree\AppleNewsAPI\Document\Components\Intro;
 
 /**
  * Tests for the Intro class.

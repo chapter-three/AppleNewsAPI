@@ -5,7 +5,7 @@
  * An Apple News Document ImageFill.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles\Fills;
+namespace ChapterThree\AppleNewsAPI\Document\Styles\Fills;
 
 /**
  * An Apple News Document ImageFill.

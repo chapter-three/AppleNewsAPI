@@ -5,7 +5,7 @@
  * An Apple News Document Margin.
  */
 
-namespace ChapterThree\AppleNews\Document;
+namespace ChapterThree\AppleNewsAPI\Document;
 
 /**
  * An Apple News Document Margin.

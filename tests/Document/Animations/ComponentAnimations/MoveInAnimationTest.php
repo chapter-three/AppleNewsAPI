@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Animations\ComponentAnimations\MoveInAnimation.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\MoveInAnimation.
  */
 
-use ChapterThree\AppleNews\Document\Animations\ComponentAnimations\MoveInAnimation;
+use ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\MoveInAnimation;
 
 /**
  * Tests for the MoveInAnimation class.

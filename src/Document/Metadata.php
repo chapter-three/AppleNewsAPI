@@ -5,7 +5,7 @@
  * An Apple News Document.
  */
 
-namespace ChapterThree\AppleNews\Document;
+namespace ChapterThree\AppleNewsAPI\Document;
 
 /**
  * An Apple News Document.

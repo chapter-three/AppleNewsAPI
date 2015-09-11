@@ -5,7 +5,7 @@
  * An Apple News Document ScaleFadeAnimation.
  */
 
-namespace ChapterThree\AppleNews\Document\Animations\ComponentAnimations;
+namespace ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations;
 
 /**
  * An Apple News Document ScaleFadeAnimation.

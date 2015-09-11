@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Behaviors\BackgroundMotion.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Behaviors\BackgroundMotion.
  */
 
-use ChapterThree\AppleNews\Document\Behaviors\BackgroundMotion;
+use ChapterThree\AppleNewsAPI\Document\Behaviors\BackgroundMotion;
 
 /**
  * Tests for the BackgroundMotion class.

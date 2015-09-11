@@ -5,13 +5,13 @@
  * PublisherAPI cURL HTTP client integration class.
  */
 
-namespace ChapterThree\AppleNews\PublisherAPI;
+namespace ChapterThree\AppleNewsAPI\PublisherAPI;
 
 /**
  * PublisherAPI cURL HTTP client.
  * 
- * @package    ChapterThree\AppleNews\PublisherAPI\Curl
- * @subpackage ChapterThree\AppleNews\PublisherAPI\Base
+ * @package    ChapterThree\AppleNewsAPI\PublisherAPI\Curl
+ * @subpackage ChapterThree\AppleNewsAPI\PublisherAPI\Base
  */
 class Curl extends Base {
 

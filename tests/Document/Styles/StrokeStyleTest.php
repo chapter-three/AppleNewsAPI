@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Styles\StrokeStyle.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Styles\StrokeStyle.
  */
 
-use ChapterThree\AppleNews\Document\Styles\StrokeStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\StrokeStyle;
 
 /**
  * Tests for the TextStrokeStyle class.

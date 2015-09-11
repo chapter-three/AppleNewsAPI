@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\ColorStop.
  */
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\ColorStop;
 
 /**
  * Tests for the Fill class.

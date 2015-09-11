@@ -5,11 +5,11 @@
  * An Apple News Document ComponentLayout.
  */
 
-namespace ChapterThree\AppleNews\Document\Layouts;
+namespace ChapterThree\AppleNewsAPI\Document\Layouts;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Margin;
-use ChapterThree\AppleNews\Document\ContentInset;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Margin;
+use ChapterThree\AppleNewsAPI\Document\ContentInset;
 
 /**
  * An Apple News Document ComponentLayout.
@@ -93,7 +93,7 @@ class ComponentLayout extends Base {
   /**
    * Setter for margin.
    *
-   * @param int|\ChapterThree\AppleNews\Document\Margin $value
+   * @param int|\ChapterThree\AppleNewsAPI\Document\Margin $value
    *   Margin.
    *
    * @return $this
@@ -118,7 +118,7 @@ class ComponentLayout extends Base {
   /**
    * Setter for contentInset.
    *
-   * @param bool|\ChapterThree\AppleNews\Document\ContentInset $value
+   * @param bool|\ChapterThree\AppleNewsAPI\Document\ContentInset $value
    *   ContentInset.
    *
    * @return $this

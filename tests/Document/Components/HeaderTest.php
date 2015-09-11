@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Header.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Header.
  */
 
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Components\Header;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Components\Header;
 
 /**
  * Tests for the Header class.

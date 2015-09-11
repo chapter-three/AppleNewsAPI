@@ -5,10 +5,10 @@
  * An Apple News Document ComponentStyle.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles;
+namespace ChapterThree\AppleNewsAPI\Document\Styles;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\Fills\Fill;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\Fill;
 
 /**
  * An Apple News Document ComponentStyle.
@@ -86,7 +86,7 @@ class ComponentStyle extends Base {
   /**
    * Setter for fill.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\Fills\Fill $value
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\Fills\Fill $value
    *   Fill.
    *
    * @return $this
@@ -106,7 +106,7 @@ class ComponentStyle extends Base {
   /**
    * Setter for border.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\Border $value
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\Border $value
    *   Border.
    *
    * @return $this

@@ -5,7 +5,7 @@
  * An Apple News Document Parallax.
  */
 
-namespace ChapterThree\AppleNews\Document\Behaviors;
+namespace ChapterThree\AppleNewsAPI\Document\Behaviors;
 
 /**
  * An Apple News Document Parallax.

@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Metadata.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Metadata.
  */
 
-use ChapterThree\AppleNews\Document\Metadata;
+use ChapterThree\AppleNewsAPI\Document\Metadata;
 
 /**
  * Tests for the Metadata class.

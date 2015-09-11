@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Styles\ComponentStyle.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Styles\ComponentStyle.
  */
 
-use ChapterThree\AppleNews\Document\Styles\Border;
-use ChapterThree\AppleNews\Document\Styles\ComponentStyle;
-use ChapterThree\AppleNews\Document\Styles\Fills\ImageFill;
+use ChapterThree\AppleNewsAPI\Document\Styles\Border;
+use ChapterThree\AppleNewsAPI\Document\Styles\ComponentStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\ImageFill;
 
 /**
  * Tests for the ComponentStyle class.

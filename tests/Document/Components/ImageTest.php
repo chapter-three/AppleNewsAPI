@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Image.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Image.
  */
 
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Components;
-use ChapterThree\AppleNews\Document\Components\Image;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Components;
+use ChapterThree\AppleNewsAPI\Document\Components\Image;
 
 /**
  * A test class for Text.

@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Animations\ComponentAnimations\AppearAnimation.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\AppearAnimation.
  */
 
-use ChapterThree\AppleNews\Document\Animations\ComponentAnimations\AppearAnimation;
+use ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\AppearAnimation;
 
 /**
  * Tests for the AppearAnimation class.

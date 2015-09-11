@@ -5,10 +5,10 @@
  * An Apple News Document Divider.
  */
 
-namespace ChapterThree\AppleNews\Document\Components;
+namespace ChapterThree\AppleNewsAPI\Document\Components;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\StrokeStyle;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\StrokeStyle;
 
 /**
  * An Apple News Document Divider.
@@ -46,7 +46,7 @@ class Divider extends Component {
   /**
    * Setter for Stroke.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\StrokeStyle $stroke
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\StrokeStyle $stroke
    *   StrokeStyle.
    *
    * @return $this

@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Caption.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Caption.
  */
 
-use ChapterThree\AppleNews\Document\Components\Caption;
+use ChapterThree\AppleNewsAPI\Document\Components\Caption;
 
 /**
  * Tests for the Caption class.

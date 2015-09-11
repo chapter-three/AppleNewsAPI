@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Styles\DropCapStyle.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Styles\DropCapStyle.
  */
 
-use ChapterThree\AppleNews\Document\Styles\DropCapStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\DropCapStyle;
 
 /**
  * Tests for the DropCapStyle class.

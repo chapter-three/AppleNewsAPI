@@ -5,9 +5,9 @@
  * An Apple News Document TextStrokeStyle.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles;
+namespace ChapterThree\AppleNewsAPI\Document\Styles;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document TextStrokeStyle.

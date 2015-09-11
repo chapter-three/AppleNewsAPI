@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Animations\ComponentAnimations\ScaleFadeAnimation.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ScaleFadeAnimation.
  */
 
-use ChapterThree\AppleNews\Document\Animations\ComponentAnimations\ScaleFadeAnimation;
+use ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ScaleFadeAnimation;
 
 /**
  * Tests for the ScaleFadeAnimation class.

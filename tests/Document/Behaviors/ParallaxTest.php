@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Behaviors\Parallax.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Behaviors\Parallax.
  */
 
-use ChapterThree\AppleNews\Document\Behaviors\Parallax;
+use ChapterThree\AppleNewsAPI\Document\Behaviors\Parallax;
 
 /**
  * Tests for the Parallax class.

@@ -1,5 +1,5 @@
 {
-    "name" : "chapter-three/AppleNews",
+    "name" : "chapter-three/AppleNewsAPI",
     "description": "Push content to Apple News.",
     "version": "0.3.4",
     "require": {
@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ChapterThree\\AppleNews\\": "src/"
+            "ChapterThree\\AppleNewsAPI\\": "src/"
         }
     }
 }

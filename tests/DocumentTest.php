@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document.
+ * Tests for ChapterThree\AppleNewsAPI\Document.
  */
 
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Components\Body;
-use ChapterThree\AppleNews\Document\Layouts\Layout;
-use ChapterThree\AppleNews\Document\Styles\ComponentTextStyle;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Components\Body;
+use ChapterThree\AppleNewsAPI\Document\Layouts\Layout;
+use ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle;
 
 /**
  * Tests using Document class.

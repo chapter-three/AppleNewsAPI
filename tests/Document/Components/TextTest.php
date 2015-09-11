@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Text.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Text.
  */
 
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Components\Text;
-use ChapterThree\AppleNews\Document\Layouts\Layout;
-use ChapterThree\AppleNews\Document\Styles\ComponentTextStyle;
-use ChapterThree\AppleNews\Document\Styles\InlineTextStyle;
-use ChapterThree\AppleNews\Document\Styles\TextStyle;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Components\Text;
+use ChapterThree\AppleNewsAPI\Document\Layouts\Layout;
+use ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\InlineTextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\TextStyle;
 
 /**
  * A test class for Text.

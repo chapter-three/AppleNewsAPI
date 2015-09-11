@@ -5,10 +5,10 @@
  * An Apple News Document Chapter.
  */
 
-namespace ChapterThree\AppleNews\Document\Components;
+namespace ChapterThree\AppleNewsAPI\Document\Components;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Animations\Scenes\Scene;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Animations\Scenes\Scene;
 
 /**
  * An Apple News Document Chapter.
@@ -46,7 +46,7 @@ class Chapter extends ComponentNested {
   /**
    * Setter for scene.
    *
-   * @param \ChapterThree\AppleNews\Document\Animations\Scenes\Scene $scene
+   * @param \ChapterThree\AppleNewsAPI\Document\Animations\Scenes\Scene $scene
    *   Scene.
    *
    * @return $this

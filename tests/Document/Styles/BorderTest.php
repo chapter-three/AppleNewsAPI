@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Styles\Border.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Styles\Border.
  */
 
-use ChapterThree\AppleNews\Document\Styles\Border;
-use ChapterThree\AppleNews\Document\Styles\StrokeStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\Border;
+use ChapterThree\AppleNewsAPI\Document\Styles\StrokeStyle;
 
 /**
  * Tests for the ComponentStyle class.

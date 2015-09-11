@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\ComponentTextStyle.
+ * Tests for ChapterThree\AppleNewsAPI\Document\ComponentTextStyle.
  */
 
-use ChapterThree\AppleNews\Document\Styles\ComponentTextStyle;
-use ChapterThree\AppleNews\Document\Styles\DropCapStyle;
-use ChapterThree\AppleNews\Document\Styles\TextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\DropCapStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\TextStyle;
 
 /**
  * Tests for the ComponentLayout class.

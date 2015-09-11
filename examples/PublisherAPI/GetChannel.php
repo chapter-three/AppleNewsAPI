@@ -7,7 +7,7 @@
 
 require '../../src/PublisherAPI.php';
 
-use \ChapterThree\AppleNews;
+use \ChapterThree\AppleNewsAPI;
 
 $api_key_id = "";
 $api_key_secret = "";

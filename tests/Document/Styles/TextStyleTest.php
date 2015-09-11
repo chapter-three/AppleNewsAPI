@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\TextStyle.
+ * Tests for ChapterThree\AppleNewsAPI\Document\TextStyle.
  */
 
-use ChapterThree\AppleNews\Document\Styles\TextStyle;
-use ChapterThree\AppleNews\Document\Styles\TextStrokeStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\TextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle;
 
 /**
  * Tests for the ComponentLayout class.

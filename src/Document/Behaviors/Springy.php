@@ -5,7 +5,7 @@
  * An Apple News Document Springy.
  */
 
-namespace ChapterThree\AppleNews\Document\Behaviors;
+namespace ChapterThree\AppleNewsAPI\Document\Behaviors;
 
 /**
  * An Apple News Document Springy.

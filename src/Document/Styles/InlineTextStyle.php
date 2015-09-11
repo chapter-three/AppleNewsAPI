@@ -5,10 +5,10 @@
  * An Apple News Document InlineTextStyle.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles;
+namespace ChapterThree\AppleNewsAPI\Document\Styles;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document;
 
 /**
  * An Apple News Document InlineTextStyle.
@@ -26,7 +26,7 @@ class InlineTextStyle extends Base {
    *   RangeStart.
    * @param int $range_length
    *   RangeLength.
-   * @param string|\ChapterThree\AppleNews\Document\Styles\TextStyle $text_style
+   * @param string|\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle $text_style
    *   Either a TextStyle object, or a string reference to one defined
    *   in $document.
    */
@@ -86,16 +86,16 @@ class InlineTextStyle extends Base {
   /**
    * Setter for textStyle.
    *
-   * @param string|\ChapterThree\AppleNews\Document\Styles\TextStyle $value
+   * @param string|\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle $value
    *   Either a TextStyle object, or a string reference to one defined
    *   in $document.
-   * @param \ChapterThree\AppleNews\Document|NULL $document
+   * @param \ChapterThree\AppleNewsAPI\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this
    */
   public function setTextStyle($value, Document $document = NULL) {
-    $class = 'ChapterThree\AppleNews\Document\Styles\TextStyle';
+    $class = 'ChapterThree\AppleNewsAPI\Document\Styles\TextStyle';
     if (is_string($value)) {
       // Check that value exists.
       if ($document &&

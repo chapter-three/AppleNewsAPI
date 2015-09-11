@@ -5,12 +5,12 @@
  * PublisherAPI Base abstract class.
  */
 
-namespace ChapterThree\AppleNews\PublisherAPI;
+namespace ChapterThree\AppleNewsAPI\PublisherAPI;
 
 /**
  * PublisherAPI Abstract class
  * 
- * @package    ChapterThree\AppleNews\PublisherAPI\Base
+ * @package    ChapterThree\AppleNewsAPI\PublisherAPI\Base
  */
 abstract class Base {
 

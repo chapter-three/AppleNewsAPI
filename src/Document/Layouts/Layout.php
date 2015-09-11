@@ -5,9 +5,9 @@
  * An Apple News Document Layout.
  */
 
-namespace ChapterThree\AppleNews\Document\Layouts;
+namespace ChapterThree\AppleNewsAPI\Document\Layouts;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document Layout.

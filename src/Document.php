@@ -5,18 +5,18 @@
  * An Apple News Document.
  */
 
-namespace ChapterThree\AppleNews;
+namespace ChapterThree\AppleNewsAPI;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Components\Component;
-use ChapterThree\AppleNews\Document\Components\ComponentNested;
-use ChapterThree\AppleNews\Document\Metadata;
-use ChapterThree\AppleNews\Document\Styles\ComponentTextStyle;
-use ChapterThree\AppleNews\Document\Styles\DocumentStyle;
-use ChapterThree\AppleNews\Document\Styles\TextStyle;
-use ChapterThree\AppleNews\Document\Styles\ComponentStyle;
-use ChapterThree\AppleNews\Document\Layouts\Layout;
-use ChapterThree\AppleNews\Document\Layouts\ComponentLayout;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Components\Component;
+use ChapterThree\AppleNewsAPI\Document\Components\ComponentNested;
+use ChapterThree\AppleNewsAPI\Document\Metadata;
+use ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\DocumentStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\TextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\ComponentStyle;
+use ChapterThree\AppleNewsAPI\Document\Layouts\Layout;
+use ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout;
 
 /**
  * An Apple News Document.
@@ -49,7 +49,7 @@ class Document extends Base {
    *   Title.
    * @param mixed $language
    *   Language.
-   * @param \ChapterThree\AppleNews\Document\Layouts\Layout $layout
+   * @param \ChapterThree\AppleNewsAPI\Document\Layouts\Layout $layout
    *   Layout.
    */
   public function __construct($identifier, $title, $language, Layout $layout) {
@@ -144,7 +144,7 @@ class Document extends Base {
   /**
    * Getter for layout.
    *
-   * @return \ChapterThree\AppleNews\Document\Layouts\Layout
+   * @return \ChapterThree\AppleNewsAPI\Document\Layouts\Layout
    */
   public function getLayout() {
     return $this->layout;
@@ -153,7 +153,7 @@ class Document extends Base {
   /**
    * Setter for layout.
    *
-   * @param \ChapterThree\AppleNews\Document\Layouts\Layout $layout
+   * @param \ChapterThree\AppleNewsAPI\Document\Layouts\Layout $layout
    *   Layout.
    *
    * @return $this
@@ -167,7 +167,7 @@ class Document extends Base {
    * Getter for child components.
    *
    * @return array
-   *   List of \ChapterThree\AppleNews\Document\Components\Component.
+   *   List of \ChapterThree\AppleNewsAPI\Document\Components\Component.
    */
   public function getComponents() {
     return $this->components;
@@ -177,14 +177,14 @@ class Document extends Base {
    * Gets nested components as a flattened list.
    *
    * @return array
-   *   List of \ChapterThree\AppleNews\Document\Components\Component.
+   *   List of \ChapterThree\AppleNewsAPI\Document\Components\Component.
    */
   public function getComponentsFlattened() {
     $components = [];
     foreach ($this->getComponents() as $component) {
       $components[] = $component;
       if ($component instanceof ComponentNested) {
-        /** @var \ChapterThree\AppleNews\Document\Components\ComponentNested $component */
+        /** @var \ChapterThree\AppleNewsAPI\Document\Components\ComponentNested $component */
         $descendants = $component->getComponentsFlattened();
         array_merge($components, $descendants);
       }
@@ -299,7 +299,7 @@ class Document extends Base {
    *
    * @param mixed $name
    *   Name.
-   * @param \ChapterThree\AppleNews\Document\Styles\TextStyle $text_style
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\TextStyle $text_style
    *   TextStyle.
    *
    * @return $this
@@ -321,7 +321,7 @@ class Document extends Base {
    *
    * @param mixed $name
    *   Name.
-   * @param \ChapterThree\AppleNews\Document\Styles\ComponentStyle $component_style
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\ComponentStyle $component_style
    *   ComponentStyle.
    *
    * @return $this
@@ -343,7 +343,7 @@ class Document extends Base {
    *
    * @param mixed $name
    *   Name.
-   * @param \ChapterThree\AppleNews\Document\Layouts\ComponentLayout $component_layout
+   * @param \ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout $component_layout
    *   ComponentLayout.
    *
    * @return $this

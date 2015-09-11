@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Behaviors\Motion.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Behaviors\Motion.
  */
 
-use ChapterThree\AppleNews\Document\Behaviors\Motion;
+use ChapterThree\AppleNewsAPI\Document\Behaviors\Motion;
 
 /**
  * Tests for the Motion class.

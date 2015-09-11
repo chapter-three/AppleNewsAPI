@@ -5,9 +5,9 @@
  * An Apple News Document MediumRectangleAdvertisement.
  */
 
-namespace ChapterThree\AppleNews\Document\Components\Advertisements;
+namespace ChapterThree\AppleNewsAPI\Document\Components\Advertisements;
 
-use ChapterThree\AppleNews\Document\Components\Component;
+use ChapterThree\AppleNewsAPI\Document\Components\Component;
 
 /**
  * An Apple News Document MediumRectangleAdvertisement.

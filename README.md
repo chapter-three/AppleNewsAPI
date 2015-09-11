@@ -1,8 +1,8 @@
-# AppleNews
+# AppleNewsAPI
 
-`AppleNews\PublisherAPI` is a PHP library that allows you to publish content to Apple News. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
+`AppleNewsAPI\PublisherAPI` is a PHP library that allows you to publish content to Apple News. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
 
-`AppleNews\Document` is a PHP library that helps construct documents in the Apple News native JSON format.
+`AppleNewsAPI\Document` is a PHP library that helps construct documents in the Apple News native JSON format.
 
 ## Installation
 
@@ -11,8 +11,8 @@ To install, simply:
 @todo composer instructions
 
 ```shell
-git clone git@github.com:chapter-three/AppleNews.git
-cd AppleNews
+git clone git@github.com:chapter-three/AppleNewsAPI.git
+cd AppleNewsAPI
 curl -sS https://getcomposer.org/installer | php
 ./composer.phar install
 ```
@@ -37,7 +37,7 @@ $api_key_id = "";
 $api_key_secret = "";
 $endpoint = "https://endpoint_url";
 
-$PublisherAPI = new ChapterThree\AppleNews\PublisherAPI(
+$PublisherAPI = new ChapterThree\AppleNewsAPI\PublisherAPI(
   $api_key_id,
   $api_key_secret,
   $endpoint

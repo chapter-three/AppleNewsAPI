@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Component.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Component.
  */
 
-use ChapterThree\AppleNews\Document\Components\Component;
-use ChapterThree\AppleNews\Document\Layouts\Layout;
-use ChapterThree\AppleNews\Document\Layouts\ComponentLayout;
-use ChapterThree\AppleNews\Document;
+use ChapterThree\AppleNewsAPI\Document\Components\Component;
+use ChapterThree\AppleNewsAPI\Document\Layouts\Layout;
+use ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout;
+use ChapterThree\AppleNewsAPI\Document;
 
 /**
  * A test class for Component.

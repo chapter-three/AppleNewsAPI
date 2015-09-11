@@ -5,7 +5,7 @@
  * Handling of Apple News Document markdown.
  */
 
-namespace ChapterThree\AppleNews\Document;
+namespace ChapterThree\AppleNewsAPI\Document;
 
 /**
  * Handling of Apple News Document markdown.

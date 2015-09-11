@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Animations\ComponentAnimations\FadeInAnimation.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\FadeInAnimation.
  */
 
-use ChapterThree\AppleNews\Document\Animations\ComponentAnimations\FadeInAnimation;
+use ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\FadeInAnimation;
 
 /**
  * Tests for the FadeInAnimation class.

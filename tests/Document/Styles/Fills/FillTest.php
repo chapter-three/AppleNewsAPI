@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Text.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Text.
  */
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\Fills\Fill;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills\Fill;
 
 /**
  * A test class for Fill.

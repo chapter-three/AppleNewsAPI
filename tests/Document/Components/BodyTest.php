@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Body.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Body.
  */
 
-use ChapterThree\AppleNews\Document\Components\Body;
+use ChapterThree\AppleNewsAPI\Document\Components\Body;
 
 /**
  * Tests for the Body class.

@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Styles\StrokeStyle.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Styles\StrokeStyle.
  */
 
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Layouts\Layout;
-use ChapterThree\AppleNews\Document\Styles\InlineTextStyle;
-use ChapterThree\AppleNews\Document\Styles\TextStyle;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Layouts\Layout;
+use ChapterThree\AppleNewsAPI\Document\Styles\InlineTextStyle;
+use ChapterThree\AppleNewsAPI\Document\Styles\TextStyle;
 
 /**
  * Tests for the TextStrokeStyle class.

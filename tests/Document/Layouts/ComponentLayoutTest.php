@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\ComponentLayout.
+ * Tests for ChapterThree\AppleNewsAPI\Document\ComponentLayout.
  */
 
-use ChapterThree\AppleNews\Document\Layouts\ComponentLayout;
-use ChapterThree\AppleNews\Document\ContentInset;
-use ChapterThree\AppleNews\Document\Margin;
+use ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout;
+use ChapterThree\AppleNewsAPI\Document\ContentInset;
+use ChapterThree\AppleNewsAPI\Document\Margin;
 
 /**
  * Tests for the ComponentLayout class.

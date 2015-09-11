@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Margin.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Margin.
  */
 
-use ChapterThree\AppleNews\Document\Margin;
+use ChapterThree\AppleNewsAPI\Document\Margin;
 
 /**
  * Tests for the Margin class.

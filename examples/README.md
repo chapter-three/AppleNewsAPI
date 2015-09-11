@@ -1,3 +1,3 @@
 # Examples
 
-This directory contains usage examples of `AppleNews\PublisherAPI` and `AppleNews\Document` PHP libraries.
+This directory contains usage examples of `AppleNewsAPI\PublisherAPI` and `AppleNewsAPI\Document` PHP libraries.

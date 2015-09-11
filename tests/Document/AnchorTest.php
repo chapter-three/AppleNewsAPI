@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Anchor.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Anchor.
  */
 
-use ChapterThree\AppleNews\Document\Anchor;
+use ChapterThree\AppleNewsAPI\Document\Anchor;
 
 /**
  * Tests for the Anchor class.

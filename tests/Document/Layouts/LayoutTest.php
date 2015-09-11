@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Layouts\Layout.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Layouts\Layout.
  */
 
-use ChapterThree\AppleNews\Document\Layouts\Layout;
+use ChapterThree\AppleNewsAPI\Document\Layouts\Layout;
 
 /**
  * Tests for the Layout class.

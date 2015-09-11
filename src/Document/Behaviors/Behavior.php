@@ -5,9 +5,9 @@
  * An Apple News Document Behavior.
  */
 
-namespace ChapterThree\AppleNews\Document\Behaviors;
+namespace ChapterThree\AppleNewsAPI\Document\Behaviors;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document Behavior.

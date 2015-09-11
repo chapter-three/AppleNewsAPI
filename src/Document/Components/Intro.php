@@ -5,7 +5,7 @@
  * An Apple News Document Intro.
  */
 
-namespace ChapterThree\AppleNews\Document\Components;
+namespace ChapterThree\AppleNewsAPI\Document\Components;
 
 /**
  * An Apple News Document Intro Component.

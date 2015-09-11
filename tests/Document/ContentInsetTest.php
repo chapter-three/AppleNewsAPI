@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\ContentInset.
+ * Tests for ChapterThree\AppleNewsAPI\Document\ContentInset.
  */
 
-use ChapterThree\AppleNews\Document\ContentInset;
+use ChapterThree\AppleNewsAPI\Document\ContentInset;
 
 /**
  * Tests for the ContentInset class.

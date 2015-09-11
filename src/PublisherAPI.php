@@ -2,22 +2,22 @@
 
 /**
  * @file
- * AppleNews PublisherAPI library.
+ * AppleNewsAPI PublisherAPI library.
  */
 
-namespace ChapterThree\AppleNews;
+namespace ChapterThree\AppleNewsAPI;
 
 /**
- * AppleNews PublisherAPI
+ * AppleNewsAPI PublisherAPI
  *
  * The PublisherAPI is a PHP library that allows you to publish content to Apple News.
  * You can also retrieve, update and delete articles you've already published,
  * and get basic information about your channel and sections.
  *
- * @package    ChapterThree\AppleNews\PublisherAPI
- * @subpackage ChapterThree\AppleNews\PublisherAPI\Base
+ * @package    ChapterThree\AppleNewsAPI\PublisherAPI
+ * @subpackage ChapterThree\AppleNewsAPI\PublisherAPI\Base
  */
-class PublisherAPI extends \ChapterThree\AppleNews\PublisherAPI\Curl {
+class PublisherAPI extends PublisherAPI\Curl {
 
   /** @var (const) PublisherAPI version */
   const VERSION = '0.3.4';

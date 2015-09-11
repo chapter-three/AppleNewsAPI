@@ -5,9 +5,9 @@
  * An Apple News Document Border.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles;
+namespace ChapterThree\AppleNewsAPI\Document\Styles;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document Border.
@@ -129,7 +129,7 @@ class Border extends Base {
   /**
    * Setter for all.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\StrokeStyle $value
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\StrokeStyle $value
    *   All.
    *
    * @return $this

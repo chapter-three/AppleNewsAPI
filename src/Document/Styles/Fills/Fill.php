@@ -5,9 +5,9 @@
  * An Apple News Document Fill.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles\Fills;
+namespace ChapterThree\AppleNewsAPI\Document\Styles\Fills;
 
-use ChapterThree\AppleNews\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Base;
 
 /**
  * An Apple News Document Fill.

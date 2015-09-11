@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Byline.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Byline.
  */
 
-use ChapterThree\AppleNews\Document\Components\Byline;
+use ChapterThree\AppleNewsAPI\Document\Components\Byline;
 
 /**
  * Tests for the Byline class.

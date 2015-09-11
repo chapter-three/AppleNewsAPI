@@ -5,7 +5,7 @@
  * An Apple News Document ContentInset.
  */
 
-namespace ChapterThree\AppleNews\Document;
+namespace ChapterThree\AppleNewsAPI\Document;
 
 /**
  * An Apple News Document ContentInset.

@@ -5,13 +5,13 @@
  * An Apple News Document Component.
  */
 
-namespace ChapterThree\AppleNews\Document\Components;
+namespace ChapterThree\AppleNewsAPI\Document\Components;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document;
-use ChapterThree\AppleNews\Document\Anchor;
-use ChapterThree\AppleNews\Document\Animations\ComponentAnimations\ComponentAnimation;
-use ChapterThree\AppleNews\Document\Behaviors\Behavior;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Anchor;
+use ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation;
+use ChapterThree\AppleNewsAPI\Document\Behaviors\Behavior;
 
 /**
  * An Apple News Document Component.
@@ -99,7 +99,7 @@ abstract class Component extends Base {
   /**
    * Getter for layout.
    *
-   * @return \ChapterThree\AppleNews\Document\Layouts\ComponentLayout|string
+   * @return \ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout|string
    *   Layout object or string reference
    */
   public function getLayout() {
@@ -109,16 +109,16 @@ abstract class Component extends Base {
   /**
    * Setter for layout.
    *
-   * @param \ChapterThree\AppleNews\Document\Layouts\ComponentLayout|string $layout
+   * @param \ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout|string $layout
    *   Either a ComponentLayout object, or a string reference to one defined in
    *   $document.
-   * @param \ChapterThree\AppleNews\Document|NULL $document
+   * @param \ChapterThree\AppleNewsAPI\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this
    */
   public function setLayout($layout, Document $document = NULL) {
-    $class = 'ChapterThree\AppleNews\Document\Layouts\ComponentLayout';
+    $class = 'ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout';
     if (is_string($layout)) {
       // Check that layout exists.
       if ($document &&
@@ -146,16 +146,16 @@ abstract class Component extends Base {
   /**
    * Setter for style.
    *
-   * @param \ChapterThree\AppleNews\Document\Styles\ComponentStyle|string $style
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\ComponentStyle|string $style
    *   Either a ComponentStyle object, or a string reference to one defined in
    *   $document.
-   * @param \ChapterThree\AppleNews\Document|NULL $document
+   * @param \ChapterThree\AppleNewsAPI\Document|NULL $document
    *   If required by first parameter.
    *
    * @return $this
    */
   public function setStyle($style, Document $document = NULL) {
-    $class = 'ChapterThree\AppleNews\Document\Styles\ComponentStyle';
+    $class = 'ChapterThree\AppleNewsAPI\Document\Styles\ComponentStyle';
     if (is_string($style)) {
       // Check that style exists.
       if ($document &&
@@ -183,7 +183,7 @@ abstract class Component extends Base {
   /**
    * Setter for anchor.
    *
-   * @param \ChapterThree\AppleNews\Document\Anchor $anchor
+   * @param \ChapterThree\AppleNewsAPI\Document\Anchor $anchor
    *   Anchor.
    *
    * @return $this
@@ -203,7 +203,7 @@ abstract class Component extends Base {
   /**
    * Setter for animation.
    *
-   * @param \ChapterThree\AppleNews\Document\Animations\ComponentAnimations\ComponentAnimation $animation
+   * @param \ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation $animation
    *   Animation.
    *
    * @return $this
@@ -223,7 +223,7 @@ abstract class Component extends Base {
   /**
    * Setter for behavior.
    *
-   * @param \ChapterThree\AppleNews\Document\Behaviors\Behavior $behavior
+   * @param \ChapterThree\AppleNewsAPI\Document\Behaviors\Behavior $behavior
    *   Behavior.
    *
    * @return $this

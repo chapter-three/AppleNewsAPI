@@ -5,10 +5,10 @@
  * An Apple News Document GradientFill.
  */
 
-namespace ChapterThree\AppleNews\Document\Styles\Fills\Gradients;
+namespace ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients;
 
-use ChapterThree\AppleNews\Document\Base;
-use ChapterThree\AppleNews\Document\Styles\Fills;
+use ChapterThree\AppleNewsAPI\Document\Base;
+use ChapterThree\AppleNewsAPI\Document\Styles\Fills;
 
 /**
  * An Apple News Document GradientFill.
@@ -22,7 +22,7 @@ abstract class GradientFill extends Fills\Fill {
    *
    * @param string $type
    *   The type of gradient; e.g., linear_gradient.
-   * @param array|\ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop $color_stops
+   * @param array|\ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\ColorStop $color_stops
    *   URL.
    */
   public function __construct($type, array $color_stops) {
@@ -40,7 +40,7 @@ abstract class GradientFill extends Fills\Fill {
   /**
    * Setter for url.
    *
-   * @param array|\ChapterThree\AppleNews\Document\Styles\Fills\Gradients\ColorStop $items
+   * @param array|\ChapterThree\AppleNewsAPI\Document\Styles\Fills\Gradients\ColorStop $items
    *   An array of color stops. Each stop sets a color and percentage.
    *
    * @return $this

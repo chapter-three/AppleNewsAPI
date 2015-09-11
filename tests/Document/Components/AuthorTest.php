@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Tests for ChapterThree\AppleNews\Document\Components\Author.
+ * Tests for ChapterThree\AppleNewsAPI\Document\Components\Author.
  */
 
-use ChapterThree\AppleNews\Document\Components\Author;
+use ChapterThree\AppleNewsAPI\Document\Components\Author;
 
 /**
  * Tests for the Author class.
