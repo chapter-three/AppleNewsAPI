@@ -203,7 +203,7 @@ class ComponentLayout extends Base {
    * Getter for maximumContentWidth.
    */
   public function getMaximumContentWidth() {
-    return $this->minimumHeight;
+    return $this->maximumContentWidth;
   }
 
   /**
@@ -216,7 +216,7 @@ class ComponentLayout extends Base {
    */
   public function setMaximumContentWidth($value) {
     if ($this->validateMaximumContentWidth($value)) {
-      $this->minimumHeight = $value;
+      $this->maximumContentWidth = $value;
     }
     return $this;
   }
@@ -225,7 +225,7 @@ class ComponentLayout extends Base {
    * Getter for horizontalContentAlignment.
    */
   public function getHorizontalContentAlignment() {
-    return $this->minimumHeight;
+    return $this->horizontalContentAlignment;
   }
 
   /**
@@ -238,7 +238,7 @@ class ComponentLayout extends Base {
    */
   public function setHorizontalContentAlignment($value = 'center') {
     if ($this->validateHorizontalContentAlignment($value)) {
-      $this->minimumHeight = $value;
+      $this->horizontalContentAlignment = $value;
     }
     return $this;
   }
