@@ -27,16 +27,16 @@ abstract class Base {
   public $client;
 
   /** @var (string) Endpoint path. */
-  protected $path = '';
+  public $path = '';
 
   /** @var (string) HTTP Method (GET/DELETE/POST). */
-  protected $method = '';
+  public $method = '';
 
   /** @var (array) Endpoint path variables to replace. */
-  protected $path_args = [];
+  public $path_args = [];
 
   /** @var (datetime) ISO 8601 datetime. */
-  protected $datetime;
+  public $datetime;
 
   /** @var (array) Valid values for resource part Content-Type. */
   protected $valid_mimes = [
