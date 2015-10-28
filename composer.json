@@ -1,5 +1,5 @@
 {
-    "name" : "chapter-three/AppleNewsAPI",
+    "name" : "chapter-three/apple-news-api",
     "description": "Push content to Apple News.",
     "version": "0.3.8",
     "require": {
