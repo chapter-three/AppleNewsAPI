@@ -6,9 +6,11 @@
 
 ## Installation
 
-To install, simply:
+```shell
+composer require chapter-three/apple-news-api
+```
 
-@todo composer instructions
+or
 
 ```shell
 git clone git@github.com:chapter-three/AppleNewsAPI.git
