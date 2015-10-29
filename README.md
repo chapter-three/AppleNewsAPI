@@ -2,7 +2,7 @@
 
 `AppleNewsAPI\PublisherAPI` is a PHP library that allows you to publish content to Apple News. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
 
-`AppleNewsAPI\Document` is a PHP library that helps construct documents in the Apple News native JSON format.
+`AppleNewsAPI\Document` is a PHP library that helps construct documents in the [Apple News JSON format](https://developer.apple.com/library/ios/documentation/General/Conceptual/Apple_News_Format_Ref/).
 
 ## Installation
 
@@ -26,8 +26,23 @@ curl -sS https://getcomposer.org/installer | php
 To test PublisherAPI GET/POST/DELETE methods use the following pattern:
 
 ```shell
-./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php 
+./vendor/bin/phpunit -v --colors=auto --bootstrap vendor/autoload.php
 tests/PublisherAPITest.php [API_KEY] [API_SECRET] [ENDPOINT_URL] [METHOD] [ENDPOINT_PATH]
+```
+
+## Document class Quick Start and Examples
+
+```php
+use ChapterThree\AppleNewsAPI\Document;
+use ChapterThree\AppleNewsAPI\Document\Components\Body;
+use ChapterThree\AppleNewsAPI\Document\Layouts\Layout;
+use ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle;
+
+$obj = new Document(1, 'title', 'en', new Layout(7, 1024));
+$obj->addComponent(new Body('body text'))
+  ->addComponentTextStyle('default', new ComponentTextStyle());
+
+$json = $obj->json();
 ```
 
 ## PublisherAPI class Quick Start and Examples
@@ -143,7 +158,3 @@ $response = $PublisherAPI->delete('/articles/{article_id}',
   ]
 );
 ```
-
-## Document class Quick Start and Examples
-
-@todo
