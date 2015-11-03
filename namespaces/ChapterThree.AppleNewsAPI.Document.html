@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/ChapterThree.html">\ChapterThree</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">289</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1490192013"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1490192013" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-439550546"></a>
+                                <a href="../namespaces/ChapterThree.html" style="margin-left: 30px; padding-left: 0">ChapterThree</a>
+            </div>
+            <div id="namespace-439550546" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2014504269"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.html" style="margin-left: 30px; padding-left: 0">AppleNewsAPI</a>
+            </div>
+            <div id="namespace-2014504269" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1236375377"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.html" style="margin-left: 30px; padding-left: 0">Document</a>
+            </div>
+            <div id="namespace-1236375377" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1246426156"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.html" style="margin-left: 30px; padding-left: 0">Animations</a>
+            </div>
+            <div id="namespace-1246426156" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1554988787"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.html" style="margin-left: 30px; padding-left: 0">ComponentAnimations</a>
+            </div>
+            <div id="namespace-1554988787" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.AppearAnimation.html">AppearAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html">ComponentAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.FadeInAnimation.html">FadeInAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.MoveInAnimation.html">MoveInAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html">ScaleFadeAnimation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1360096176"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.html" style="margin-left: 30px; padding-left: 0">Scenes</a>
+            </div>
+            <div id="namespace-1360096176" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.FadingStickyHeader.html">FadingStickyHeader</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.ParallaxScaleHeader.html">ParallaxScaleHeader</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.Scene.html">Scene</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-984964416"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Behaviors.html" style="margin-left: 30px; padding-left: 0">Behaviors</a>
+            </div>
+            <div id="namespace-984964416" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.BackgroundMotion.html">BackgroundMotion</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.BackgroundParallax.html">BackgroundParallax</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Behavior.html">Behavior</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Motion.html">Motion</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Parallax.html">Parallax</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Springy.html">Springy</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1885505706"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Components.html" style="margin-left: 30px; padding-left: 0">Components</a>
+            </div>
+            <div id="namespace-1885505706" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1087870214"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.html" style="margin-left: 30px; padding-left: 0">Advertisements</a>
+            </div>
+            <div id="namespace-1087870214" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.BannerAdvertisement.html">BannerAdvertisement</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.MediumRectangleAdvertisement.html">MediumRectangleAdvertisement</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Audio.html">Audio</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Author.html">Author</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Body.html">Body</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Byline.html">Byline</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Caption.html">Caption</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Chapter.html">Chapter</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Component.html">Component</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.ComponentNested.html">ComponentNested</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Container.html">Container</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Divider.html">Divider</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.EmbedWebVideo.html">EmbedWebVideo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Figure.html">Figure</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Gallery.html">Gallery</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Header.html">Header</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Heading.html">Heading</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Illustrator.html">Illustrator</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Image.html">Image</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Instagram.html">Instagram</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Intro.html">Intro</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Logo.html">Logo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Mosaic.html">Mosaic</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Music.html">Music</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Photo.html">Photo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Photographer.html">Photographer</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Portrait.html">Portrait</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Pullquote.html">Pullquote</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Quote.html">Quote</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.ScalableImage.html">ScalableImage</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Section.html">Section</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Title.html">Title</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Tweet.html">Tweet</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Video.html">Video</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2138764423"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Layouts.html" style="margin-left: 30px; padding-left: 0">Layouts</a>
+            </div>
+            <div id="namespace-2138764423" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Layouts.ComponentLayout.html">ComponentLayout</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Layouts.Layout.html">Layout</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1636377202"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.html" style="margin-left: 30px; padding-left: 0">Styles</a>
+            </div>
+            <div id="namespace-1636377202" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-215732860"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.Fills.html" style="margin-left: 30px; padding-left: 0">Fills</a>
+            </div>
+            <div id="namespace-215732860" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2000231812"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.html" style="margin-left: 30px; padding-left: 0">Gradients</a>
+            </div>
+            <div id="namespace-2000231812" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.ColorStop.html">ColorStop</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.GradientFill.html">GradientFill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.LinearGradientFill.html">LinearGradientFill</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Fill.html">Fill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.ImageFill.html">ImageFill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.VideoFill.html">VideoFill</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Border.html">Border</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentStyle.html">ComponentStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html">ComponentTextStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.DocumentStyle.html">DocumentStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.DropCapStyle.html">DropCapStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.InlineTextStyle.html">InlineTextStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.StrokeStyle.html">StrokeStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStrokeStyle.html">TextStrokeStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html">TextStyle</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Anchor.html">Anchor</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html">Base</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.ContentInset.html">ContentInset</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.GalleryItem.html">GalleryItem</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Margin.html">Margin</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Markdown.html">Markdown</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Metadata.html">Metadata</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-993041575"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.PublisherAPI.html" style="margin-left: 30px; padding-left: 0">PublisherAPI</a>
+            </div>
+            <div id="namespace-993041575" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.Base.html">Base</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.Curl.html">Curl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.html">Document</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.html">PublisherAPI</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                <a href="../namespaces/ChapterThree.AppleNewsAPI.html">\ChapterThree\AppleNewsAPI</a>
+                                            </nav>
+                    <h1><small>\ChapterThree\AppleNewsAPI</small>Document</h1>
+
+                                        <h2>Namespaces</h2>
+                    <table class="table table-hover">
+                                                    <tr>
+                                <td><a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.html">Animations</a></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Behaviors.html">Behaviors</a></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Components.html">Components</a></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Layouts.html">Layouts</a></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.html">Styles</a></td>
+                            </tr>
+                                            </table>
+                    
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.Anchor.html">Anchor</a></td>
+                            <td><em>An Apple News Document Anchor.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html">Base</a></td>
+                            <td><em>Base class for AppleNewsAPI\Document classes.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.ContentInset.html">ContentInset</a></td>
+                            <td><em>An Apple News Document ContentInset.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.GalleryItem.html">GalleryItem</a></td>
+                            <td><em>An Apple News Document GalleryItem.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.Margin.html">Margin</a></td>
+                            <td><em>An Apple News Document Margin.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.Markdown.html">Markdown</a></td>
+                            <td><em>Handling of Apple News Document markdown.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.Metadata.html">Metadata</a></td>
+                            <td><em>An Apple News Document.</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/ChapterThree.html">\ChapterThree</a></div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/ChapterThree.AppleNewsAPI.html">\ChapterThree\AppleNewsAPI</a></div>
+                                                                                        <div class="namespace-wrapper">\ChapterThree\AppleNewsAPI\Document</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/ChapterThree.html">\ChapterThree</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on November 3rd, 2015 at 04:16.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

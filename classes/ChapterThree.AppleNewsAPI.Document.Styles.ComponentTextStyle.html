@@ -1,0 +1,2405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/ChapterThree.html">\ChapterThree</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">289</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1097876329"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1097876329" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-792406971"></a>
+                                <a href="../namespaces/ChapterThree.html" style="margin-left: 30px; padding-left: 0">ChapterThree</a>
+            </div>
+            <div id="namespace-792406971" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1020900394"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.html" style="margin-left: 30px; padding-left: 0">AppleNewsAPI</a>
+            </div>
+            <div id="namespace-1020900394" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-305363920"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.html" style="margin-left: 30px; padding-left: 0">Document</a>
+            </div>
+            <div id="namespace-305363920" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-227694456"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.html" style="margin-left: 30px; padding-left: 0">Animations</a>
+            </div>
+            <div id="namespace-227694456" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1560909573"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.html" style="margin-left: 30px; padding-left: 0">ComponentAnimations</a>
+            </div>
+            <div id="namespace-1560909573" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.AppearAnimation.html">AppearAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html">ComponentAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.FadeInAnimation.html">FadeInAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.MoveInAnimation.html">MoveInAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html">ScaleFadeAnimation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2025105156"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.html" style="margin-left: 30px; padding-left: 0">Scenes</a>
+            </div>
+            <div id="namespace-2025105156" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.FadingStickyHeader.html">FadingStickyHeader</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.ParallaxScaleHeader.html">ParallaxScaleHeader</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.Scene.html">Scene</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1089251433"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Behaviors.html" style="margin-left: 30px; padding-left: 0">Behaviors</a>
+            </div>
+            <div id="namespace-1089251433" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.BackgroundMotion.html">BackgroundMotion</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.BackgroundParallax.html">BackgroundParallax</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Behavior.html">Behavior</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Motion.html">Motion</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Parallax.html">Parallax</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Springy.html">Springy</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-920923350"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Components.html" style="margin-left: 30px; padding-left: 0">Components</a>
+            </div>
+            <div id="namespace-920923350" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-421392937"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.html" style="margin-left: 30px; padding-left: 0">Advertisements</a>
+            </div>
+            <div id="namespace-421392937" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.BannerAdvertisement.html">BannerAdvertisement</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.MediumRectangleAdvertisement.html">MediumRectangleAdvertisement</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Audio.html">Audio</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Author.html">Author</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Body.html">Body</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Byline.html">Byline</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Caption.html">Caption</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Chapter.html">Chapter</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Component.html">Component</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.ComponentNested.html">ComponentNested</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Container.html">Container</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Divider.html">Divider</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.EmbedWebVideo.html">EmbedWebVideo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Figure.html">Figure</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Gallery.html">Gallery</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Header.html">Header</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Heading.html">Heading</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Illustrator.html">Illustrator</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Image.html">Image</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Instagram.html">Instagram</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Intro.html">Intro</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Logo.html">Logo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Mosaic.html">Mosaic</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Music.html">Music</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Photo.html">Photo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Photographer.html">Photographer</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Portrait.html">Portrait</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Pullquote.html">Pullquote</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Quote.html">Quote</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.ScalableImage.html">ScalableImage</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Section.html">Section</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Title.html">Title</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Tweet.html">Tweet</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Video.html">Video</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1487087050"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Layouts.html" style="margin-left: 30px; padding-left: 0">Layouts</a>
+            </div>
+            <div id="namespace-1487087050" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Layouts.ComponentLayout.html">ComponentLayout</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Layouts.Layout.html">Layout</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1590431913"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.html" style="margin-left: 30px; padding-left: 0">Styles</a>
+            </div>
+            <div id="namespace-1590431913" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1131216932"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.Fills.html" style="margin-left: 30px; padding-left: 0">Fills</a>
+            </div>
+            <div id="namespace-1131216932" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-65699130"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.html" style="margin-left: 30px; padding-left: 0">Gradients</a>
+            </div>
+            <div id="namespace-65699130" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.ColorStop.html">ColorStop</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.GradientFill.html">GradientFill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.LinearGradientFill.html">LinearGradientFill</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Fill.html">Fill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.ImageFill.html">ImageFill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.VideoFill.html">VideoFill</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Border.html">Border</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentStyle.html">ComponentStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html">ComponentTextStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.DocumentStyle.html">DocumentStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.DropCapStyle.html">DropCapStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.InlineTextStyle.html">InlineTextStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.StrokeStyle.html">StrokeStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStrokeStyle.html">TextStrokeStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html">TextStyle</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Anchor.html">Anchor</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html">Base</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.ContentInset.html">ContentInset</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.GalleryItem.html">GalleryItem</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Margin.html">Margin</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Markdown.html">Markdown</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Metadata.html">Metadata</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-836477834"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.PublisherAPI.html" style="margin-left: 30px; padding-left: 0">PublisherAPI</a>
+            </div>
+            <div id="namespace-836477834" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.Base.html">Base</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.Curl.html">Curl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.html">Document</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.html">PublisherAPI</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.html">\ChapterThree\AppleNewsAPI\Document\Styles</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\ChapterThree\AppleNewsAPI\Document\Styles</small>ComponentTextStyle</h1>
+                    <p><em>An Apple News Document ComponentTextStyle.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getFontName" class="">getFontName()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setFontName" class="">setFontName()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getFontSize" class="">getFontSize()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setFontSize" class="">setFontSize()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getTextColor" class="">getTextColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setTextColor" class="">setTextColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getTextTransform" class="">getTextTransform()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setTextTransform" class="">setTextTransform()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getUnderline" class="">getUnderline()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setUnderline" class="">setUnderline()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getStrikethrough" class="">getStrikethrough()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setStrikethrough" class="">setStrikethrough()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getBackgroundColor" class="">getBackgroundColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setBackgroundColor" class="">setBackgroundColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getVerticalAlignment" class="">getVerticalAlignment()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setVerticalAlignment" class="">setVerticalAlignment()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_getTracking" class="">getTracking()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_setTracking" class="">setTracking()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_jsonSerialize" class="">jsonSerialize()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method___toString" class="">__toString()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_json" class="">json()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_triggerError" class="">triggerError()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_getTextAlignment" class="">getTextAlignment()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_setTextAlignment" class="">setTextAlignment()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_getLineHeight" class="">getLineHeight()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_setLineHeight" class="">setLineHeight()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_getDropCapStyle" class="">getDropCapStyle()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_setDropCapStyle" class="">setDropCapStyle()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_getLinkStyle" class="">getLinkStyle()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_setLinkStyle" class="">setLinkStyle()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_getHyphenation" class="">getHyphenation()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_setHyphenation" class="">setHyphenation()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_optional" class="">optional()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_validateTextColor" class="">validateTextColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_validateTextTransform" class="">validateTextTransform()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_validateBackgroundColor" class="">validateBackgroundColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#method_validateVerticalAlignment" class="">validateVerticalAlignment()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_isSupportedUnit" class="">isSupportedUnit()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_isUnitInterval" class="">isUnitInterval()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_isHexColor" class="">isHexColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#method_validateTextAlignment" class="">validateTextAlignment()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_fontName" class="">$fontName</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_fontSize" class="">$fontSize</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_textColor" class="">$textColor</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_textTransform" class="">$textTransform</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_underline" class="">$underline</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_strikethrough" class="">$strikethrough</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_backgroundColor" class="">$backgroundColor</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_verticalAlignment" class="">$verticalAlignment</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html#property_tracking" class="">$tracking</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#property_textAlignment" class="">$textAlignment</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#property_lineHeight" class="">$lineHeight</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#property_dropCapStyle" class="">$dropCapStyle</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#property_hyphenation" class="">$hyphenation</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html#property_linkStyle" class="">$linkStyle</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/src.Document.Styles.ComponentTextStyle.html"><div class="path-wrapper">src/Document/Styles/ComponentTextStyle.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                        <div class="namespace-wrapper"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html">\ChapterThree\AppleNewsAPI\Document\Base</a></div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</a></div>
+                                                                                                    <div class="namespace-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\ComponentTextStyle</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_fontName" name="property_fontName" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$fontName</h3>
+                <pre class="signature">$fontName : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_fontSize" name="property_fontSize" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$fontSize</h3>
+                <pre class="signature">$fontSize : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_textColor" name="property_textColor" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$textColor</h3>
+                <pre class="signature">$textColor : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_textTransform" name="property_textTransform" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$textTransform</h3>
+                <pre class="signature">$textTransform : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_underline" name="property_underline" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$underline</h3>
+                <pre class="signature">$underline : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_strikethrough" name="property_strikethrough" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$strikethrough</h3>
+                <pre class="signature">$strikethrough : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_backgroundColor" name="property_backgroundColor" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$backgroundColor</h3>
+                <pre class="signature">$backgroundColor : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_verticalAlignment" name="property_verticalAlignment" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$verticalAlignment</h3>
+                <pre class="signature">$verticalAlignment : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_tracking" name="property_tracking" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$tracking</h3>
+                <pre class="signature">$tracking : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_textAlignment" name="property_textAlignment" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$textAlignment</h3>
+                <pre class="signature">$textAlignment : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_lineHeight" name="property_lineHeight" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$lineHeight</h3>
+                <pre class="signature">$lineHeight : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_dropCapStyle" name="property_dropCapStyle" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$dropCapStyle</h3>
+                <pre class="signature">$dropCapStyle : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_hyphenation" name="property_hyphenation" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$hyphenation</h3>
+                <pre class="signature">$hyphenation : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_linkStyle" name="property_linkStyle" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$linkStyle</h3>
+                <pre class="signature">$linkStyle : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFontName" name="method_getFontName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFontName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFontName() </pre>
+                <p><em>Getter for fontName.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setFontName" name="method_setFontName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setFontName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setFontName(string  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for fontName.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>FontName.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFontSize" name="method_getFontSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFontSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFontSize() </pre>
+                <p><em>Getter for fontSize.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setFontSize" name="method_setFontSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setFontSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setFontSize(integer  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for fontSize.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$value </td>
+                                <td><p>FontSize.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTextColor" name="method_getTextColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTextColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTextColor() </pre>
+                <p><em>Getter for textColor.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTextColor" name="method_setTextColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTextColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTextColor(string  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for textColor.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>TextColor.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTextTransform" name="method_getTextTransform" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTextTransform()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTextTransform() </pre>
+                <p><em>Getter for textTransform.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTextTransform" name="method_setTextTransform" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTextTransform()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTextTransform(string  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for textTransform.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>TextTransform.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUnderline" name="method_getUnderline" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUnderline()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUnderline() </pre>
+                <p><em>Getter for underline.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUnderline" name="method_setUnderline" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUnderline()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUnderline(boolean|\ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for underline.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean|<a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStrokeStyle.html">\ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle</a></td>
+                                <td>$value </td>
+                                <td><p>Underline.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getStrikethrough" name="method_getStrikethrough" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStrikethrough()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStrikethrough() </pre>
+                <p><em>Getter for strikethrough.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setStrikethrough" name="method_setStrikethrough" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setStrikethrough()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setStrikethrough(boolean|\ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for strikethrough.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean|<a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStrokeStyle.html">\ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle</a></td>
+                                <td>$value </td>
+                                <td><p>Strikethrough.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBackgroundColor" name="method_getBackgroundColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBackgroundColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBackgroundColor() </pre>
+                <p><em>Getter for backgroundColor.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setBackgroundColor" name="method_setBackgroundColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setBackgroundColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setBackgroundColor(string  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for backgroundColor.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>BackgroundColor.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getVerticalAlignment" name="method_getVerticalAlignment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getVerticalAlignment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getVerticalAlignment() </pre>
+                <p><em>Getter for verticalAlignment.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setVerticalAlignment" name="method_setVerticalAlignment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setVerticalAlignment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setVerticalAlignment(string  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for verticalAlignment.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>VerticalAlignment.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTracking" name="method_getTracking" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTracking()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTracking() </pre>
+                <p><em>Getter for tracking.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTracking" name="method_setTracking" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTracking()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTracking(float  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for tracking.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$value </td>
+                                <td><p>Tracking.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_jsonSerialize" name="method_jsonSerialize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">jsonSerialize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">jsonSerialize() </pre>
+                <p><em>Implements JsonSerializable::jsonSerialize().</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___toString" name="method___toString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__toString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__toString() </pre>
+                <p><em>Implements __toString().</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_json" name="method_json" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">json()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">json() : boolean|string</pre>
+                <p><em>Generates json representation.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                            &mdash; <p>JSON string, or FALSE on error.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_triggerError" name="method_triggerError" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">triggerError()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">triggerError(string  <span class="argument">$message</span>, integer  <span class="argument">$message_type = E_USER_NOTICE</span>) </pre>
+                <p><em>Error handler.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$message </td>
+                                <td><p>Message.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$message_type </td>
+                                <td><p>Matching E_USER_ERROR|E_USER_WARNING|E_USER_NOTICE|E_USER_DEPRECATED.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTextAlignment" name="method_getTextAlignment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTextAlignment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTextAlignment() </pre>
+                <p><em>Getter for textAlignment.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTextAlignment" name="method_setTextAlignment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTextAlignment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTextAlignment(string  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for textAlignment.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>TextAlignment.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLineHeight" name="method_getLineHeight" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLineHeight()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLineHeight() </pre>
+                <p><em>Getter for lineHeight.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setLineHeight" name="method_setLineHeight" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setLineHeight()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setLineHeight(integer  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for lineHeight.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$value </td>
+                                <td><p>LineHeight.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDropCapStyle" name="method_getDropCapStyle" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDropCapStyle()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDropCapStyle() </pre>
+                <p><em>Getter for dropCapStyle.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setDropCapStyle" name="method_setDropCapStyle" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setDropCapStyle()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setDropCapStyle(\ChapterThree\AppleNewsAPI\Document\Styles\DropCapStyle  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for dropCapStyle.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.DropCapStyle.html">\ChapterThree\AppleNewsAPI\Document\Styles\DropCapStyle</a></td>
+                                <td>$value </td>
+                                <td><p>DropCapStyle.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLinkStyle" name="method_getLinkStyle" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLinkStyle()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLinkStyle() </pre>
+                <p><em>Getter for linkStyle.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setLinkStyle" name="method_setLinkStyle" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setLinkStyle()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setLinkStyle(\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for linkStyle.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</a></td>
+                                <td>$value </td>
+                                <td><p>LinkStyle.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHyphenation" name="method_getHyphenation" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHyphenation()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHyphenation() </pre>
+                <p><em>Getter for hyphenation.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHyphenation" name="method_setHyphenation" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setHyphenation()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHyphenation(boolean  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for hyphenation.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$value </td>
+                                <td><p>Hyphenation.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_optional" name="method_optional" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">optional()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">optional() </pre>
+                <p><em>Define optional properties.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateTextColor" name="method_validateTextColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateTextColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateTextColor(  <span class="argument">$value</span>) </pre>
+                <p><em>Validates the textColor attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateTextTransform" name="method_validateTextTransform" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateTextTransform()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateTextTransform(  <span class="argument">$value</span>) </pre>
+                <p><em>Validates the textTransform attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateBackgroundColor" name="method_validateBackgroundColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateBackgroundColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateBackgroundColor(  <span class="argument">$value</span>) </pre>
+                <p><em>Validates the backgroundColor attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateVerticalAlignment" name="method_validateVerticalAlignment" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateVerticalAlignment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateVerticalAlignment(  <span class="argument">$value</span>) </pre>
+                <p><em>Validates the verticalAlignment attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Styles\TextStyle</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isSupportedUnit" name="method_isSupportedUnit" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isSupportedUnit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isSupportedUnit(mixed  <span class="argument">$value</span>) : boolean</pre>
+                <p><em>Helper function to determine if a value is suffixed by a supported unit.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>Value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Result.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isUnitInterval" name="method_isUnitInterval" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isUnitInterval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isUnitInterval(float|integer  <span class="argument">$value</span>) : boolean</pre>
+                <p><em>Helper function to determine if a value is a unit interval.</em></p>
+                <p>A unit interval is the closed interval [0,1], that is, the set of all real
+numbers that are greater than or equal to 0 and less than or equal to 1.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float|integer</td>
+                                <td>$value </td>
+                                <td><p>Value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Result.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isHexColor" name="method_isHexColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isHexColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isHexColor(string  <span class="argument">$value</span>) : boolean</pre>
+                <p><em>Helper to validate color hex code.</em></p>
+                <p>Valid codes are hexadecimal numbers of length 3, 6 or 8 (with opacity),
+prefixed with &quot;#&quot;.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>Value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Result.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateTextAlignment" name="method_validateTextAlignment" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateTextAlignment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateTextAlignment(  <span class="argument">$value</span>) </pre>
+                <p><em>Validates the textAlignment attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ComponentTextStyle.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/src/Document/Styles/ComponentTextStyle.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/ChapterThree.html">\ChapterThree</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on November 3rd, 2015 at 04:16.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

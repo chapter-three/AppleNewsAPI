@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/ChapterThree.html">\ChapterThree</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">289</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1879023925"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1879023925" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-103080529"></a>
+                                <a href="../namespaces/ChapterThree.html" style="margin-left: 30px; padding-left: 0">ChapterThree</a>
+            </div>
+            <div id="namespace-103080529" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2054011219"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.html" style="margin-left: 30px; padding-left: 0">AppleNewsAPI</a>
+            </div>
+            <div id="namespace-2054011219" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-837565994"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.html" style="margin-left: 30px; padding-left: 0">Document</a>
+            </div>
+            <div id="namespace-837565994" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2071861467"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.html" style="margin-left: 30px; padding-left: 0">Animations</a>
+            </div>
+            <div id="namespace-2071861467" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1006669047"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.html" style="margin-left: 30px; padding-left: 0">ComponentAnimations</a>
+            </div>
+            <div id="namespace-1006669047" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.AppearAnimation.html">AppearAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html">ComponentAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.FadeInAnimation.html">FadeInAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.MoveInAnimation.html">MoveInAnimation</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html">ScaleFadeAnimation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-840750691"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.html" style="margin-left: 30px; padding-left: 0">Scenes</a>
+            </div>
+            <div id="namespace-840750691" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.FadingStickyHeader.html">FadingStickyHeader</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.ParallaxScaleHeader.html">ParallaxScaleHeader</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.Scenes.Scene.html">Scene</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-572140680"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Behaviors.html" style="margin-left: 30px; padding-left: 0">Behaviors</a>
+            </div>
+            <div id="namespace-572140680" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.BackgroundMotion.html">BackgroundMotion</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.BackgroundParallax.html">BackgroundParallax</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Behavior.html">Behavior</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Motion.html">Motion</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Parallax.html">Parallax</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Behaviors.Springy.html">Springy</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1586074048"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Components.html" style="margin-left: 30px; padding-left: 0">Components</a>
+            </div>
+            <div id="namespace-1586074048" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-139872554"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.html" style="margin-left: 30px; padding-left: 0">Advertisements</a>
+            </div>
+            <div id="namespace-139872554" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.BannerAdvertisement.html">BannerAdvertisement</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Advertisements.MediumRectangleAdvertisement.html">MediumRectangleAdvertisement</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Audio.html">Audio</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Author.html">Author</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Body.html">Body</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Byline.html">Byline</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Caption.html">Caption</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Chapter.html">Chapter</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Component.html">Component</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.ComponentNested.html">ComponentNested</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Container.html">Container</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Divider.html">Divider</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.EmbedWebVideo.html">EmbedWebVideo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Figure.html">Figure</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Gallery.html">Gallery</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Header.html">Header</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Heading.html">Heading</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Illustrator.html">Illustrator</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Image.html">Image</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Instagram.html">Instagram</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Intro.html">Intro</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Logo.html">Logo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Mosaic.html">Mosaic</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Music.html">Music</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Photo.html">Photo</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Photographer.html">Photographer</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Portrait.html">Portrait</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Pullquote.html">Pullquote</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Quote.html">Quote</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.ScalableImage.html">ScalableImage</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Section.html">Section</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Title.html">Title</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Tweet.html">Tweet</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Components.Video.html">Video</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1988826486"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Layouts.html" style="margin-left: 30px; padding-left: 0">Layouts</a>
+            </div>
+            <div id="namespace-1988826486" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Layouts.ComponentLayout.html">ComponentLayout</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Layouts.Layout.html">Layout</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-204056555"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.html" style="margin-left: 30px; padding-left: 0">Styles</a>
+            </div>
+            <div id="namespace-204056555" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1252454175"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.Fills.html" style="margin-left: 30px; padding-left: 0">Fills</a>
+            </div>
+            <div id="namespace-1252454175" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2025649868"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.html" style="margin-left: 30px; padding-left: 0">Gradients</a>
+            </div>
+            <div id="namespace-2025649868" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.ColorStop.html">ColorStop</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.GradientFill.html">GradientFill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Gradients.LinearGradientFill.html">LinearGradientFill</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.Fill.html">Fill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.ImageFill.html">ImageFill</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Fills.VideoFill.html">VideoFill</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.Border.html">Border</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentStyle.html">ComponentStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.ComponentTextStyle.html">ComponentTextStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.DocumentStyle.html">DocumentStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.DropCapStyle.html">DropCapStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.InlineTextStyle.html">InlineTextStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.StrokeStyle.html">StrokeStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStrokeStyle.html">TextStrokeStyle</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Styles.TextStyle.html">TextStyle</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Anchor.html">Anchor</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html">Base</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.ContentInset.html">ContentInset</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.GalleryItem.html">GalleryItem</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Margin.html">Margin</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Markdown.html">Markdown</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Metadata.html">Metadata</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-175070767"></a>
+                                <a href="../namespaces/ChapterThree.AppleNewsAPI.PublisherAPI.html" style="margin-left: 30px; padding-left: 0">PublisherAPI</a>
+            </div>
+            <div id="namespace-175070767" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.Base.html">Base</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.Curl.html">Curl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.Document.html">Document</a></li>
+                                                    <li class="class"><a href="../classes/ChapterThree.AppleNewsAPI.PublisherAPI.html">PublisherAPI</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.html">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations</small>ScaleFadeAnimation</h1>
+                    <p><em>An Apple News Document ScaleFadeAnimation.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html#method_getType" class="">getType()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_jsonSerialize" class="">jsonSerialize()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method___toString" class="">__toString()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_json" class="">json()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_triggerError" class="">triggerError()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_getInitialAlpha" class="">getInitialAlpha()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_setInitialAlpha" class="">setInitialAlpha()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_getInitialScale" class="">getInitialScale()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_setInitialScale" class="">setInitialScale()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html#property_type" class="">$type</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html#property_userControllable" class="">$userControllable</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_optional" class="">optional()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html#method_setType" class="">setType()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_isSupportedUnit" class="">isSupportedUnit()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_isUnitInterval" class="">isUnitInterval()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html#method_isHexColor" class="">isHexColor()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_validateInitialAlpha" class="">validateInitialAlpha()</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#method_validateInitialScale" class="">validateInitialScale()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html#property_type" class="">$type</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html#property_userControllable" class="">$userControllable</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#property_initialAlpha" class="">$initialAlpha</a><br />
+                                                                    <a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html#property_initialScale" class="">$initialScale</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/src.Document.Animations.ComponentAnimations.ScaleFadeAnimation.html"><div class="path-wrapper">src/Document/Animations/ComponentAnimations/ScaleFadeAnimation.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                        <div class="namespace-wrapper"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html">\ChapterThree\AppleNewsAPI\Document\Base</a></div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation</a></div>
+                                                                                                    <div class="namespace-wrapper">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ScaleFadeAnimation</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_type" name="property_type" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$type</h3>
+                <pre class="signature">$type : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_userControllable" name="property_userControllable" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$userControllable</h3>
+                <pre class="signature">$userControllable : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_type" name="property_type" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$type</h3>
+                <pre class="signature">$type : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_userControllable" name="property_userControllable" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$userControllable</h3>
+                <pre class="signature">$userControllable : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_initialAlpha" name="property_initialAlpha" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$initialAlpha</h3>
+                <pre class="signature">$initialAlpha : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_initialScale" name="property_initialScale" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$initialScale</h3>
+                <pre class="signature">$initialScale : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>Implements __construct().</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getType" name="method_getType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getType() </pre>
+                <p><em>Getter for type.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_jsonSerialize" name="method_jsonSerialize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">jsonSerialize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">jsonSerialize() </pre>
+                <p><em>Implements JsonSerializable::jsonSerialize().</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___toString" name="method___toString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__toString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__toString() </pre>
+                <p><em>Implements __toString().</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_json" name="method_json" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">json()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">json() : boolean|string</pre>
+                <p><em>Generates json representation.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                            &mdash; <p>JSON string, or FALSE on error.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_triggerError" name="method_triggerError" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">triggerError()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">triggerError(string  <span class="argument">$message</span>, integer  <span class="argument">$message_type = E_USER_NOTICE</span>) </pre>
+                <p><em>Error handler.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$message </td>
+                                <td><p>Message.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$message_type </td>
+                                <td><p>Matching E_USER_ERROR|E_USER_WARNING|E_USER_NOTICE|E_USER_DEPRECATED.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInitialAlpha" name="method_getInitialAlpha" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInitialAlpha()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInitialAlpha() </pre>
+                <p><em>Getter for initialAlpha.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setInitialAlpha" name="method_setInitialAlpha" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setInitialAlpha()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setInitialAlpha(float|integer  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for initialAlpha.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float|integer</td>
+                                <td>$value </td>
+                                <td><p>initialAlpha.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInitialScale" name="method_getInitialScale" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInitialScale()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInitialScale() </pre>
+                <p><em>Getter for initialScale.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setInitialScale" name="method_setInitialScale" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setInitialScale()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setInitialScale(float  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for initialScale.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$value </td>
+                                <td><p>initialScale.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_optional" name="method_optional" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">optional()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">optional() </pre>
+                <p><em>Define optional properties.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setType" name="method_setType" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setType(boolean  <span class="argument">$value</span>) : $this</pre>
+                <p><em>Setter for type.</em></p>
+                <p>Concrete classes are expected to set this explicitly.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$value </td>
+                                <td><p>Type.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    $this
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Animations.ComponentAnimations.ComponentAnimation.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Animations\ComponentAnimations\ComponentAnimation</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isSupportedUnit" name="method_isSupportedUnit" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isSupportedUnit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isSupportedUnit(mixed  <span class="argument">$value</span>) : boolean</pre>
+                <p><em>Helper function to determine if a value is suffixed by a supported unit.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>Value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Result.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isUnitInterval" name="method_isUnitInterval" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isUnitInterval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isUnitInterval(float|integer  <span class="argument">$value</span>) : boolean</pre>
+                <p><em>Helper function to determine if a value is a unit interval.</em></p>
+                <p>A unit interval is the closed interval [0,1], that is, the set of all real
+numbers that are greater than or equal to 0 and less than or equal to 1.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float|integer</td>
+                                <td>$value </td>
+                                <td><p>Value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Result.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isHexColor" name="method_isHexColor" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isHexColor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isHexColor(string  <span class="argument">$value</span>) : boolean</pre>
+                <p><em>Helper to validate color hex code.</em></p>
+                <p>Valid codes are hexadecimal numbers of length 3, 6 or 8 (with opacity),
+prefixed with &quot;#&quot;.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>Value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Result.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/ChapterThree.AppleNewsAPI.Document.Base.html"><div class="path-wrapper">\ChapterThree\AppleNewsAPI\Document\Base</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateInitialAlpha" name="method_validateInitialAlpha" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateInitialAlpha()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateInitialAlpha(  <span class="argument">$value</span>) </pre>
+                <p><em>Validates the initialAlpha attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateInitialScale" name="method_validateInitialScale" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateInitialScale()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateInitialScale(  <span class="argument">$value</span>) </pre>
+                <p><em>Validates the initialScale attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ScaleFadeAnimation.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/src/Document/Animations/ComponentAnimations/ScaleFadeAnimation.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/ChapterThree.html">\ChapterThree</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on November 3rd, 2015 at 04:16.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
