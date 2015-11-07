@@ -32,6 +32,13 @@ To test PublisherAPI GET/POST/DELETE methods use the following pattern:
 tests/PublisherAPITest.php [API_KEY] [API_SECRET] [ENDPOINT_URL] [METHOD] [ENDPOINT_PATH]
 ```
 
+### PHPDoc
+
+```shell
+git clone --branch gh-pages git@github.com:chapter-three/AppleNewsAPI.git ../AppleNewsAPI_phpdoc
+./vendor/bin/phpdoc run --title='chapter-three/apple-news-api v'$(cat composer.json | jq -r '.version') -d ./ -i vendor/,tests/ -t ../AppleNewsAPI_phpdoc
+```
+
 ## Document class Quick Start and Examples
 
 ```php
