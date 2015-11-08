@@ -6,6 +6,8 @@
 
 `AppleNewsAPI\Document` is a PHP library that helps construct documents in the [Apple News JSON format](https://developer.apple.com/library/ios/documentation/General/Conceptual/Apple_News_Format_Ref/).
 
+[API Documentation](http://chapter-three.github.io/AppleNewsAPI/)
+
 ## Installation
 
 ```shell
