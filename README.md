@@ -1,6 +1,6 @@
 # AppleNewsAPI
 
-![Travis CI build status](https://travis-ci.org/chapter-three/AppleNewsAPI.svg?branch=master)
+[![Travis CI build status](https://travis-ci.org/chapter-three/AppleNewsAPI.svg?branch=master)](https://travis-ci.org/chapter-three/AppleNewsAPI)
 
 `AppleNewsAPI\PublisherAPI` is a PHP library that allows you to publish content to Apple News. You can also retrieve and delete articles you’ve already published, and get basic information about your channel and sections.
 
