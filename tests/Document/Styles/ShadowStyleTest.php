@@ -18,7 +18,7 @@ class ShadowStyleTest extends PHPUnit_Framework_TestCase {
    */
   public function testSetters() {
 
-    $obj = new ShadowStyle('#00000', 50);
+    $obj = new ShadowStyle('#000000', 50);
 
     $json = '{"color":"#000000","radius":50}';
     $this->assertEquals($json, $obj->json());
