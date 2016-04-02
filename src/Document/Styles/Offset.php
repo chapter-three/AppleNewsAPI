@@ -29,6 +29,20 @@ class Offset extends Base {
   protected $y;
 
   /**
+   * Implements __construct().
+   *
+   * @param int $x
+   *   X offset.
+   *
+   * @param int $y
+   *   Y offset.
+   */
+  public function __construct($x, $y) {
+    $this->setX($x);
+    $this->setY($y);
+  }
+
+  /**
    * Gets x
    *
    * @return float
