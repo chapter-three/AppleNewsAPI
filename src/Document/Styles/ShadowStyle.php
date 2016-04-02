@@ -154,7 +154,7 @@ class ShadowStyle extends Base {
    * Validates the opacity attribute.
    */
   protected function validateOpacity($value) {
-    if (is_numeric($value) && ($value < 0 || $value > 100)) {
+    if (!is_numeric($value) || $value < 0 || $value > 100) {
       $this->triggerError('opacity is not valid');
       return FALSE;
     }
@@ -165,7 +165,7 @@ class ShadowStyle extends Base {
    * Validates the radius attribute.
    */
   protected function validateRadius($value) {
-    if (is_numeric($value) && ($value < 0 || $value > 100)) {
+    if (!is_numeric($value) || $value < 0 || $value > 100) {
       $this->triggerError('radius is not valid');
       return FALSE;
     }
