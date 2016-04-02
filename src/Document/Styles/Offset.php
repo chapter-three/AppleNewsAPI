@@ -90,6 +90,6 @@ class Offset extends Base {
    * @return bool
    */
   protected function validateOffset($value) {
-    return is_numeric($value) && $value > -50 && $value < 50;
+    return is_numeric($value) && $value >= -50 && $value <= 50;
   }
 }
