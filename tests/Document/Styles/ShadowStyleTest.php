@@ -18,15 +18,13 @@ class ShadowStyleTest extends PHPUnit_Framework_TestCase {
    */
   public function testSetters() {
 
-    $obj = new ShadowStyle();
+    $obj = new ShadowStyle('#00000', 50);
 
-    $json = '{}';
+    $json = '{"color":"#000000","radius":50}';
     $this->assertEquals($json, $obj->json());
 
     // Test Validation.
     @$obj->setColor('000000');
-    $this->assertEquals($json, $obj->json());
-    @$obj->setColor('#00000');
     $this->assertEquals($json, $obj->json());
     @$obj->setColor('blue');
     $this->assertEquals($json, $obj->json());
@@ -41,15 +39,13 @@ class ShadowStyleTest extends PHPUnit_Framework_TestCase {
     @$obj->setOpacity('asdf');
     $this->assertEquals($json, $obj->json());
 
-    @$obj->setOffset(new Offset());
-    $this->assertEquals('{"offset":{}}', $obj->json());
-
     // Optional properties.
-    $json = '{"color":"#FFC800","radius":50,"opacity":50,"offset":{}}';
+    $json = '{"color":"#FFC800","radius":50,"opacity":50,"offset":{"x":50,"y":50}}';
 
-    $obj->setColor('#FFC800');
-    $obj->setRadius(50);
-    $obj->setOpacity(50);
+    @$obj->setColor('#FFC800');
+    @$obj->setRadius(50);
+    @$obj->setOpacity(50);
+    @$obj->setOffset(new Offset(50, 50));
     $this->assertJsonStringEqualsJsonString($json, $obj->json());
 
   }

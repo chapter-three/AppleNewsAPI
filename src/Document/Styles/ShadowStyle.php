@@ -30,6 +30,20 @@ class ShadowStyle extends Base {
   }
 
   /**
+   * Implements __construct().
+   *
+   * @param string $color
+   *   Color HEX.
+   *
+   * @param int $radius
+   *   Radius.
+   */
+  public function __construct($color, $radius) {
+    $this->setColor($color);
+    $this->setRadius($radius);
+  }
+
+  /**
    * Getter for color.
    */
   public function getColor() {
