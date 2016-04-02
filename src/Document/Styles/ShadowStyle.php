@@ -104,7 +104,7 @@ class ShadowStyle extends Base {
    */
   public function setOpacity($value) {
     if ($this->validateOpacity($value)) {
-      $this->style = $value;
+      $this->opacity = $value;
     }
     return $this;
   }
