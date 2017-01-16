@@ -17,6 +17,11 @@ class AdvertisingSettings extends Base {
   protected $frequency;
   protected $layout;
 
+  const BANNER_TYPE_ANY = 'any';
+  const BANNER_TYPE_STANDARD = 'standard';
+  const BANNER_TYPE_DOUBLE = 'double_height';
+  const BANNER_TYPE_LARGE = 'large';
+
   /**
    * Define optional properties.
    */
@@ -45,7 +50,17 @@ class AdvertisingSettings extends Base {
    * @return $this
    */
   public function setBannerType($bannerType) {
-    $this->bannerType = $bannerType;
+    if (!in_array($bannerType, [
+        self::BANNER_TYPE_ANY,
+        self::BANNER_TYPE_DOUBLE,
+        self::BANNER_TYPE_LARGE,
+        self::BANNER_TYPE_STANDARD,
+      ])) {
+      $this->triggerError('Invalid value for bannerType advertisingSettings.');
+    }
+    else {
+      $this->bannerType = $bannerType;
+    }
     return $this;
   }
 
@@ -66,7 +81,12 @@ class AdvertisingSettings extends Base {
    * @return $this
    */
   public function setFrequency($frequency) {
-    $this->frequency = $frequency;
+    if ($frequency >= 0 && $frequency <= 10) {
+      $this->frequency = $frequency;
+    }
+    else {
+      $this->triggerError('Invalid value for frequency advertisingSettings.');
+    }
     return $this;
   }
 
