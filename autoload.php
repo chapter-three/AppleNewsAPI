@@ -7,6 +7,7 @@ function autoload679875ef60343fd604aa0fa4d353e67e($class) {
     if ($classes === null) {
         $classes = array(
             'chapterthree\\applenewsapi\\document' => '/src/Document.php',
+            'chapterthree\\applenewsapi\\document\\advertisingsettings' => '/src/Document/AdvertisingSettings.php',
             'chapterthree\\applenewsapi\\document\\anchor' => '/src/Document/Anchor.php',
             'chapterthree\\applenewsapi\\document\\animations\\componentanimations\\appearanimation' => '/src/Document/Animations/ComponentAnimations/AppearAnimation.php',
             'chapterthree\\applenewsapi\\document\\animations\\componentanimations\\componentanimation' => '/src/Document/Animations/ComponentAnimations/ComponentAnimation.php',
@@ -62,6 +63,7 @@ function autoload679875ef60343fd604aa0fa4d353e67e($class) {
             'chapterthree\\applenewsapi\\document\\components\\video' => '/src/Document/Components/Video.php',
             'chapterthree\\applenewsapi\\document\\contentinset' => '/src/Document/ContentInset.php',
             'chapterthree\\applenewsapi\\document\\galleryitem' => '/src/Document/GalleryItem.php',
+            'chapterthree\\applenewsapi\\document\\layouts\\advertisinglayout' => '/src/Document/Layouts/AdvertisingLayout.php',
             'chapterthree\\applenewsapi\\document\\layouts\\componentlayout' => '/src/Document/Layouts/ComponentLayout.php',
             'chapterthree\\applenewsapi\\document\\layouts\\layout' => '/src/Document/Layouts/Layout.php',
             'chapterthree\\applenewsapi\\document\\margin' => '/src/Document/Margin.php',
