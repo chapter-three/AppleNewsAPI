@@ -25,6 +25,7 @@ class Metadata extends Base {
   protected $excerpt;
   protected $campaignData;
   protected $transparentToolbar;
+  protected $videoURL;
 
   /**
    * Define optional properties.
@@ -44,6 +45,7 @@ class Metadata extends Base {
       'excerpt',
       'campaignData',
       'transparentToolbar',
+      'videoURL',
     ));
   }
 
@@ -306,6 +308,26 @@ class Metadata extends Base {
    */
   public function setTransparentToolbar($value) {
     $this->transparentToolbar = (bool) $value;
+    return $this;
+  }
+
+  /**
+   * Getter for videoURL.
+   */
+  public function getVideoURL() {
+    return $this->videoURL;
+  }
+
+  /**
+   * Setter for videoURL.
+   *
+   * @param string $videoURL
+   *   Video URL.
+   *
+   * @return $this
+   */
+  public function setVideoURL($videoURL) {
+    $this->videoURL = $videoURL;
     return $this;
   }
 
