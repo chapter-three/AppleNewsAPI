@@ -7,6 +7,7 @@
 
 namespace ChapterThree\AppleNewsAPI;
 
+use ChapterThree\AppleNewsAPI\Document\AdvertisingSettings;
 use ChapterThree\AppleNewsAPI\Document\Base;
 use ChapterThree\AppleNewsAPI\Document\Components\Component;
 use ChapterThree\AppleNewsAPI\Document\Components\ComponentNested;
@@ -31,6 +32,7 @@ class Document extends Base {
   protected $components;
   protected $componentTextStyles;
 
+  protected $advertisingSettings;
   protected $subtitle;
   protected $metadata;
   protected $documentStyle;
@@ -65,6 +67,7 @@ class Document extends Base {
    */
   protected function optional() {
     return array_merge(parent::optional(), array(
+      'advertisingSettings',
       'subtitle',
       'metadata',
       'documentStyle',
@@ -224,6 +227,30 @@ class Document extends Base {
    */
   public function addComponentTextStyle($name, ComponentTextStyle $component_text_style) {
     $this->componentTextStyles[(string) $name] = $component_text_style;
+    return $this;
+  }
+
+  /**
+   * Getter for advertisingSettings.
+   */
+  public function getAdvertisingSettings() {
+    return $this->advertisingSettings;
+  }
+
+  /**
+   * Setter for advertisingSettings.
+   *
+   * @param AdvertisingSettings $value
+   *
+   * @return $this
+   */
+  public function setAdvertisingSettings($value) {
+    if (is_object($value) && !$value instanceof AdvertisingSettings) {
+      $this->triggerError('Object not of type AdvertisingSettings');
+    }
+    else {
+      $this->advertisingSettings = $value;
+    }
     return $this;
   }
 
