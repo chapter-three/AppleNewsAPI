@@ -61,6 +61,7 @@ function autoload679875ef60343fd604aa0fa4d353e67e($class) {
             'chapterthree\\applenewsapi\\document\\components\\title' => '/src/Document/Components/Title.php',
             'chapterthree\\applenewsapi\\document\\components\\tweet' => '/src/Document/Components/Tweet.php',
             'chapterthree\\applenewsapi\\document\\components\\video' => '/src/Document/Components/Video.php',
+            'chapterthree\\applenewsapi\\document\\captiondescriptor' => '/src/Document/CaptionDescriptor.php',
             'chapterthree\\applenewsapi\\document\\contentinset' => '/src/Document/ContentInset.php',
             'chapterthree\\applenewsapi\\document\\galleryitem' => '/src/Document/GalleryItem.php',
             'chapterthree\\applenewsapi\\document\\layouts\\advertisinglayout' => '/src/Document/Layouts/AdvertisingLayout.php',

@@ -69,13 +69,24 @@ class GalleryItem extends Base {
   /**
    * Setter for caption.
    *
-   * @param string $value
+   * @param string|CaptionDescriptor $value
    *   Caption.
    *
    * @return $this
    */
   public function setCaption($value) {
-    $this->caption = (string) $value;
+    $class = CaptionDescriptor::class;
+    if (is_object($value)) {
+      if ($value instanceof $class) {
+        $this->caption = $value;
+      }
+      else {
+        $this->triggerError("Caption not of class ${class}.");
+      }
+    }
+    else {
+      $this->caption = (string) $value;
+    }
     return $this;
   }
 
