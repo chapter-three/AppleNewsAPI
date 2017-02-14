@@ -110,7 +110,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
     }
     foreach (array(
         // Integers.
-        1, 10, 515,
+        0, 1, 10, 515,
         // With unit.
         '1vh', '10vw', '515vmin', '1vmax', '1gut', '1cw', '1pt',
       ) as $value
