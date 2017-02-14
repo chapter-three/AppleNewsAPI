@@ -103,7 +103,7 @@ abstract class Base implements \JsonSerializable {
       'cw',
       'pt',
     );
-    $re = '/^[1-9][0-9]*(' . implode('|', $units) . ')?$/';
+    $re = '/^(0|[1-9][0-9]*)(' . implode('|', $units) . ')?$/';
     return preg_match($re, $value);
   }
 
