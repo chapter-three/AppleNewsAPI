@@ -120,6 +120,7 @@ class Curl extends Base {
    * @return object Preprocessed structured object.
    */
   public function get($path, Array $path_args = [], Array $data = []) {
+    $this->setHTTPClient();
     parent::get($path, $path_args, $data);
     $this->setHeaders(
       [
@@ -139,6 +140,7 @@ class Curl extends Base {
    * @return object Preprocessed structured object and returns 204 No Content on success, with no response body.
    */
   public function delete($path, Array $path_args = [], Array $data = []) {
+    $this->setHTTPClient();
     parent::delete($path, $path_args, $data);
     $this->setHeaders(
       [
@@ -167,6 +169,7 @@ class Curl extends Base {
    * @return object Preprocessed structured object.
    */
   public function post($path, Array $path_args, Array $data = []) {
+    $this->setHTTPClient();
     parent::post($path, $path_args, $data);
 
     // JSON string to be posted to PublisherAPI instead of article.json file.
