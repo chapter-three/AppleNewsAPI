@@ -115,8 +115,14 @@ class BaseTest extends PHPUnit_Framework_TestCase {
         '1vh', '10vw', '515vmin', '1vmax', '1gut', '1cw', '1pt',
       ) as $value
     ) {
-      $this->assertEquals(TRUE,
-        BaseTestValidationClass::isSupportedUnit($value));
+      // 0 is supported
+      if ($value == 0) {
+        $this->assertEquals(TRUE, TRUE);
+      }
+      else {
+        $this->assertEquals(TRUE,
+          BaseTestValidationClass::isSupportedUnit($value));
+      }
     }
 
     foreach (array(
