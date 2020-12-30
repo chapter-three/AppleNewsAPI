@@ -238,6 +238,10 @@ class Curl extends Base {
         'Authorization'   => $this->auth($string)
       ]
     );
+
+    // Set to use TLS 1.2
+    $this->client->setOpt(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+
     // Send POST request.
     return $this->request($contents);
   }
