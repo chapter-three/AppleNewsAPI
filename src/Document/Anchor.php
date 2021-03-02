@@ -15,6 +15,7 @@ class Anchor extends Base {
   protected $targetAnchorPosition;
   protected $originAnchorPosition;
   protected $targetComponentIdentifier;
+  protected $target;
   protected $rangeStart;
   protected $rangeLength;
 
@@ -37,6 +38,7 @@ class Anchor extends Base {
       'targetComponentIdentifier',
       'rangeStart',
       'rangeLength',
+      'target'
     ));
   }
 
@@ -100,6 +102,29 @@ class Anchor extends Base {
   public function setTargetComponentIdentifier($value) {
     $this->targetComponentIdentifier = (string) $value;
     return $this;
+  }
+
+  /**
+   * Setter for target.
+   *
+   * @param mixed $value
+   *   A target ID.
+   *
+   * @return $this
+   */
+  public function setTarget($value) {
+    $this->target = (string) $value;
+    return $this;
+  }
+
+  /**
+   * Getter for the target.
+   *
+   * @return string
+   *   The Target identifier.
+   */
+  public function getTarget() {
+    return $this->target;
   }
 
   /**
