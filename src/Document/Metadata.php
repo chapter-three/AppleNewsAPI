@@ -335,7 +335,7 @@ class Metadata extends Base {
    * Validates the keywords attribute.
    */
   protected function validateKeywords($value) {
-    if (count($this->keywords) > 49) {
+    if ($this->keywords !== NULL && count($this->keywords) > 49) {
       $this->triggerError('number of keywords limited to 50.');
       return FALSE;
     }

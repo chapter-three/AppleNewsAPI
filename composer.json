@@ -11,8 +11,8 @@
         "php-curl-class/php-curl-class": "^4.6"
     },
     "require-dev": {
-        "mikey179/vfsstream": "1.5.*",
-        "phpunit/phpunit": "4.7.*",
+        "mikey179/vfsstream": "1.6.*",
+        "phpunit/phpunit": "4.8.*",
         "phpdocumentor/phpdocumentor": "~2.8"
     },
     "autoload": {
