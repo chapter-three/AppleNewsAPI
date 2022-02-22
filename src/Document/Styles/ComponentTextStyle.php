@@ -17,6 +17,11 @@ class ComponentTextStyle extends TextStyle {
   protected $dropCapStyle;
   protected $hyphenation;
   protected $linkStyle;
+  protected $firstLineIndent;
+  protected $fontScaling;
+  protected $hangingPunctuation;
+  protected $paragraphSpacingAfter;
+  protected $paragraphSpacingBefore;
 
   /**
    * Define optional properties.
@@ -28,6 +33,11 @@ class ComponentTextStyle extends TextStyle {
       'dropCapStyle',
       'hyphenation',
       'linkStyle',
+      'firstLineIndent',
+      'fontScaling',
+      'hangingPunctuation',
+      'paragraphSpacingAfter',
+      'paragraphSpacingBefore',
     ));
   }
 
@@ -130,6 +140,106 @@ class ComponentTextStyle extends TextStyle {
    */
   public function setHyphenation($value) {
     $this->hyphenation = $value;
+    return $this;
+  }
+
+  /**
+   * Getter for firstLineIndent.
+   */
+  public function getFirstLineIndent() {
+    return $this->firstLineIndent;
+  }
+
+  /**
+   * Setter for firstLineIndent.
+   *
+   * @param int $value
+   *   firstLineIndent.
+   *
+   * @return $this
+   */
+  public function setFirstLineIndent($value) {
+    $this->firstLineIndent = $value;
+    return $this;
+  }
+      
+  /**
+   * Getter for fontScaling.
+   */
+  public function getFontScaling() {
+    return $this->fontScaling;
+  }
+
+  /**
+   * Setter for fontScaling.
+   *
+   * @param bool $value
+   *   fontScaling.
+   *
+   * @return $this
+   */
+  public function setFontScaling($value) {
+    $this->fontScaling = $value;
+    return $this;
+  }
+
+  /**
+   * Getter for hangingPunctuation.
+   */
+  public function getHangingPunctuation() {
+    return $this->hangingPunctuation;
+  }
+
+  /**
+   * Setter for hangingPunctuation.
+   *
+   * @param bool $value
+   *   hangingPunctuation.
+   *
+   * @return $this
+   */
+  public function setHangingPunctuation($value) {
+    $this->hangingPunctuation = $value;
+    return $this;
+  }
+
+  /**
+   * Getter for paragraphSpacingAfter.
+   */
+  public function getParagraphSpacingAfter() {
+    return $this->paragraphSpacingAfter;
+  }
+
+  /**
+   * Setter for paragraphSpacingAfter.
+   *
+   * @param int $value
+   *   paragraphSpacingAfter.
+   *
+   * @return $this
+   */
+  public function setParagraphSpacingAfter($value) {
+    $this->paragraphSpacingAfter = $value;
+    return $this;
+  }
+      
+  /**
+   * Getter for paragraphSpacingBefore.
+   */
+  public function getParagraphSpacingBefore() {
+    return $this->paragraphSpacingBefore;
+  }
+
+  /**
+   * Setter for paragraphSpacingBefore.
+   *
+   * @param int $value
+   *   paragraphSpacingBefore.
+   *
+   * @return $this
+   */
+  public function setParagraphSpacingBefore($value) {
+    $this->paragraphSpacingBefore = $value;
     return $this;
   }
 
