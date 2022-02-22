@@ -18,6 +18,9 @@ class TextStyle extends Base {
   protected $fontFamily;
   protected $fontName;
   protected $fontSize;
+  protected $fontStyle;
+  protected $fontWeight;
+  protected $fontWidth;
   protected $textColor;
   protected $textShadow;
   protected $textTransform;
@@ -36,6 +39,9 @@ class TextStyle extends Base {
       'fontFamily',
       'fontName',
       'fontSize',
+      'fontStyle',
+      'fontWeight',
+      'fontWidth',
       'textColor',
       'textShadow',
       'textTransform',
@@ -105,6 +111,67 @@ class TextStyle extends Base {
    */
   public function setFontSize($value) {
     $this->fontSize = $value;
+    return $this;
+  }
+
+  /**
+   * Getter for fontStyle.
+   */
+  public function getFontStyle() {
+    return $this->fontStyle;
+  }
+
+  /**
+   * Setter for fontStyle.
+   *
+   * @param string $value
+   *   fontStyle.
+   *
+   * @return $this
+   */
+  public function setFontStyle($value) {
+    $this->fontStyle = (string) $value;
+    return $this;
+  }
+
+  /**
+   * Getter for fontWeight.
+   */
+  public function getFontWeight() {
+    return $this->fontWeight;
+  }
+
+  /**
+   * Setter for fontWeight.
+   *
+   * @param string $value
+   *   fontWeight.
+   *
+   * @return $this
+   */
+  public function setFontWeight($value) {
+    $this->fontWeight = (string) $value;
+    return $this;
+  }
+
+
+  /**
+   * Getter for fontWidth.
+   */
+  public function getfontWidth() {
+    return $this->fontWidth;
+  }
+
+  /**
+   * Setter for fontWidth.
+   *
+   * @param string $value
+   *   fontWidth.
+   *
+   * @return $this
+   */
+  public function setfontWidth($value) {
+    $this->fontWidth = (string) $value;
     return $this;
   }
 
