@@ -15,6 +15,7 @@ use ChapterThree\AppleNewsAPI\Document\Styles\TextStrokeStyle;
  */
 class TextStyle extends Base {
 
+  protected $fontFamily;
   protected $fontName;
   protected $fontSize;
   protected $textColor;
@@ -32,6 +33,7 @@ class TextStyle extends Base {
    */
   protected function optional() {
     return array_merge(parent::optional(), array(
+      'fontFamily',
       'fontName',
       'fontSize',
       'textColor',
@@ -44,6 +46,26 @@ class TextStyle extends Base {
       'verticalAlignment',
       'tracking',
     ));
+  }
+
+  /**
+   * Getter for fontFamily.
+   */
+  public function getFontFamily() {
+    return $this->fontFamily;
+  }
+
+  /**
+   * Setter for fontFamily.
+   *
+   * @param string $value
+   *   FontFamily.
+   *
+   * @return $this
+   */
+  public function setFontFamily($value) {
+    $this->fontFamily = (string) $value;
+    return $this;
   }
 
   /**
