@@ -144,13 +144,13 @@ class TextStyle extends Base {
   /**
    * Setter for fontWeight.
    *
-   * @param string $value
+   * @param int|string $value
    *   fontWeight.
    *
    * @return $this
    */
   public function setFontWeight($value) {
-    $this->fontWeight = (string) $value;
+    $this->fontWeight = $value;
     return $this;
   }
 
