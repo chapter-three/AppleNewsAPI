@@ -113,13 +113,26 @@ class ComponentTextStyle extends TextStyle {
   /**
    * Setter for linkStyle.
    *
-   * @param \ChapterThree\AppleNewsAPI\Document\Styles\TextStyle $value
+   * @param \ChapterThree\AppleNewsAPI\Document\Styles\TextStyle | array $value
    *   LinkStyle.
    *
    * @return $this
    */
-  public function setLinkStyle(TextStyle $value) {
-    $this->linkStyle = $value;
+  public function setLinkStyle($value) {
+    if (is_object($value) && $value instanceof TextStyle) {
+      $this->linkStyle = $value;
+    } elseif (is_array($value)) {
+      $object = new TextStyle();
+      foreach ($value as $field => $v) {
+        $method = 'set' . ucfirst($field);
+        if ($v && method_exists($object, $method)) {
+          $object->{$method}($v);
+        }
+      }
+      $this->linkStyle = $object;
+    } else {
+      $this->triggerError('linkStyle is not array or object of class TextStyle');
+    }
     return $this;
   }
 
