@@ -85,6 +85,19 @@ class Document extends Base {
   }
 
   /**
+   * Setter for version.
+   *
+   * @param mixed $value
+   *   Version.
+   *
+   * @return $this
+   */
+  public function setVersion($version) {
+    $this->version = (string) $version;
+    return $this;
+  }
+
+  /**
    * Getter for identifier.
    */
   public function getIdentifier() {
