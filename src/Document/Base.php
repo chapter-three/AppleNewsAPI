@@ -15,6 +15,7 @@ abstract class Base implements \JsonSerializable {
   /**
    * Implements JsonSerializable::jsonSerialize().
    */
+  #[\ReturnTypeWillChange]
   public function jsonSerialize() {
     // Define empty attribute values.
     // @see http://php.net/manual/en/language.types.boolean.php#language.types.boolean.casting
