@@ -24,7 +24,7 @@ use ChapterThree\AppleNewsAPI\Document\Layouts\ComponentLayout;
  */
 class Document extends Base {
 
-  protected $version = '1.2';
+  protected $version = '1.14';
   protected $identifier;
   protected $title;
   protected $language;
@@ -82,6 +82,19 @@ class Document extends Base {
    */
   public function getVersion() {
     return $this->version;
+  }
+
+  /**
+   * Setter for version.
+   *
+   * @param mixed $value
+   *   Version.
+   *
+   * @return $this
+   */
+  public function setVersion($version) {
+    $this->version = (string) $version;
+    return $this;
   }
 
   /**
